@@ -39,7 +39,7 @@
 #ifdef Q_OS_WIN32
 #include <iostream>
 #include <windows.h>
-HANDLE Console_HANDLE = GetStdHandle( STD_OUTPUT_HANDLE );
+HANDLE Console_HANDLE = GetStdHandle(STD_OUTPUT_HANDLE);
 #else
 #include <QDebug>
 #include <iostream>
@@ -65,139 +65,153 @@ static QStringList Recent_FDD_Images;
 
 Disable_User_Graphic_Warning::Disable_User_Graphic_Warning()
 {
-    Show_User_Graphic_Warning = false;
+	Show_User_Graphic_Warning = false;
 }
 Disable_User_Graphic_Warning::~Disable_User_Graphic_Warning()
 {
-    Show_User_Graphic_Warning = true;
+	Show_User_Graphic_Warning = true;
 }
 
-void AQDebugStdCout(const QString& s)
+void AQDebugStdCout(const QString &s)
 {
-    std::cout << s.toLatin1().constData() << std::endl;
+	std::cout << s.toLatin1().constData() << std::endl;
 }
 
-
-void AQDebug( const QString &sender, const QString &mes )
+void AQDebug(const QString &sender, const QString &mes)
 {
-	if( Use_Stdout && Stdout_Debug )
+	if (Use_Stdout && Stdout_Debug)
 	{
-	#ifdef Q_OS_WIN32
-		SetConsoleTextAttribute( Console_HANDLE, 10 );
-		std::cout << QString( "\nAQEMU Debug [%1] >>>\nSender: %2\nMessage: %3" )
-							  .arg(Messages_Index).arg(sender).arg(mes).toStdString();
-	#else
-		AQDebugStdCout( QString(
-			"\n\33[32mAQEMU Debug\33[0m [%1] >>>\n\33[32mSender:\33[0m %2\n\33[32mMessage:\33[0m %3")
-			.arg(Messages_Index).arg(sender).arg(mes));
-	#endif
+#ifdef Q_OS_WIN32
+		SetConsoleTextAttribute(Console_HANDLE, 10);
+		std::cout << QString("\nAQEMU Debug [%1] >>>\nSender: %2\nMessage: %3")
+						 .arg(Messages_Index)
+						 .arg(sender)
+						 .arg(mes)
+						 .toStdString();
+#else
+		AQDebugStdCout(QString(
+						   "\n\33[32mAQEMU Debug\33[0m [%1] >>>\n\33[32mSender:\33[0m %2\n\33[32mMessage:\33[0m %3")
+						   .arg(Messages_Index)
+						   .arg(sender)
+						   .arg(mes));
+#endif
 	}
-	
-	if( Save_Messages_To_Log && Stdout_Debug )
-		AQSave_To_Log( "Debug", sender, mes );
-	
+
+	if (Save_Messages_To_Log && Stdout_Debug)
+		AQSave_To_Log("Debug", sender, mes);
+
 	Messages_Index++;
 }
 
-void AQWarning( const QString &sender, const QString &mes )
+void AQWarning(const QString &sender, const QString &mes)
 {
-	if( Use_Stdout && Stdout_Warning )
+	if (Use_Stdout && Stdout_Warning)
 	{
-	#ifdef Q_OS_WIN32
-		SetConsoleTextAttribute( Console_HANDLE, 14 );
-		std::cout << QString( "\nAQEMU Warning [%1] >>>\nSender: %2\nMessage: %3" )
-							  .arg(Messages_Index).arg(sender).arg(mes).toStdString();
-	#else
-		AQDebugStdCout( QString(
-			"\n\33[34mAQEMU Warning\33[0m [%1] >>>\n\33[34mSender:\33[0m %2\n\33[34mMessage:\33[0m %3")
-			.arg(Messages_Index).arg(sender).arg(mes));
-	#endif
+#ifdef Q_OS_WIN32
+		SetConsoleTextAttribute(Console_HANDLE, 14);
+		std::cout << QString("\nAQEMU Warning [%1] >>>\nSender: %2\nMessage: %3")
+						 .arg(Messages_Index)
+						 .arg(sender)
+						 .arg(mes)
+						 .toStdString();
+#else
+		AQDebugStdCout(QString(
+						   "\n\33[34mAQEMU Warning\33[0m [%1] >>>\n\33[34mSender:\33[0m %2\n\33[34mMessage:\33[0m %3")
+						   .arg(Messages_Index)
+						   .arg(sender)
+						   .arg(mes));
+#endif
 	}
-	
-	if( Save_Messages_To_Log && Stdout_Warning )
-		AQSave_To_Log( "Warning", sender, mes );
-	
+
+	if (Save_Messages_To_Log && Stdout_Warning)
+		AQSave_To_Log("Warning", sender, mes);
+
 	Messages_Index++;
 }
 
-void AQError( const QString &sender, const QString &mes )
+void AQError(const QString &sender, const QString &mes)
 {
-	if( Use_Stdout && Stdout_Error )
+	if (Use_Stdout && Stdout_Error)
 	{
-	#ifdef Q_OS_WIN32
-		SetConsoleTextAttribute( Console_HANDLE, 12 );
-		std::cout << QString( "\nAQEMU Error [%1] >>>\nSender: %2\nMessage: %3" )
-							  .arg(Messages_Index).arg(sender).arg(mes).toStdString();
-	#else
-		AQDebugStdCout( QString(
-			"\n\33[31mAQEMU Error\33[0m [%1] >>>\n\33[31mSender:\33[0m %2\n\33[31mMessage:\33[0m %3")
-			.arg(Messages_Index).arg(sender).arg(mes));
-	#endif
+#ifdef Q_OS_WIN32
+		SetConsoleTextAttribute(Console_HANDLE, 12);
+		std::cout << QString("\nAQEMU Error [%1] >>>\nSender: %2\nMessage: %3")
+						 .arg(Messages_Index)
+						 .arg(sender)
+						 .arg(mes)
+						 .toStdString();
+#else
+		AQDebugStdCout(QString(
+						   "\n\33[31mAQEMU Error\33[0m [%1] >>>\n\33[31mSender:\33[0m %2\n\33[31mMessage:\33[0m %3")
+						   .arg(Messages_Index)
+						   .arg(sender)
+						   .arg(mes));
+#endif
 	}
-	
-	if( Save_Messages_To_Log && Stdout_Error )
-		AQSave_To_Log( "Error", sender, mes );
-	
+
+	if (Save_Messages_To_Log && Stdout_Error)
+		AQSave_To_Log("Error", sender, mes);
+
 	Messages_Index++;
 }
 
-void AQGraphic_Warning( const QString &caption, const QString &mes )
+void AQGraphic_Warning(const QString &caption, const QString &mes)
 {
-    if ( Show_User_Graphic_Warning == false )
-        return;
+	if (Show_User_Graphic_Warning == false)
+		return;
 
-	QMessageBox::warning( NULL, caption, mes, QMessageBox::Ok );
+	QMessageBox::warning(NULL, caption, mes, QMessageBox::Ok);
 }
 
-void AQGraphic_Warning( const QString &sender, const QString &caption, const QString &mes, bool fatal )
+void AQGraphic_Warning(const QString &sender, const QString &caption, const QString &mes, bool fatal)
 {
-    if ( Show_User_Graphic_Warning == false )
-        return;
+	if (Show_User_Graphic_Warning == false)
+		return;
 
-	if( fatal )
+	if (fatal)
 	{
-		QMessageBox::warning( NULL, caption,
-					QString("Sender: %1\nMessage: %2\n").arg(sender).arg(mes) +
-					QObject::tr("This Fatal Error. Recomend Close AQEMU."),
-					QMessageBox::Ok );
+		QMessageBox::warning(NULL, caption,
+							 QString("Sender: %1\nMessage: %2\n").arg(sender).arg(mes) +
+								 QObject::tr("This Fatal Error. Recommend Close AQEMU."),
+							 QMessageBox::Ok);
 	}
 	else
 	{
-		QMessageBox::warning( NULL, caption,
-					QString("Sender: %1\nMessage: %2").arg(sender).arg(mes),
-					QMessageBox::Ok );
+		QMessageBox::warning(NULL, caption,
+							 QString("Sender: %1\nMessage: %2").arg(sender).arg(mes),
+							 QMessageBox::Ok);
 	}
-	
-	if( Save_Messages_To_Log )
-		AQSave_To_Log( "Warning", sender, mes );
+
+	if (Save_Messages_To_Log)
+		AQSave_To_Log("Warning", sender, mes);
 }
 
-void AQGraphic_Error( const QString &sender, const QString &caption, const QString &mes, bool fatal )
+void AQGraphic_Error(const QString &sender, const QString &caption, const QString &mes, bool fatal)
 {
-	if( fatal )
+	if (fatal)
 	{
-		QMessageBox::critical( NULL, caption,
-					QString("Sender: %1\nMessage: %2\n").arg(sender).arg(mes) +
-					QObject::tr("Fatal error. It's recommended to close AQEMU"),
-					QMessageBox::Ok );
+		QMessageBox::critical(NULL, caption,
+							  QString("Sender: %1\nMessage: %2\n").arg(sender).arg(mes) +
+								  QObject::tr("Fatal error. It's recommended to close AQEMU"),
+							  QMessageBox::Ok);
 	}
 	else
 	{
-		QMessageBox::critical( NULL, caption,
-					QString("Sender: %1\nMessage: %2").arg(sender).arg(mes),
-					QMessageBox::Ok );
+		QMessageBox::critical(NULL, caption,
+							  QString("Sender: %1\nMessage: %2").arg(sender).arg(mes),
+							  QMessageBox::Ok);
 	}
-	
-	if( Save_Messages_To_Log )
-		AQSave_To_Log( "Error", sender, mes );
+
+	if (Save_Messages_To_Log)
+		AQSave_To_Log("Error", sender, mes);
 }
 
-void AQUse_Log( bool use )
+void AQUse_Log(bool use)
 {
 	Save_Messages_To_Log = use;
 }
 
-void AQUse_Debug_Output( bool use, bool d, bool w, bool e )
+void AQUse_Debug_Output(bool use, bool d, bool w, bool e)
 {
 	Use_Stdout = use;
 	Stdout_Debug = d;
@@ -205,375 +219,402 @@ void AQUse_Debug_Output( bool use, bool d, bool w, bool e )
 	Stdout_Error = e;
 }
 
-void AQLog_Path( const QString& path )
+void AQLog_Path(const QString &path)
 {
 	Log_Path = path;
 }
 
-void AQSave_To_Log( const QString &mes_type, const QString &sender, const QString &mes )
+void AQSave_To_Log(const QString &mes_type, const QString &sender, const QString &mes)
 {
-	if( Log_Path.isEmpty() ) return;
+	if (Log_Path.isEmpty())
+		return;
 
-	QFile log_file( Log_Path );
-	
-	if( ! log_file.open(QIODevice::Append | QIODevice::Text) )
+	QFile log_file(Log_Path);
+
+	if (!log_file.open(QIODevice::Append | QIODevice::Text))
 	{
-		AQUse_Log( false ); // off loging
-		AQError( "void AQSave_To_Log( const QString& mes_type, const QString& sender, const QString& mes )",
-				 "Cannot Open Log file to Write! Log Path: \"" + Log_Path + "\"" );
+		AQUse_Log(false); // off loging
+		AQError("void AQSave_To_Log( const QString& mes_type, const QString& sender, const QString& mes )",
+				"Cannot Open Log file to Write! Log Path: \"" + Log_Path + "\"");
 	}
 	else
 	{
-		QTextStream out( &log_file );
+		QTextStream out(&log_file);
 		out << "Type: " << mes_type << " Num: " << Messages_Index << "\nDate: "
 			<< QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss zzz")
 			<< "\nSender: " << sender << "\nMessage: " << mes << "\n\n";
 	}
 }
 
-bool Create_New_HDD_Image( bool encrypted, const QString &base_image,
-						   const QString &file_name, const QString &format, VM::Device_Size size, bool verbose )
+bool Create_New_HDD_Image(bool encrypted, const QString &base_image,
+						  const QString &file_name, const QString &format, VM::Device_Size size, bool verbose)
 {
 	// Create command line
 	QStringList args;
 	args << "create";
-	
-	if( encrypted )
+
+	if (encrypted)
 		args << "-e";
-	
-	if( ! base_image.isEmpty() )
+
+	if (!base_image.isEmpty())
 		args << "-b" << base_image;
-	
+
 	args << "-f" << format;
-	
+
 	args << file_name;
-	
-	switch( size.Suffix )
+
+	switch (size.Suffix)
 	{
-		case VM::Size_Suf_Mb: // MB
-			args << QString::number( size.Size ) + "M";
-			break;
-			
-		case VM::Size_Suf_Gb: // GB
-			args << QString::number( size.Size ) + "G";
-			break;
-			
-		default: // KG
-			args << QString::number( size.Size );
-			break;
+	case VM::Size_Suf_Mb: // MB
+		args << QString::number(size.Size) + "M";
+		break;
+
+	case VM::Size_Suf_Gb: // GB
+		args << QString::number(size.Size) + "G";
+		break;
+
+	default: // KG
+		args << QString::number(size.Size);
+		break;
 	}
-	
+
 	// Start qemu-img process
 	QProcess qemu_img;
 	QSettings settings;
-	qemu_img.start( settings.value("QEMU-IMG_Path", "qemu-img").toString(), args );
-	
-	if( ! qemu_img.waitForStarted(2000) )
+	qemu_img.start(settings.value("QEMU-IMG_Path", "qemu-img").toString(), args);
+
+	if (!qemu_img.waitForStarted(2000))
 	{
-		AQGraphic_Error( "bool Create_New_HDD_Image( bool encrypted, const QString &base_image,"
-						 "const QString &file_name, const QString &format, VM::Device_Size size, bool verbose )",
-						 QObject::tr("Error!"), QObject::tr("Cannot Start qemu-img! Image isn't Created!") );
+		AQGraphic_Error("bool Create_New_HDD_Image( bool encrypted, const QString &base_image,"
+						"const QString &file_name, const QString &format, VM::Device_Size size, bool verbose )",
+						QObject::tr("Error!"), QObject::tr("Cannot Start qemu-img! Image isn't Created!"));
 		return false;
 	}
-	
-	if( ! qemu_img.waitForFinished(10000) )
+
+	if (!qemu_img.waitForFinished(10000))
 	{
-		AQGraphic_Error( "bool Create_New_HDD_Image( bool encrypted, const QString &base_image,"
-						 "const QString &file_name, const QString &format, VM::Device_Size size, bool verbose )",
-						 QObject::tr("Error!"), QObject::tr("qemu-img Cannot Finish! Image isn't Created!") );
+		AQGraphic_Error("bool Create_New_HDD_Image( bool encrypted, const QString &base_image,"
+						"const QString &file_name, const QString &format, VM::Device_Size size, bool verbose )",
+						QObject::tr("Error!"), QObject::tr("qemu-img Cannot Finish! Image isn't Created!"));
 		return false;
 	}
 	else
 	{
 		QByteArray err = qemu_img.readAllStandardError();
 		QByteArray out = qemu_img.readAllStandardOutput();
-		
-		if( err.count() > 0 )
+
+		if (err.count() > 0)
 		{
-			AQGraphic_Error( "bool Create_New_HDD_Image( bool encrypted, const QString &base_image,"
-							 "const QString &file_name, const QString &format, VM::Device_Size size, bool verbose )",
-							 QObject::tr("Error!"), QObject::tr("Cannot Create Image!\nInformation: ") + err );
+			AQGraphic_Error("bool Create_New_HDD_Image( bool encrypted, const QString &base_image,"
+							"const QString &file_name, const QString &format, VM::Device_Size size, bool verbose )",
+							QObject::tr("Error!"), QObject::tr("Cannot Create Image!\nInformation: ") + err);
 		}
-		
-		QRegExp rx( "Format*ing*fmt*size*" );
-		rx.setPatternSyntax( QRegExp::Wildcard );
-		
-		if( verbose )
+
+		QRegExp rx("Format*ing*fmt*size*");
+		rx.setPatternSyntax(QRegExp::Wildcard);
+
+		if (verbose)
 		{
-			if( rx.exactMatch( out ) )
+			if (rx.exactMatch(out))
 			{
-				QMessageBox::information( NULL, QObject::tr("Complete!"),
-						QObject::tr("QEMU-IMG is Creates HDD Image.\nAdditional Information:\n") + out );
+				QMessageBox::information(NULL, QObject::tr("Complete!"),
+										 QObject::tr("QEMU-IMG is Creates HDD Image.\nAdditional Information:\n") + out);
 			}
 			else
 			{
-				QMessageBox::information( NULL, QObject::tr("Warning!"),
-						 QObject::tr("QEMU-IMG is Returned non Standard Message!.\nAdditional Information:\n") + out );
+				QMessageBox::information(NULL, QObject::tr("Warning!"),
+										 QObject::tr("QEMU-IMG is Returned non Standard Message!.\nAdditional Information:\n") + out);
 			}
 		}
-		
+
 		return true;
 	}
 }
 
-bool Create_New_HDD_Image( const QString &file_name, VM::Device_Size size )
+bool Create_New_HDD_Image(const QString &file_name, VM::Device_Size size)
 {
 	QSettings settings;
-	QString format = settings.value( "Default_HDD_Image_Format", "qcow2" ).toString();
-	
-	return Create_New_HDD_Image( false, "", file_name, format, size, false );
+	QString format = settings.value("Default_HDD_Image_Format", "qcow2").toString();
+
+	return Create_New_HDD_Image(false, "", file_name, format, size, false);
 }
 
-bool Format_HDD_Image( const QString &file_name, VM::Disk_Info info )
+bool Format_HDD_Image(const QString &file_name, VM::Disk_Info info)
 {
-	if( file_name.isEmpty() )
+	if (file_name.isEmpty())
 	{
-		AQError( "bool Format_HDD_Image( const QString &file_name )",
-				 "File Name is Empty!" );
-		
+		AQError("bool Format_HDD_Image( const QString &file_name )",
+				"File Name is Empty!");
+
 		return false;
 	}
-	
-	VM_HDD tmp_hd = VM_HDD( true, file_name );
-	tmp_hd.Set_Disk_Info( info );
+
+	VM_HDD tmp_hd = VM_HDD(true, file_name);
+	tmp_hd.Set_Disk_Info(info);
 	QString hd_format = tmp_hd.Get_Image_Format();
-	
-	if( hd_format.isEmpty() )
+
+	if (hd_format.isEmpty())
 	{
-		AQError( "bool Format_HDD_Image( const QString &file_name )",
-				 "Format is Empty!" );
-		
+		AQError("bool Format_HDD_Image( const QString &file_name )",
+				"Format is Empty!");
+
 		return false;
 	}
-	
-	return Create_New_HDD_Image( false, "", file_name, hd_format, tmp_hd.Get_Virtual_Size(), false );
+
+	return Create_New_HDD_Image(false, "", file_name, hd_format, tmp_hd.Get_Virtual_Size(), false);
 }
 
 QList<QString> Get_Templates_List()
 {
 	QList<QString> all_templates;
 	QSettings settings;
-	
+
 	// VM Templates
-	QDir sys_templates_dir( QDir::toNativeSeparators(settings.value("AQEMU_Data_Folder", "").toString() + "/os_templates/") );
-	
+	QDir sys_templates_dir(QDir::toNativeSeparators(settings.value("AQEMU_Data_Folder", "").toString() + "/os_templates/"));
+
 	QFileInfoList sys_templates_list = sys_templates_dir.entryInfoList(
-			QStringList("*.aqvmt"), QDir::Files, QDir::Unsorted );
-	
-	QDir user_templates_dir( QDir::toNativeSeparators(settings.value("VM_Directory", "").toString() + "/os_templates/") );
-	
+		QStringList("*.aqvmt"), QDir::Files, QDir::Unsorted);
+
+	QDir user_templates_dir(QDir::toNativeSeparators(settings.value("VM_Directory", "").toString() + "/os_templates/"));
+
 	QFileInfoList user_templates_list = user_templates_dir.entryInfoList(
-			QStringList("*.aqvmt"), QDir::Files, QDir::Unsorted );
-	
-	for( int tx = 0; tx < sys_templates_list.count(); ++tx )
+		QStringList("*.aqvmt"), QDir::Files, QDir::Unsorted);
+
+	for (int tx = 0; tx < sys_templates_list.count(); ++tx)
 	{
-		for( int ux = 0; ux < user_templates_list.count(); ++ux )
+		for (int ux = 0; ux < user_templates_list.count(); ++ux)
 		{
-			if( sys_templates_list[tx].completeBaseName() ==
-						 user_templates_list[ux].completeBaseName() )
+			if (sys_templates_list[tx].completeBaseName() ==
+				user_templates_list[ux].completeBaseName())
 			{
-				sys_templates_list.takeAt( tx ); // delete system template
+				sys_templates_list.takeAt(tx); // delete system template
 				tx -= 1;
 				ux = user_templates_list.count();
 			}
 		}
 	}
-	
+
 	// OK. In Template Lists Only Unique Values
-	for( int ix = 0; ix < sys_templates_list.count(); ++ix )
-		all_templates.append( sys_templates_list[ix].absoluteFilePath() );
-	
-	for( int ix = 0; ix < user_templates_list.count(); ++ix )
-		all_templates.append( user_templates_list[ix].absoluteFilePath() );
-	
+	for (int ix = 0; ix < sys_templates_list.count(); ++ix)
+		all_templates.append(sys_templates_list[ix].absoluteFilePath());
+
+	for (int ix = 0; ix < user_templates_list.count(); ++ix)
+		all_templates.append(user_templates_list[ix].absoluteFilePath());
+
 	// sort
-	qSort( all_templates );
-	
+	qSort(all_templates);
+
 	return all_templates;
 }
 
-
-QString Get_FS_Compatible_VM_Name( const QString &name )
+QString Get_FS_Compatible_VM_Name(const QString &name)
 {
-	//QRegExp vm_name_val = QRegExp( "[^a-zA-Z0-9_]" ); // old style
-	QRegExp vm_name_val = QRegExp( "[^\\w\\.]" );
-	
+	// QRegExp vm_name_val = QRegExp( "[^a-zA-Z0-9_]" ); // old style
+	QRegExp vm_name_val = QRegExp("[^\\w\\.]");
+
 	QString tmp = name;
-	tmp = tmp.replace( vm_name_val, "_" );
-	
-	return tmp.replace( "__", "_" );
+	tmp = tmp.replace(vm_name_val, "_");
+
+	return tmp.replace("__", "_");
 }
 
-QString Get_Complete_VM_File_Path( const QString &vm_name )
+QString Get_Complete_VM_File_Path(const QString &vm_name)
 {
-	//QRegExp vm_name_val = QRegExp( "[^a-zA-Z0-9_]" ); // old style
-	QRegExp vm_name_val = QRegExp( "[^\\w]" );
-	
+	// QRegExp vm_name_val = QRegExp( "[^a-zA-Z0-9_]" ); // old style
+	QRegExp vm_name_val = QRegExp("[^\\w]");
+
 	QString tmp = vm_name;
-	tmp = tmp.replace( vm_name_val, "_" );
-	
-	QString new_name = tmp.replace( "__", "_" );
+	tmp = tmp.replace(vm_name_val, "_");
+
+	QString new_name = tmp.replace("__", "_");
 	QString tmp_str = new_name;
-	
+
 	QSettings settings;
-	
+
 	QString ret_str = settings.value("VM_Directory", "").toString() + tmp_str;
-	
-	if( ! ret_str.endsWith(".aqemu") )
+
+	if (!ret_str.endsWith(".aqemu"))
 		ret_str += ".aqemu";
-	
-	for( int ix = 0; QFile::exists(ret_str); ++ix )
-		tmp_str = new_name + QString::number( ix );
-	
+
+	for (int ix = 0; QFile::exists(ret_str); ++ix)
+		tmp_str = new_name + QString::number(ix);
+
 	return ret_str;
 }
 
-QString Get_TR_Size_Suffix( VM::Device_Size suf )
+QString Get_TR_Size_Suffix(VM::Device_Size suf)
 {
-	switch( suf.Suffix )
+	switch (suf.Suffix)
 	{
-		case VM::Size_Suf_Kb:
-			return QObject::tr("Kb");
-				
-		case VM::Size_Suf_Mb:
-			return QObject::tr("Mb");
-				
-		case VM::Size_Suf_Gb:
-			return QObject::tr("Gb");
-				
-		default:
-			AQError( "QString Get_TR_Size_Suffix( VM::Device_Size suf )",
-					 "Virtual Size Suffix Default Section!" );
-			return "";
+	case VM::Size_Suf_Kb:
+		return QObject::tr("Kb");
+
+	case VM::Size_Suf_Mb:
+		return QObject::tr("Mb");
+
+	case VM::Size_Suf_Gb:
+		return QObject::tr("Gb");
+
+	default:
+		AQError("QString Get_TR_Size_Suffix( VM::Device_Size suf )",
+				"Virtual Size Suffix Default Section!");
+		return "";
 	}
 }
 
-QString Get_Last_Dir_Path( const QString &path )
+QString Get_Last_Dir_Path(const QString &path)
 {
-	QFileInfo info( path );
+	QFileInfo info(path);
 	QString dir = info.path();
-	
-	if( dir.isEmpty() ) return "/";
-	else return dir;
+
+	if (dir.isEmpty())
+		return "/";
+	else
+		return dir;
 }
 
-bool It_Host_Device( const QString &path )
+bool It_Host_Device(const QString &path)
 {
-	#ifdef Q_OS_WIN32
+#ifdef Q_OS_WIN32
 	// FIXME
 	return false;
-	#else
-	if( path.startsWith("/dev/") ) return true;
-	else return false;
-	#endif
+#else
+	if (path.startsWith("/dev/"))
+		return true;
+	else
+		return false;
+#endif
 }
 
 void Check_AQEMU_Permissions()
 {
 	QSettings settings;
 	QFileInfo test_perm;
-	
-	#ifndef Q_OS_WIN32
+
+#ifndef Q_OS_WIN32
 	// This Section For Unix Like OS.
-	test_perm = QFileInfo( settings.fileName() );
-	
-	if( test_perm.exists() )
+	test_perm = QFileInfo(settings.fileName());
+
+	if (test_perm.exists())
 	{
-		if( ! test_perm.isWritable() )
+		if (!test_perm.isWritable())
 		{
-			AQGraphic_Error( "void Check_AQEMU_Permissions()", QObject::tr("Error!"),
-							 QObject::tr("AQEMU Config File is Read Only!\nCheck Permissions For File: ") +
-							 settings.fileName(), true );
+			AQGraphic_Error("void Check_AQEMU_Permissions()", QObject::tr("Error!"),
+							QObject::tr("AQEMU Config File is Read Only!\nCheck Permissions For File: ") +
+								settings.fileName(),
+							true);
 		}
 	}
-	#endif
-	
+#endif
+
 	// Check VM Dir Permissions
-	test_perm = QFileInfo( settings.value("VM_Directory", "~").toString() );
-	
-	if( test_perm.exists() )
+	test_perm = QFileInfo(settings.value("VM_Directory", "~").toString());
+
+	if (test_perm.exists())
 	{
-		if( ! test_perm.isWritable() )
+		if (!test_perm.isWritable())
 		{
-			AQGraphic_Error( "void Check_AQEMU_Permissions()", QObject::tr("Error!"),
-							 QObject::tr("AQEMU VM Directory is Read Only!\nCheck Permissions For: ") +
-							 settings.value("VM_Directory", "~").toString(), true );
+			AQGraphic_Error("void Check_AQEMU_Permissions()", QObject::tr("Error!"),
+							QObject::tr("AQEMU VM Directory is Read Only!\nCheck Permissions For: ") +
+								settings.value("VM_Directory", "~").toString(),
+							true);
 		}
 	}
-	
+
 	// Check VM Templates Dir Permissions
-	test_perm = QFileInfo( settings.value("VM_Directory", "~").toString() + "os_templates" );
-	
-	if( test_perm.exists() )
+	test_perm = QFileInfo(settings.value("VM_Directory", "~").toString() + "os_templates");
+
+	if (test_perm.exists())
 	{
-		if( ! test_perm.isWritable() )
+		if (!test_perm.isWritable())
 		{
-			AQGraphic_Error( "void Check_AQEMU_Permissions()", QObject::tr("Error!"),
-							 QObject::tr("AQEMU VM Template Directory is Read Only!\nCheck Permissions For: ") +
-							 settings.value("VM_Directory", "~").toString() + "os_templates", true );
+			AQGraphic_Error("void Check_AQEMU_Permissions()", QObject::tr("Error!"),
+							QObject::tr("AQEMU VM Template Directory is Read Only!\nCheck Permissions For: ") +
+								settings.value("VM_Directory", "~").toString() + "os_templates",
+							true);
 		}
 	}
-	
+
 	// Check AQEMU Log File Permissions
-	if( ! settings.value("Log/Log_Path", "").toString().isEmpty() )
+	if (!settings.value("Log/Log_Path", "").toString().isEmpty())
 	{
-		test_perm = QFileInfo( settings.value("Log/Log_Path", "").toString() );
-		
-		if( test_perm.exists() )
+		test_perm = QFileInfo(settings.value("Log/Log_Path", "").toString());
+
+		if (test_perm.exists())
 		{
-			if( ! test_perm.isWritable() )
+			if (!test_perm.isWritable())
 			{
-				AQGraphic_Error( "void Check_AQEMU_Permissions()", QObject::tr("Error!"),
-								 QObject::tr("AQEMU Log File is Read Only!\nCheck Permissions For File: ") +
-								 settings.value("Log/Log_Path", "").toString(), false );
+				AQGraphic_Error("void Check_AQEMU_Permissions()", QObject::tr("Error!"),
+								QObject::tr("AQEMU Log File is Read Only!\nCheck Permissions For File: ") +
+									settings.value("Log/Log_Path", "").toString(),
+								false);
 			}
 		}
 	}
 }
 
-VM::Emulator_Version String_To_Emulator_Version( const QString &str )
+VM::Emulator_Version String_To_Emulator_Version(const QString &str)
 {
-	if( str == "QEMU 0.9.0" ) return VM::QEMU_2_0;
-	else if( str == "QEMU 0.9.1" ) return VM::QEMU_2_0;
-	else if( str == "QEMU 0.10.X" ) return VM::QEMU_2_0;
-	else if( str == "QEMU 0.11.X" ) return VM::QEMU_2_0;
-	else if( str == "QEMU 0.12.X" ) return VM::QEMU_2_0;
-	else if( str == "QEMU 0.13.X" ) return VM::QEMU_2_0;
-	else if( str == "QEMU 0.14.X" ) return VM::QEMU_2_0;
-	else if( str == "QEMU 0.15.X" ) return VM::QEMU_2_0;
-	else if( str == "QEMU 1.0" ) return VM::QEMU_2_0;
-	else if( str == "QEMU 2.0" ) return VM::QEMU_2_0;
-	else if( str == "KVM 7X" ) return VM::QEMU_2_0;
-	else if( str == "KVM 8X" ) return VM::QEMU_2_0;
-	else if( str == "KVM 0.11.X" ) return VM::QEMU_2_0;
-	else if( str == "KVM 0.12.X" ) return VM::QEMU_2_0;
-	else if( str == "KVM 0.13.X" ) return VM::QEMU_2_0;
-	else if( str == "KVM 0.14.X" ) return VM::QEMU_2_0;
-	else if( str == "KVM 0.15.X" ) return VM::QEMU_2_0;
-	else if( str == "KVM 1.0" ) return VM::QEMU_2_0;
-	else if( str == "Obsolete" ) return VM::Obsolete;
+	if (str == "QEMU 0.9.0")
+		return VM::QEMU_2_0;
+	else if (str == "QEMU 0.9.1")
+		return VM::QEMU_2_0;
+	else if (str == "QEMU 0.10.X")
+		return VM::QEMU_2_0;
+	else if (str == "QEMU 0.11.X")
+		return VM::QEMU_2_0;
+	else if (str == "QEMU 0.12.X")
+		return VM::QEMU_2_0;
+	else if (str == "QEMU 0.13.X")
+		return VM::QEMU_2_0;
+	else if (str == "QEMU 0.14.X")
+		return VM::QEMU_2_0;
+	else if (str == "QEMU 0.15.X")
+		return VM::QEMU_2_0;
+	else if (str == "QEMU 1.0")
+		return VM::QEMU_2_0;
+	else if (str == "QEMU 2.0")
+		return VM::QEMU_2_0;
+	else if (str == "KVM 7X")
+		return VM::QEMU_2_0;
+	else if (str == "KVM 8X")
+		return VM::QEMU_2_0;
+	else if (str == "KVM 0.11.X")
+		return VM::QEMU_2_0;
+	else if (str == "KVM 0.12.X")
+		return VM::QEMU_2_0;
+	else if (str == "KVM 0.13.X")
+		return VM::QEMU_2_0;
+	else if (str == "KVM 0.14.X")
+		return VM::QEMU_2_0;
+	else if (str == "KVM 0.15.X")
+		return VM::QEMU_2_0;
+	else if (str == "KVM 1.0")
+		return VM::QEMU_2_0;
+	else if (str == "Obsolete")
+		return VM::Obsolete;
 	else
 	{
-		AQError( "VM::Emulator_Version String_To_Emulator_Version( const QString &str )",
-				 QString("Emulator version \"%1\" not valid!").arg(str) );
+		AQError("VM::Emulator_Version String_To_Emulator_Version( const QString &str )",
+				QString("Emulator version \"%1\" not valid!").arg(str));
 		return VM::Obsolete;
 	}
 }
 
-QString Emulator_Version_To_String( VM::Emulator_Version ver )
+QString Emulator_Version_To_String(VM::Emulator_Version ver)
 {
-	switch( ver )
+	switch (ver)
 	{
-		case VM::QEMU_2_0:
-			return "QEMU 2.0";
-			
-		case VM::Obsolete:
-			return "Obsolete";
-			
-		default:
-			AQError( "QString Emulator_Version_To_String( VM::Emulator_Version ver )",
-					 QString("Emulator version \"%1\" not valid!").arg((int)ver) );
-			return "";
+	case VM::QEMU_2_0:
+		return "QEMU 2.0";
+
+	case VM::Obsolete:
+		return "Obsolete";
+
+	default:
+		AQError("QString Emulator_Version_To_String( VM::Emulator_Version ver )",
+				QString("Emulator version \"%1\" not valid!").arg((int)ver));
+		return "";
 	}
 }
 
@@ -585,146 +626,148 @@ bool Update_Emulators_List()
 {
 	// Clear old emulator list
 	Emulators_List.clear();
-	
+
 	// Get dir path
 	QSettings settings;
-	QFileInfo info( settings.fileName() );
+	QFileInfo info(settings.fileName());
 	QString aqemuSettingsFolder = info.absoluteDir().absolutePath();
-	if( ! (aqemuSettingsFolder.endsWith("/") || aqemuSettingsFolder.endsWith("\\")) )
-		aqemuSettingsFolder = QDir::toNativeSeparators( aqemuSettingsFolder + "/" );
-	
-	if( ! QFile::exists(aqemuSettingsFolder) )
+	if (!(aqemuSettingsFolder.endsWith("/") || aqemuSettingsFolder.endsWith("\\")))
+		aqemuSettingsFolder = QDir::toNativeSeparators(aqemuSettingsFolder + "/");
+
+	if (!QFile::exists(aqemuSettingsFolder))
 	{
-		AQError( "bool Update_Emulators_List()",
-				 QString("Cannot get path for save emulator! Folder \"%1\" not exists!").arg(aqemuSettingsFolder) );
+		AQError("bool Update_Emulators_List()",
+				QString("Cannot get path for save emulator! Folder \"%1\" not exists!").arg(aqemuSettingsFolder));
 		return false;
 	}
-	
+
 	// Get all *.emulators files
-	QDir emulDir( aqemuSettingsFolder );
-	QStringList emulFiles = emulDir.entryList( QStringList("*.emulator"), QDir::Files, QDir::Name );
-	
-	if( emulFiles.isEmpty() )
+	QDir emulDir(aqemuSettingsFolder);
+	QStringList emulFiles = emulDir.entryList(QStringList("*.emulator"), QDir::Files, QDir::Name);
+
+	if (emulFiles.isEmpty())
 	{
-		AQWarning( "bool Update_Emulators_List()",
-				   QString("No emulators found in \"%1\"").arg(aqemuSettingsFolder) );
+		AQWarning("bool Update_Emulators_List()",
+				  QString("No emulators found in \"%1\"").arg(aqemuSettingsFolder));
 		return false;
 	}
-	
+
 	// Check default emulators
 	bool qDef = false;
-	
+
 	// Load emulators
-	for( int ex = 0; ex < emulFiles.count(); ++ex )
+	for (int ex = 0; ex < emulFiles.count(); ++ex)
 	{
 		Emulator tmp;
-		
-		if( ! tmp.Load(aqemuSettingsFolder + emulFiles[ex]) )
+
+		if (!tmp.Load(aqemuSettingsFolder + emulFiles[ex]))
 		{
-			AQError( "bool Update_Emulators_List()",
-					 QString("Cannot load emulator from file: \"%1\"").arg(emulFiles[ex]) );
+			AQError("bool Update_Emulators_List()",
+					QString("Cannot load emulator from file: \"%1\"").arg(emulFiles[ex]));
 			continue;
 		}
-		
+
 		// Default?
-		if( tmp.Get_Default() )
+		if (tmp.Get_Default())
 		{
-			if( qDef )
+			if (qDef)
 			{
-				AQWarning( "bool Update_Emulators_List()",
-						   "Default QEMU emulator already loaded." );
-				tmp.Set_Default( false );
+				AQWarning("bool Update_Emulators_List()",
+						  "Default QEMU emulator already loaded.");
+				tmp.Set_Default(false);
 			}
-			else qDef = true;
+			else
+				qDef = true;
 		}
-		
+
 		// Update available options?
-		if( tmp.Get_Check_Available_Options() )
+		if (tmp.Get_Check_Available_Options())
 		{
 			QMap<QString, QString> tmpBinFiles = tmp.Get_Binary_Files();
 			QMap<QString, Available_Devices> tmpDevMap; // result
-			
-			for( QMap<QString, QString>::const_iterator it = tmpBinFiles.constBegin(); it != tmpBinFiles.constEnd(); ++it )
+
+			for (QMap<QString, QString>::const_iterator it = tmpBinFiles.constBegin(); it != tmpBinFiles.constEnd(); ++it)
 			{
-				if( ! it.value().isEmpty() )
+				if (!it.value().isEmpty())
 				{
 					bool ok = false;
-					Available_Devices tmpDev = System_Info::Get_Emulator_Info( it.value(), &ok, tmp.Get_Version(), it.key() );
-					
-					if( ! ok )
+					Available_Devices tmpDev = System_Info::Get_Emulator_Info(it.value(), &ok, tmp.Get_Version(), it.key());
+
+					if (!ok)
 					{
-						AQError( "bool Update_Emulators_List()",
-								 "Cannot set new emulator available options!" );
+						AQError("bool Update_Emulators_List()",
+								"Cannot set new emulator available options!");
 						continue;
 					}
-					
+
 					// Adding device
-					tmpDevMap[ it.key() ] = tmpDev;
+					tmpDevMap[it.key()] = tmpDev;
 				}
 			}
-			
+
 			// Set all devices
-			tmp.Set_Devices( tmpDevMap );
+			tmp.Set_Devices(tmpDevMap);
 		}
-		
+
 		// Check version?
-		if( tmp.Get_Check_Version() )
+		if (tmp.Get_Check_Version())
 		{
 			// Get bin file path
 			QString binFilePath = "";
 			QMap<QString, QString> tmpBinFiles = tmp.Get_Binary_Files();
-			for( QMap<QString, QString>::const_iterator it = tmpBinFiles.constBegin(); it != tmpBinFiles.constEnd(); ++it )
+			for (QMap<QString, QString>::const_iterator it = tmpBinFiles.constBegin(); it != tmpBinFiles.constEnd(); ++it)
 			{
-				if( QFile::exists(it.value()) )
+				if (QFile::exists(it.value()))
 				{
 					binFilePath = it.value();
 					break;
 				}
 			}
-			
-			if( binFilePath.isEmpty() )
+
+			if (binFilePath.isEmpty())
 			{
-				AQError( "bool Update_Emulators_List()",
-						 QString("Cannot find exists emulator binary file for emulator \"%1\"!").arg(tmp.Get_Name()) );
+				AQError("bool Update_Emulators_List()",
+						QString("Cannot find exists emulator binary file for emulator \"%1\"!").arg(tmp.Get_Name()));
 			}
-			
+
 			// All OK, check version
-			tmp.Set_Version( System_Info::Get_Emulator_Version(binFilePath) );
+			tmp.Set_Version(System_Info::Get_Emulator_Version(binFilePath));
 		}
-		
+
 		// Adding emulator
 		Emulators_List << tmp;
 	}
-	
+
 	// Emulator loaded?
-	if( Emulators_List.isEmpty() )
+	if (Emulators_List.isEmpty())
 	{
-		AQWarning( "bool Update_Emulators_List()",
-				   "No emulators loaded!" );
+		AQWarning("bool Update_Emulators_List()",
+				  "No emulators loaded!");
 		return false;
 	}
-	
+
 	// Check defaults
-	if( qDef == false )
+	if (qDef == false)
 	{
-		for( int ex = 0; ex < Emulators_List.count(); ++ex )
-	    {
-		    Emulators_List[ex].Set_Default( true );
-		    break;
+		for (int ex = 0; ex < Emulators_List.count(); ++ex)
+		{
+			Emulators_List[ex].Set_Default(true);
+			break;
 		}
 	}
-	
+
 	// All OK
 	return true;
 }
 
 const QList<Emulator> &Get_Emulators_List()
 {
-	if( Update_Emulators_List() ) return Emulators_List; // FIXME Update
+	if (Update_Emulators_List())
+		return Emulators_List; // FIXME Update
 	else
 	{
-		AQError( "QList<Emulator> Get_Emulators_List()",
-				 "Cannot Update Emulators List" );
+		AQError("QList<Emulator> Get_Emulators_List()",
+				"Cannot Update Emulators List");
 		return Empty_Emul_List;
 	}
 }
@@ -733,117 +776,119 @@ bool Remove_All_Emulators_Files()
 {
 	// Get emulators dir path
 	QSettings settings;
-	QFileInfo info( settings.fileName() );
+	QFileInfo info(settings.fileName());
 	QString aqemuSettingsFolder = info.absoluteDir().absolutePath();
-	aqemuSettingsFolder += aqemuSettingsFolder.endsWith( QDir::toNativeSeparators("/") )
-						   ? ""
-						   : QDir::toNativeSeparators( "/" );
-	
-	if( ! QFile::exists(aqemuSettingsFolder) )
+	aqemuSettingsFolder += aqemuSettingsFolder.endsWith(QDir::toNativeSeparators("/"))
+							   ? ""
+							   : QDir::toNativeSeparators("/");
+
+	if (!QFile::exists(aqemuSettingsFolder))
 	{
-		AQError( "bool Remove_All_Emulators_Files()",
-				 QString("Cannot get path for save emulator! Folder \"%1\" not exists!").arg(aqemuSettingsFolder) );
+		AQError("bool Remove_All_Emulators_Files()",
+				QString("Cannot get path for save emulator! Folder \"%1\" not exists!").arg(aqemuSettingsFolder));
 		return false;
 	}
 	else
 	{
 		// Get all *.emulators files
-		QDir emulDir( aqemuSettingsFolder );
-		QStringList emulFiles = emulDir.entryList( QStringList("*.emulator"), QDir::Files, QDir::Name );
-		
+		QDir emulDir(aqemuSettingsFolder);
+		QStringList emulFiles = emulDir.entryList(QStringList("*.emulator"), QDir::Files, QDir::Name);
+
 		bool allFilesRemoved = true;
-		for( int dx = 0; dx < emulFiles.count(); ++dx )
+		for (int dx = 0; dx < emulFiles.count(); ++dx)
 		{
-			if( ! QFile::remove(aqemuSettingsFolder + emulFiles[dx]) )
+			if (!QFile::remove(aqemuSettingsFolder + emulFiles[dx]))
 			{
-				AQError( "bool Remove_All_Emulators_Files()",
-						 QString("Cannot delete file \"%1\"!").arg(emulFiles[dx]) );
+				AQError("bool Remove_All_Emulators_Files()",
+						QString("Cannot delete file \"%1\"!").arg(emulFiles[dx]));
 				allFilesRemoved = false;
 			}
 		}
-		
+
 		return allFilesRemoved;
 	}
 }
 
 const Emulator &Get_Default_Emulator()
 {
-	if( Emulators_List.count() <= 0 )
-		AQError( "const Emulator &Get_Default_Emulator()",
-				 "Emulator Count == 0" );
+	if (Emulators_List.count() <= 0)
+		AQError("const Emulator &Get_Default_Emulator()",
+				"Emulator Count == 0");
 	else
 	{
-		for( int ix = 0; ix < Emulators_List.count(); ix++ )
+		for (int ix = 0; ix < Emulators_List.count(); ix++)
 		{
-			if( Emulators_List[ix].Get_Default() )
-		    {
-				return Emulators_List[ ix ];
-		    }
+			if (Emulators_List[ix].Get_Default())
+			{
+				return Emulators_List[ix];
+			}
 		}
 	}
-	
-	AQWarning( "const Emulator &Get_Default_Emulator()",
-			   "Cannot Find!" );
+
+	AQWarning("const Emulator &Get_Default_Emulator()",
+			  "Cannot Find!");
 	return Empty_Emul;
 }
 
-const Emulator &Get_Emulator_By_Name( const QString &name )
+const Emulator &Get_Emulator_By_Name(const QString &name)
 {
-	if( Emulators_List.count() <= 0 )
-		AQError( "const Emulator Get_Emulator_By_Name( const QString &name )",
-				 "Emulator Count == 0" );
+	if (Emulators_List.count() <= 0)
+		AQError("const Emulator Get_Emulator_By_Name( const QString &name )",
+				"Emulator Count == 0");
 	else
 	{
-		for( int ix = 0; ix < Emulators_List.count(); ix++ )
+		for (int ix = 0; ix < Emulators_List.count(); ix++)
 		{
-			if( Emulators_List[ix].Get_Name() == name )
-				return Emulators_List[ ix ];
+			if (Emulators_List[ix].Get_Name() == name)
+				return Emulators_List[ix];
 		}
 	}
-	
-	AQWarning( "const Emulator Get_Emulator_By_Name( const QString &name )",
-			   "Cannot Find!" );
+
+	AQWarning("const Emulator Get_Emulator_By_Name( const QString &name )",
+			  "Cannot Find!");
 	return Empty_Emul;
 }
 
-int Get_Random( int min, int max )
+int Get_Random(int min, int max)
 {
-	if( min < 0 || max > RAND_MAX || min > max )
+	if (min < 0 || max > RAND_MAX || min > max)
 	{
 		return -1;
 	}
-	
-	qsrand( QTime::currentTime().msec() );
-	
-	return int( qrand() / (RAND_MAX + 1.0) * (max + 1 - min) + min );
+
+	qsrand(QTime::currentTime().msec());
+
+	return int(qrand() / (RAND_MAX + 1.0) * (max + 1 - min) + min);
 }
 
 void Load_Recent_Images_List()
 {
 	QSettings settings;
-	
+
 	// CD
-	int max_cd = settings.value( "CD_ROM_Existing_Images/Max", "5" ).toString().toInt();
-	
+	int max_cd = settings.value("CD_ROM_Existing_Images/Max", "5").toString().toInt();
+
 	Recent_CD_Images.clear();
-	
-	for( int ix = 0; ix < max_cd; ++ix )
+
+	for (int ix = 0; ix < max_cd; ++ix)
 	{
-		QString tmp = settings.value( "CD_ROM_Existing_Images/item" + QString::number(ix), "" ).toString();
-		
-		if( ! tmp.isEmpty() ) Recent_CD_Images << tmp;
+		QString tmp = settings.value("CD_ROM_Existing_Images/item" + QString::number(ix), "").toString();
+
+		if (!tmp.isEmpty())
+			Recent_CD_Images << tmp;
 	}
-	
+
 	// FDD
-	int max_fdd = settings.value( "Floppy_Existing_Images/Max", "5" ).toString().toInt();
-	
+	int max_fdd = settings.value("Floppy_Existing_Images/Max", "5").toString().toInt();
+
 	Recent_FDD_Images.clear();
-	
-	for( int ix = 0; ix < max_fdd; ++ix )
+
+	for (int ix = 0; ix < max_fdd; ++ix)
 	{
-		QString tmp = settings.value( "Floppy_Existing_Images/item" + QString::number(ix), "" ).toString();
-		
-		if( ! tmp.isEmpty() ) Recent_FDD_Images << tmp;
+		QString tmp = settings.value("Floppy_Existing_Images/item" + QString::number(ix), "").toString();
+
+		if (!tmp.isEmpty())
+			Recent_FDD_Images << tmp;
 	}
 }
 
@@ -852,51 +897,52 @@ const QStringList &Get_CD_Recent_Images_List()
 	return Recent_CD_Images;
 }
 
-void Add_To_Recent_CD_Files( const QString &path )
+void Add_To_Recent_CD_Files(const QString &path)
 {
 	QSettings settings;
-	int max = settings.value( "CD_ROM_Existing_Images/Max", "5" ).toString().toInt();
-	
+	int max = settings.value("CD_ROM_Existing_Images/Max", "5").toString().toInt();
+
 	// This Unique Path?
-	for( int fx = 0; fx < Recent_CD_Images.count() && fx < max; ++fx )
+	for (int fx = 0; fx < Recent_CD_Images.count() && fx < max; ++fx)
 	{
-		if( Recent_CD_Images[fx] == path )
+		if (Recent_CD_Images[fx] == path)
 		{
-			AQDebug( "void Add_To_Recent_CD_Files( const QString &path )",
-					 "CD-ROM Path Not Unique." );
-			
+			AQDebug("void Add_To_Recent_CD_Files( const QString &path )",
+					"CD-ROM Path Not Unique.");
+
 			// Up it path in list
-			if( fx < Recent_CD_Images.count()-1 )
+			if (fx < Recent_CD_Images.count() - 1)
 			{
 				// swap items
-				QString tmp = Recent_CD_Images[ fx+1 ];
-				Recent_CD_Images[ fx+1 ] = Recent_CD_Images[ fx ];
-				Recent_CD_Images[ fx ] = tmp;
+				QString tmp = Recent_CD_Images[fx + 1];
+				Recent_CD_Images[fx + 1] = Recent_CD_Images[fx];
+				Recent_CD_Images[fx] = tmp;
 			}
-			else return;
+			else
+				return;
 		}
 	}
-	
+
 	// Add to List
-	if( Recent_CD_Images.count() < max )
+	if (Recent_CD_Images.count() < max)
 	{
 		Recent_CD_Images << path;
-		settings.setValue( "CD_ROM_Existing_Images/item" + QString::number(Recent_CD_Images.count()-1), path );
+		settings.setValue("CD_ROM_Existing_Images/item" + QString::number(Recent_CD_Images.count() - 1), path);
 	}
 	else
 	{
 		// Delete first element and add new to end
-		for( int ix = 0; ix < Recent_CD_Images.count() -1 && ix < max -1; ++ix )
+		for (int ix = 0; ix < Recent_CD_Images.count() - 1 && ix < max - 1; ++ix)
 		{
-			Recent_CD_Images[ ix ] = Recent_CD_Images[ ix +1 ];
+			Recent_CD_Images[ix] = Recent_CD_Images[ix + 1];
 		}
-		
-		Recent_CD_Images[ max -1 ] = path;
-		
+
+		Recent_CD_Images[max - 1] = path;
+
 		// Save Items
-		for( int ix = 0; ix < Recent_CD_Images.count(); ix++ )
+		for (int ix = 0; ix < Recent_CD_Images.count(); ix++)
 		{
-			settings.setValue( "CD_ROM_Existing_Images/item" + QString::number(ix), Recent_CD_Images[ix] );
+			settings.setValue("CD_ROM_Existing_Images/item" + QString::number(ix), Recent_CD_Images[ix]);
 		}
 	}
 }
@@ -906,51 +952,52 @@ const QStringList &Get_FDD_Recent_Images_List()
 	return Recent_FDD_Images;
 }
 
-void Add_To_Recent_FDD_Files( const QString &path )
+void Add_To_Recent_FDD_Files(const QString &path)
 {
 	QSettings settings;
-	int max = settings.value( "Floppy_Existing_Images/Max", "5" ).toString().toInt();
-	
+	int max = settings.value("Floppy_Existing_Images/Max", "5").toString().toInt();
+
 	// This Unique Path?
-	for( int fx = 0; fx < Recent_FDD_Images.count() && fx < max; ++fx )
+	for (int fx = 0; fx < Recent_FDD_Images.count() && fx < max; ++fx)
 	{
-		if( Recent_FDD_Images[fx] == path )
+		if (Recent_FDD_Images[fx] == path)
 		{
-			AQDebug( "void Add_To_Recent_FDD_Files( const QString &path )",
-					 "Floppy Path Not Unique." );
-			
+			AQDebug("void Add_To_Recent_FDD_Files( const QString &path )",
+					"Floppy Path Not Unique.");
+
 			// Up it path in list
-			if( fx < Recent_FDD_Images.count()-1 )
+			if (fx < Recent_FDD_Images.count() - 1)
 			{
 				// swap items
-				QString tmp = Recent_FDD_Images[ fx+1 ];
-				Recent_FDD_Images[ fx+1 ] = Recent_FDD_Images[ fx ];
-				Recent_FDD_Images[ fx ] = tmp;
+				QString tmp = Recent_FDD_Images[fx + 1];
+				Recent_FDD_Images[fx + 1] = Recent_FDD_Images[fx];
+				Recent_FDD_Images[fx] = tmp;
 			}
-			else return;
+			else
+				return;
 		}
 	}
-	
+
 	// Add to List
-	if( Recent_FDD_Images.count() < max )
+	if (Recent_FDD_Images.count() < max)
 	{
 		Recent_FDD_Images << path;
-		settings.setValue( "Floppy_Existing_Images/item" + QString::number(Recent_FDD_Images.count()-1), path );
+		settings.setValue("Floppy_Existing_Images/item" + QString::number(Recent_FDD_Images.count() - 1), path);
 	}
 	else
 	{
 		// Delete first element and add new to end
-		for( int ix = 0; ix < Recent_FDD_Images.count() -1 && ix < max -1; ++ix )
+		for (int ix = 0; ix < Recent_FDD_Images.count() - 1 && ix < max - 1; ++ix)
 		{
-			Recent_FDD_Images[ ix ] = Recent_FDD_Images[ ix +1 ];
+			Recent_FDD_Images[ix] = Recent_FDD_Images[ix + 1];
 		}
-		
-		Recent_FDD_Images[ max -1 ] = path;
-		
+
+		Recent_FDD_Images[max - 1] = path;
+
 		// Save Items
-		for( int ix = 0; ix < Recent_FDD_Images.count(); ix++ )
+		for (int ix = 0; ix < Recent_FDD_Images.count(); ix++)
 		{
-			settings.setValue( "Floppy_Existing_Images/item" + QString::number(ix), Recent_FDD_Images[ix] );
+			settings.setValue("Floppy_Existing_Images/item" + QString::number(ix), Recent_FDD_Images[ix]);
 		}
 	}
 }
@@ -962,39 +1009,38 @@ bool Get_Show_Error_Window()
 	return Show_Error_Window;
 }
 
-void Set_Show_Error_Window( bool show )
+void Set_Show_Error_Window(bool show)
 {
 	Show_Error_Window = show;
 }
 
 #include <QCheckBox>
 
-void Checkbox_Dependend_Set_Enabled(QList<QWidget*>& children_to_enable, QCheckBox* checkbox, bool enabled)
+void Checkbox_Dependend_Set_Enabled(QList<QWidget *> &children_to_enable, QCheckBox *checkbox, bool enabled)
 {
-    checkbox->setEnabled(enabled);
+	checkbox->setEnabled(enabled);
 
-    if ( ! checkbox->isChecked() )
-        enabled = false;
+	if (!checkbox->isChecked())
+		enabled = false;
 
-    for( int i = 0; i < children_to_enable.count(); i++)
-        children_to_enable[i]->setEnabled(enabled);
+	for (int i = 0; i < children_to_enable.count(); i++)
+		children_to_enable[i]->setEnabled(enabled);
 }
 
-
-//calculate contrast difference between two colors
+// calculate contrast difference between two colors
 //(typically a background and a foreground color)
-//this code was based on the formula in this
-//stackoverflow post: http://stackoverflow.com/a/302961/6427928
-double calculateContrast(const QColor& col1, const QColor& col2)
+// this code was based on the formula in this
+// stackoverflow post: http://stackoverflow.com/a/302961/6427928
+double calculateContrast(const QColor &col1, const QColor &col2)
 {
-    double l1, l2;
+	double l1, l2;
 
-    l1 = ( 0.2126 * pow((double)col1.red()/255.0, 2.2) +
-           0.7152 * pow((double)col1.green()/255.0, 2.2) +
-           0.0722 * pow((double)col1.blue()/255.0, 2.2) );
-    l2 = ( 0.2126 * pow((double)col2.red()/255.0, 2.2) +
-           0.7152 * pow((double)col2.green()/255.0, 2.2) +
-           0.0722 * pow((double)col2.blue()/255.0, 2.2) );
+	l1 = (0.2126 * pow((double)col1.red() / 255.0, 2.2) +
+		  0.7152 * pow((double)col1.green() / 255.0, 2.2) +
+		  0.0722 * pow((double)col1.blue() / 255.0, 2.2));
+	l2 = (0.2126 * pow((double)col2.red() / 255.0, 2.2) +
+		  0.7152 * pow((double)col2.green() / 255.0, 2.2) +
+		  0.0722 * pow((double)col2.blue() / 255.0, 2.2));
 
-    return (l1 > l2) ? (l1 / l2) : (l2 / l1);
+	return (l1 > l2) ? (l1 / l2) : (l2 / l1);
 }
