@@ -25,7 +25,7 @@
 #define UTILS_H
 
 #define CURRENT_AQEMU_VERSION "0.9.6"
-#define CURRENT_AQEMU_RELEASE_DATE "UNKNOWN"
+#define CURRENT_AQEMU_RELEASE_DATE "20240219"
 
 #include <QString>
 #include <QList>
@@ -34,68 +34,67 @@
 
 class Disable_User_Graphic_Warning
 {
-    public:
-        Disable_User_Graphic_Warning();
-        ~Disable_User_Graphic_Warning();
+public:
+    Disable_User_Graphic_Warning();
+    ~Disable_User_Graphic_Warning();
 };
 
-void AQDebug( const QString &sender, const QString &mes );
-void AQWarning( const QString &sender, const QString &mes );
-void AQError( const QString &sender, const QString &mes );
+void AQDebug(const QString &sender, const QString &mes);
+void AQWarning(const QString &sender, const QString &mes);
+void AQError(const QString &sender, const QString &mes);
 
-void AQGraphic_Warning( const QString &caption, const QString &mes );
-void AQGraphic_Warning( const QString &sender, const QString &caption, const QString &mes, bool fatal = false );
-void AQGraphic_Error( const QString &sender, const QString &caption, const QString &mes, bool fatal = false );
+void AQGraphic_Warning(const QString &caption, const QString &mes);
+void AQGraphic_Warning(const QString &sender, const QString &caption, const QString &mes, bool fatal = false);
+void AQGraphic_Error(const QString &sender, const QString &caption, const QString &mes, bool fatal = false);
 
-void AQUse_Log( bool use );
-void AQUse_Debug_Output( bool use, bool d, bool w, bool e );
-void AQLog_Path( const QString &path );
-void AQSave_To_Log( const QString &mes_type, const QString &sender, const QString &mes );
+void AQUse_Log(bool use);
+void AQUse_Debug_Output(bool use, bool d, bool w, bool e);
+void AQLog_Path(const QString &path);
+void AQSave_To_Log(const QString &mes_type, const QString &sender, const QString &mes);
 
-bool Create_New_HDD_Image( bool encrypted, const QString &base_image,
-						   const QString &file_name, const QString &format, VM::Device_Size size, bool verbose );
-bool Create_New_HDD_Image( const QString &file_name, VM::Device_Size size );
-bool Format_HDD_Image( const QString &file_name, VM::Disk_Info info );
+bool Create_New_HDD_Image(bool encrypted, const QString &base_image,
+                          const QString &file_name, const QString &format, VM::Device_Size size, bool verbose);
+bool Create_New_HDD_Image(const QString &file_name, VM::Device_Size size);
+bool Format_HDD_Image(const QString &file_name, VM::Disk_Info info);
 
 QList<QString> Get_Templates_List();
 
-QString Get_FS_Compatible_VM_Name( const QString &name );
-QString Get_Complete_VM_File_Path( const QString &vm_name );
+QString Get_FS_Compatible_VM_Name(const QString &name);
+QString Get_Complete_VM_File_Path(const QString &vm_name);
 
-QString Get_TR_Size_Suffix( VM::Device_Size suf );
+QString Get_TR_Size_Suffix(VM::Device_Size suf);
 
-QString Get_Last_Dir_Path( const QString &path );
+QString Get_Last_Dir_Path(const QString &path);
 
-bool It_Host_Device( const QString &path );
+bool It_Host_Device(const QString &path);
 
 void Check_AQEMU_Permissions();
 
-VM::Emulator_Version String_To_Emulator_Version( const QString &str );
-QString Emulator_Version_To_String( VM::Emulator_Version ver );
+VM::Emulator_Version String_To_Emulator_Version(const QString &str);
+QString Emulator_Version_To_String(VM::Emulator_Version ver);
 
 bool Update_Emulators_List();
 const QList<Emulator> &Get_Emulators_List();
 bool Remove_All_Emulators_Files();
-const Emulator &Get_Default_Emulator( );
-const Emulator &Get_Emulator_By_Name( const QString &name );
+const Emulator &Get_Default_Emulator();
+const Emulator &Get_Emulator_By_Name(const QString &name);
 
-int Get_Random( int min, int max );
+int Get_Random(int min, int max);
 
 void Load_Recent_Images_List();
 const QStringList &Get_CD_Recent_Images_List();
-void Add_To_Recent_CD_Files( const QString &path );
+void Add_To_Recent_CD_Files(const QString &path);
 const QStringList &Get_FDD_Recent_Images_List();
-void Add_To_Recent_FDD_Files( const QString &path );
+void Add_To_Recent_FDD_Files(const QString &path);
 
 bool Get_Show_Error_Window();
-void Set_Show_Error_Window( bool show );
+void Set_Show_Error_Window(bool show);
 
 class QWidget;
 class QCheckBox;
 
-void Checkbox_Dependend_Set_Enabled(QList<QWidget*>& children_to_enable, QCheckBox* checkbox, bool enabled);
+void Checkbox_Dependend_Set_Enabled(QList<QWidget *> &children_to_enable, QCheckBox *checkbox, bool enabled);
 
-double calculateContrast(const QColor& col1, const QColor& col2);
+double calculateContrast(const QColor &col1, const QColor &col2);
 
 #endif
-
