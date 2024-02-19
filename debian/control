@@ -1,0 +1,26 @@
+Source: aqemu
+Section: x11
+Priority: optional
+Maintainer: Debian QA Group <packages@qa.debian.org>
+Build-Depends: debhelper-compat (= 13),
+               libvncserver-dev,
+               qtbase5-dev,
+               qtbase5-dev-tools,
+               zlib1g-dev,
+               cmake
+Standards-Version: 4.5.1
+Rules-Requires-Root: no
+Homepage: https://github.com/tobimensch/aqemu
+Vcs-Git: https://salsa.debian.org/debian/aqemu.git
+Vcs-Browser: https://salsa.debian.org/debian/aqemu
+
+Package: aqemu
+Architecture: amd64 arm arm64 armel armhf hppa i386 ia64 kfreebsd-amd64 kfreebsd-i386 mips mipsel powerpc powerpcspe ppc64 ppc64el s390x sparc sparc64 x32
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         libqt5dbus5,
+         qemu-kvm | qemu-system-x86 | qemu-system-arm | qemu-system-mips | qemu-system-ppc | qemu-system-sparc | qemu-system-misc
+Description: Qt5 front-end for QEMU and KVM
+ aqemu is a Qt5 graphical interface used to manage QEMU and KVM virtual
+ machines. It has a user-friendly interface and allows one to set up the
+ majority of QEMU and KVM options.

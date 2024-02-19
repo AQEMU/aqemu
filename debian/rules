@@ -1,0 +1,8 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all reproducible=+fixfilepath
+export QT_SELECT := qt5
+
+%:
+	dh $@
