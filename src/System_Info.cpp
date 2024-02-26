@@ -22,7 +22,7 @@
 ****************************************************************************/
 
 #include <QSettings>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QProcess>
 #include <QFile>
 #include <QDir>
@@ -1043,7 +1043,7 @@ VM::Emulator_Version System_Info::Get_Emulator_Version(const QString &path)
 	QString emulHelpText = Get_Emulator_Help_Output(path);
 	QTextStream allHelpOutput(&emulHelpText, QIODevice::ReadOnly);
 
-	QRegExp emulVerLineRegExp = QRegExp(".*version.*");
+    auto emulVerLineRegExp = QRegularExpression(".*version.*");
 	QString line = "";
 
 	for (int ix = 0; ix < 5; ++ix)
@@ -1057,7 +1057,7 @@ VM::Emulator_Version System_Info::Get_Emulator_Version(const QString &path)
 			break;
 		}
 
-		if (!emulVerLineRegExp.exactMatch(tmpLine))
+        if (!emulVerLineRegExp.match(tmpLine).hasMatch())
 			continue;
 		else
 		{
@@ -1081,9 +1081,9 @@ VM::Emulator_Version System_Info::Get_Emulator_Version(const QString &path)
 
 	// QEMU
 	// QRegExp emulVerRegExp = QRegExp( ".*version\\s+([\\d]+)[.]([\\d]+)[.]([\\d]+).*" );
-	QRegExp emulVerRegExpNew = QRegExp(".*version\\s+([\\d]+)[.]([\\d]+).*");
+    auto emulVerRegExpNew = QRegularExpression(".*version\\s+([\\d]+)[.]([\\d]+).*");
 
-	if (!emulVerRegExpNew.exactMatch(line))
+    if (!emulVerRegExpNew.match(line).hasMatch())
 	{
 		AQError("VM::Emulator_Version System_Info::Get_Emulator_Version( const QString &path )",
 				"Cannot match emulVerRegExp! Line: " + line);
@@ -1091,7 +1091,7 @@ VM::Emulator_Version System_Info::Get_Emulator_Version(const QString &path)
 	}
 	else // Version like: 1.0
 	{
-		QStringList versionLines = emulVerRegExpNew.capturedTexts();
+        QStringList versionLines = emulVerRegExpNew.match(line).capturedTexts();
 		if (versionLines.count() < 3)
 		{
 			AQError("VM::Emulator_Version System_Info::Get_Emulator_Version( const QString &path )",
@@ -1273,18 +1273,18 @@ Available_Devices System_Info::Get_Emulator_Info(const QString &path, bool *ok,
 
 	// -M
 	bool scan_Machines_List = false;
-	QRegExp rx = QRegExp(".*-M\\s+.*");
+    auto rx = QRegularExpression(".*-M\\s+.*");
 	if (rx.exactMatch(all_help))
 		scan_Machines_List = true;
 
 	// -cpu
 	bool scan_CPU_List = false;
-	rx = QRegExp(".*-cpu\\s.*");
+    rx = QRegularExpression(".*-cpu\\s.*");
 	if (rx.exactMatch(all_help))
 		scan_CPU_List = true;
 
 	// -smp FIXME PSO_SMP_Count use base emulator settings
-	rx = QRegExp(".*-smp\\s.*");
+    rx = QRegularExpression(".*-smp\\s.*");
 	if (rx.exactMatch(all_help))
 	{
 		// New Style?

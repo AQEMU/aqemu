@@ -23,7 +23,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QProcess>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QSettings>
 
 #include "Utils.h"
@@ -285,15 +285,15 @@ bool Convert_HDD_Image_Window::Get_QEMU_IMG_Info()
 		else Possible_Encrypte = false; */
 
 		// Formats
-		QRegExp formats = QRegExp(".*Supported formats:\\s+(.*)\n");
-		if (!formats.exactMatch(allText))
+        const auto& formats = QRegularExpression(".*Supported formats:\\s+(.*)\n");
+		if (!formats.match(allText).hasMatch())
 		{
 			AQError("bool Convert_HDD_Image_Window::Get_QEMU_IMG_Info()",
 					"Cannot match RegExp!");
 			return false;
 		}
 
-		QStringList tmpList = formats.capturedTexts();
+		QStringList tmpList = formats.match(allText).capturedTexts();
 		if (tmpList.count() < 2)
 		{
 			AQError("bool Convert_HDD_Image_Window::Get_QEMU_IMG_Info()",
@@ -301,7 +301,7 @@ bool Convert_HDD_Image_Window::Get_QEMU_IMG_Info()
 			return false;
 		}
 
-		QStringList formatsList = tmpList[1].split(' ', QString::SkipEmptyParts);
+		QStringList formatsList = tmpList[1].split(' ', Qt::SkipEmptyParts);
 		if (formatsList.isEmpty())
 		{
 			AQError("bool Convert_HDD_Image_Window::Get_QEMU_IMG_Info()",

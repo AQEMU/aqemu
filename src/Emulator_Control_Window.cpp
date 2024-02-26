@@ -28,7 +28,8 @@
 #include <QFileDialog>
 #include <QInputDialog>
 #include <QMessageBox>
-#include <QDesktopWidget>
+// TODO: QDesktopWidget rewrite to qt6
+//#include <QDesktopWidget>
 #include <QClipboard>
 
 #ifdef Q_OS_WIN32
@@ -72,10 +73,11 @@ void Emulator_Control_Window::Apply_Full_Size( int w, int h )
 	if( ! ui.actionDisplay_Scaling->isChecked() )
 	{
 		setMaximumSize( w, h + menuWidget()->height() );
-		
-		QDesktopWidget desktop;
-		if( desktop.screenGeometry(desktop.primaryScreen()).width() > w )
-			resize( w, h + menuWidget()->height() );
+
+        // TODO: QDesktopWidget rewrite to qt6
+		//QDesktopWidget desktop;
+		//if( desktop.screenGeometry(desktop.primaryScreen()).width() > w )
+		//	resize( w, h + menuWidget()->height() );
 	}
 	else
 	{
@@ -125,13 +127,13 @@ void Emulator_Control_Window::Create_Connect_Menu()
 	QString list = Cur_VM->Get_Removable_Devices_List();
 	
 	// Parse
-	QStringList devices = list.split( '\n', QString::SkipEmptyParts );
+	QStringList devices = list.split( '\n', Qt::SkipEmptyParts );
 	ui.menuConnectNew->clear();
 	Removable_Devies_Map.clear();
 	
 	for( int ix = 0; ix < devices.count()-1; ++ix )
 	{
-		QStringList curDev = devices[ ix ].split( ' ', QString::SkipEmptyParts );
+		QStringList curDev = devices[ ix ].split( ' ', Qt::SkipEmptyParts );
 		
 		// Data in curDev look like this:		
 		// ide0-hd0: removable=0 io-status=ok file=/tmp/vl.0x5urG backing_file=/mnt/os/vm/winxp_empty.qcow2 ro=0 drv=qcow2 encrypted=0
@@ -151,15 +153,15 @@ void Emulator_Control_Window::Create_Connect_Menu()
 		if( curDev[0].contains("-cd") ) // CD-ROM
 		{
 			// Create human readable id for device
-			QRegExp rx( "^([a-zA-Z]+)(\\d+)\\-([a-zA-Z]+)(\\d+)\\:$" );
-			if( ! rx.exactMatch(curDev[0]) )
+			QRegularExpression rx( "^([a-zA-Z]+)(\\d+)\\-([a-zA-Z]+)(\\d+)\\:$" );
+			if( ! rx.match(curDev[0]).hasMatch() )
 			{
 				AQError( "void Emulator_Control_Window::Create_Connect_Menu()",
 						 "Unable to match regexp! Data: " + curDev[0] );
 				continue;
 			}
 			
-			QStringList nameStrings = rx.capturedTexts();
+			QStringList nameStrings = rx.match(curDev[0]).capturedTexts();
 			if( nameStrings.count() != 5 )
 			{
 				AQError( "void Emulator_Control_Window::Create_Connect_Menu()",
@@ -186,15 +188,15 @@ void Emulator_Control_Window::Create_Connect_Menu()
 		else if( curDev[0].contains("sd") ) // SD Card
 		{
 			// Create human readable id for device
-			QRegExp rx( "^([a-zA-Z]+)(\\d+):$" );
-			if( ! rx.exactMatch(curDev[0]) )
+			QRegularExpression rx( "^([a-zA-Z]+)(\\d+):$" );
+			if( ! rx.match(curDev[0]).hasMatch() )
 			{
 				AQError( "void Emulator_Control_Window::Create_Connect_Menu()",
 						 "Unable to match regexp! Data: " + curDev[0] );
 				continue;
 			}
 			
-			QStringList nameStrings = rx.capturedTexts();
+			QStringList nameStrings = rx.match(curDev[0]).capturedTexts();
 			if( nameStrings.count() != 3 )
 			{
 				AQError( "void Emulator_Control_Window::Create_Connect_Menu()",
@@ -246,7 +248,7 @@ void Emulator_Control_Window::Create_Device_Menu()
 	}
 	
 	// Parse line
-	QString internalDevName = QString(value).replace( QRegExp("\\:.*"), "" ); // Get device name
+	QString internalDevName = QString(value).replace( QRegularExpression("\\:.*"), "" ); // Get device name
 	
 	// Get device source path
 	QString deviceSourcePath = "";
@@ -427,7 +429,7 @@ void Emulator_Control_Window::Connect_Device()
 	
 	if( act )
 	{
-		QStringList nameAndPath = act->data().toString().split( '\n', QString::SkipEmptyParts );
+		QStringList nameAndPath = act->data().toString().split( '\n', Qt::SkipEmptyParts );
 		if( nameAndPath.count() < 2 )
 		{
 			AQError( "void Emulator_Control_Window::Connect_Device()",
@@ -438,7 +440,7 @@ void Emulator_Control_Window::Connect_Device()
 		// Change device source
 		//emit Ready_Read_Command( QString("change %1 \"%2\"").arg(nameAndPath[0]).arg(nameAndPath[1]) );
 		Set_Device( nameAndPath[0], nameAndPath[1] );
-		// FIXME Save changet device source path
+		// FIXME: Save changed device source path
 	}
 }
 

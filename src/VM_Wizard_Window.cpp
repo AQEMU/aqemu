@@ -22,7 +22,7 @@
 ****************************************************************************/
 
 #include <QDir>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QFileDialog>
 
 #include "Utils.h"

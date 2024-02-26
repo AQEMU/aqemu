@@ -191,12 +191,12 @@ SET(CMAKE_AUTOUIC ON)
 SET(CMAKE_AUTORCC ON)
 
 # Check Qt
-FIND_PACKAGE( Qt5Core )
-FIND_PACKAGE( Qt5Widgets )
-FIND_PACKAGE( Qt5Network )
-FIND_PACKAGE( Qt5Test )
-FIND_PACKAGE( Qt5PrintSupport )
-FIND_PACKAGE( Qt5DBus )
+FIND_PACKAGE( Qt6Core REQUIRED )
+FIND_PACKAGE( Qt6Widgets REQUIRED )
+FIND_PACKAGE( Qt6Network REQUIRED )
+FIND_PACKAGE( Qt6Test REQUIRED )
+FIND_PACKAGE( Qt6PrintSupport REQUIRED )
+FIND_PACKAGE( Qt6DBus REQUIRED )
 
 # Embedded VNC display
 IF( NOT WITHOUT_EMBEDDED_DISPLAY )
@@ -240,11 +240,11 @@ SET_PROPERTY(TARGET aqemu PROPERTY CXX_STANDARD 11)
 SET_PROPERTY(TARGET aqemu PROPERTY CXX_STANDARD_REQUIRED ON)
 
 TARGET_LINK_LIBRARIES( aqemu
-	Qt5::Widgets
-    Qt5::Network
-    Qt5::Test
-    Qt5::PrintSupport
-    Qt5::DBus
+    Qt6::Widgets
+    Qt6::Network
+    Qt6::Test
+    Qt6::PrintSupport
+    Qt6::DBus
 )
 
 # Embedded VNC display

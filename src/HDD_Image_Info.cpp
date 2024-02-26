@@ -22,6 +22,7 @@
 
 #include <QFile>
 #include <QSettings>
+#include <QRegularExpression>
 
 #include "Utils.h"
 #include "HDD_Image_Info.h"
@@ -103,20 +104,20 @@ void HDD_Image_Info::Parse_Info( int exitCode, QProcess::ExitStatus exitStatus )
 		return;
 	}
 	
-	QRegExp RegInfo = QRegExp( ".*image:[\\s]+([^\n\r]+).*file format:[\\s]+([\\w\\d]+).*virtual size:[\\s]+([\\d]+[.]*[\\d]*[KMG]+).*disk size:[\\s]+([\\d]+[.]*[\\d]*[KMG]+).*cluster_size:[\\s]+([\\d]+).*" );
+    auto RegInfo = QRegularExpression( ".*image:[\\s]+([^\n\r]+).*file format:[\\s]+([\\w\\d]+).*virtual size:[\\s]+([\\d]+[.]*[\\d]*[KMG]+).*disk size:[\\s]+([\\d]+[.]*[\\d]*[KMG]+).*cluster_size:[\\s]+([\\d]+).*" );
 	
 	bool cluster = true;
-		if( ! RegInfo.exactMatch(info_str) )
+        if( ! RegInfo.match(info_str).hasMatch() )
 	{
 		AQWarning( "void QEMU_IMG_Thread::Parse_Info( int exitCode, QProcess::ExitStatus exitStatus )",
 				   "QRegExp With Cluster Size Not Matched!" );
 		
-        RegInfo = QRegExp( QString(".*image:[\\s]+([^\n\r]+).*")+
-                           QString("file format:[\\s]+([\\w\\d]+).*")+
-                           QString("virtual size:[\\s]+([\\d]+[.]*[\\d]*[KMG]+).*")+
-                           QString("disk size:[\\s]+([\\d]+[.]*[\\d]*[KMG]*).*") );
+        RegInfo = QRegularExpression( QString(".*image:[\\s]+([^\n\r]+).*")+
+                                      QString("file format:[\\s]+([\\w\\d]+).*")+
+                                      QString("virtual size:[\\s]+([\\d]+[.]*[\\d]*[KMG]+).*")+
+                                      QString("disk size:[\\s]+([\\d]+[.]*[\\d]*[KMG]*).*") );
 		
-		if( ! RegInfo.exactMatch(info_str) )
+        if( ! RegInfo.match(info_str).hasMatch() )
 		{
 			AQError( "void QEMU_IMG_Thread::Parse_Info( int exitCode, QProcess::ExitStatus exitStatus )",
 					 "QRegExp Without Cluster Size Not Matched! Image: " + Info.Image_File_Name + "\nData: " + info_str );
@@ -129,7 +130,7 @@ void HDD_Image_Info::Parse_Info( int exitCode, QProcess::ExitStatus exitStatus )
 		}
 	}
 	
-	QStringList info_lines = RegInfo.capturedTexts();
+    QStringList info_lines = RegInfo.match(info_str).capturedTexts();
 	
 	if( cluster && info_lines.count() != 6 )
 	{

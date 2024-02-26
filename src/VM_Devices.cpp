@@ -21,7 +21,7 @@
 **
 ****************************************************************************/
 
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QUuid>
 #include <QSettings>
 #include <QFile>

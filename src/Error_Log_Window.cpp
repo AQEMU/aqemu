@@ -41,7 +41,7 @@ Error_Log_Window::Error_Log_Window( QWidget *parent )
 
 void Error_Log_Window::Add_to_Log( const QString& err_str )
 {
-	if( err_str.indexOf(QRegExp("\\w+"), 0) == -1 ) return;
+	if( err_str.indexOf(QRegularExpression("\\w+"), 0) == -1 ) return;
 	
 	Errors_Count++;
 	

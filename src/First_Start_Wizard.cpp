@@ -170,7 +170,7 @@ void First_Start_Wizard::on_Button_Find_Emulators_clicked()
 			if( sys_env[ix].startsWith("PATH=") )
 			{
 				QString tmp = sys_env[ ix ].remove( "PATH=" );
-				paths = tmp.split( ":", QString::SkipEmptyParts );
+				paths = tmp.split( ":", Qt::SkipEmptyParts );
 				break;
 			}
 		}

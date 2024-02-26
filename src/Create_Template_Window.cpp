@@ -134,8 +134,8 @@ void Create_Template_Window::on_Button_Create_clicked()
 	
 	// Create FS Valid File Name
 	QString new_template_name = ui.Edit_Template_Name->text();
-	
-	QRegExp VM_Name_Val = QRegExp( "[^a-zA-Z0-9_]" );
+
+	auto VM_Name_Val = QRegularExpression( "[^a-zA-Z0-9_]" );
 	new_template_name = new_template_name.replace( VM_Name_Val, "_" );
 	new_template_name = new_template_name.replace( "__", "_" );
 	
@@ -167,8 +167,8 @@ bool Create_Template_Window::Name_is_Unique()
 			
 			// Create FS Valid File Name
 			QString new_template_name = ui.Edit_Template_Name->text();
-	
-			QRegExp VM_Name_Val = QRegExp( "[^a-zA-Z0-9_]" );
+
+			auto VM_Name_Val = QRegularExpression( "[^a-zA-Z0-9_]" );
 			new_template_name = new_template_name.replace( VM_Name_Val, "_" );
 			new_template_name = new_template_name.replace( "__", "_" );
 			

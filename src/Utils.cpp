@@ -29,7 +29,7 @@
 #include <QMessageBox>
 #include <QApplication>
 #include <QSettings>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QProcess>
 #include <QStringList>
 #include <QTextStream>
