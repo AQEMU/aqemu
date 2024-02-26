@@ -1274,46 +1274,46 @@ Available_Devices System_Info::Get_Emulator_Info(const QString &path, bool *ok,
 	// -M
 	bool scan_Machines_List = false;
     auto rx = QRegularExpression(".*-M\\s+.*");
-	if (rx.exactMatch(all_help))
+    if (rx.match(all_help).hasMatch())
 		scan_Machines_List = true;
 
 	// -cpu
 	bool scan_CPU_List = false;
     rx = QRegularExpression(".*-cpu\\s.*");
-	if (rx.exactMatch(all_help))
+    if (rx.match(all_help).hasMatch())
 		scan_CPU_List = true;
 
 	// -smp FIXME PSO_SMP_Count use base emulator settings
     rx = QRegularExpression(".*-smp\\s.*");
-	if (rx.exactMatch(all_help))
+    if (rx.match(all_help).hasMatch())
 	{
 		// New Style?
-		rx = QRegExp(".*-smp\\s+.*\\[(.*)\\].*");
+        rx = QRegularExpression(".*-smp\\s+.*\\[(.*)\\].*");
 
 		if (internalName == "qemu-system-x86_64")
 			tmp_dev.PSO_SMP_Count = 255;
 		else if (internalName == "qemu-system-sparc")
 			tmp_dev.PSO_SMP_Count = 4;
 
-		if (rx.exactMatch(all_help))
+        if (rx.match(all_help).hasMatch())
 		{
-			if (rx.capturedTexts().count() > 1)
+            if (rx.match(all_help).capturedTexts().count() > 1)
 			{
-				if (rx.capturedTexts()[1].indexOf("cores") != -1)
+                if (rx.match(all_help).capturedTexts()[1].indexOf("cores") != -1)
 					tmp_dev.PSO_SMP_Cores = true;
-				if (rx.capturedTexts()[1].indexOf("threads") != -1)
+                if (rx.match(all_help).capturedTexts()[1].indexOf("threads") != -1)
 					tmp_dev.PSO_SMP_Threads = true;
-				if (rx.capturedTexts()[1].indexOf("sockets") != -1)
+                if (rx.match(all_help).capturedTexts()[1].indexOf("sockets") != -1)
 					tmp_dev.PSO_SMP_Sockets = true;
-				if (rx.capturedTexts()[1].indexOf("maxcpus") != -1)
+                if (rx.match(all_help).capturedTexts()[1].indexOf("maxcpus") != -1)
 					tmp_dev.PSO_SMP_MaxCPUs = true;
 			}
 		}
 	}
 
 	// -device
-	rx = QRegExp(".*-device\\s.*");
-	if (rx.exactMatch(all_help))
+    rx = QRegularExpression(".*-device\\s.*");
+    if (rx.match(all_help).hasMatch())
 	{
 		tmp_dev.PSO_Device = true;
 
@@ -1322,23 +1322,23 @@ Available_Devices System_Info::Get_Emulator_Info(const QString &path, bool *ok,
 																	  << "?");
 
 		// Find usb-ehci support (USB 2.0)
-		rx = QRegExp(".*usb\\-ehci.*");
-		if (rx.exactMatch(emulDevList))
+        rx = QRegularExpression(".*usb\\-ehci.*");
+        if (rx.match(emulDevList).hasMatch())
 			tmp_dev.PSO_Device_USB_EHCI = true;
 
 		// Find usb-xhci support (USB 3.0)
-		rx = QRegExp(".*usb\\-xhci.*");
-		if (rx.exactMatch(emulDevList))
+        rx = QRegularExpression(".*usb\\-xhci.*");
+        if (rx.match(emulDevList).hasMatch())
 			tmp_dev.PSO_Device_USB_XHCI = true;
 	}
 
 	// -drive
-	rx = QRegExp(".*-drive\\s+(\\[.*\\]).*-.*");
-	if (rx.exactMatch(all_help))
+    rx = QRegularExpression(".*-drive\\s+(\\[.*\\]).*-.*");
+    if (rx.match(all_help).hasMatch())
 	{
 		tmp_dev.PSO_Drive = true;
 
-		QStringList rx_list = rx.capturedTexts();
+        QStringList rx_list = rx.match(all_help).capturedTexts();
 		if (rx_list.count() > 1)
 		{
 			// Parse drive options list
@@ -1374,111 +1374,111 @@ Available_Devices System_Info::Get_Emulator_Info(const QString &path, bool *ok,
 	}
 
 	// -boot [order=drives][,once=drives][,menu=on|off]
-	rx = QRegExp(".*-boot\\s+\\[order.*");
-	if (rx.exactMatch(all_help))
+    rx = QRegularExpression(".*-boot\\s+\\[order.*");
+    if (rx.match(all_help).hasMatch())
 		tmp_dev.PSO_Boot_Order = true;
 
 	// -g WxH[xDEPTH]
-	rx = QRegExp(".*-g\\s.*");
-	if (rx.exactMatch(all_help))
+    rx = QRegularExpression(".*-g\\s.*");
+    if (rx.match(all_help).hasMatch())
 		tmp_dev.PSO_Initial_Graphic_Mode = true;
 
 	// -no-fd-bootchk
-	rx = QRegExp(".*-no-fd-bootchk\\s.*");
-	if (rx.exactMatch(all_help))
+    rx = QRegularExpression(".*-no-fd-bootchk\\s.*");
+    if (rx.match(all_help).hasMatch())
 		tmp_dev.PSO_No_FB_Boot_Check = true;
 
 	// -win2k-hack
-	rx = QRegExp(".*-win2k-hack\\s.*");
-	if (rx.exactMatch(all_help))
+    rx = QRegularExpression(".*-win2k-hack\\s.*");
+    if (rx.match(all_help).hasMatch())
 		tmp_dev.PSO_Win2K_Hack = true;
 
 	// -no-acpi
-	rx = QRegExp(".*-no-acpi\\s.*");
-	if (rx.exactMatch(all_help))
+    rx = QRegularExpression(".*-no-acpi\\s.*");
+    if (rx.match(all_help).hasMatch())
 		tmp_dev.PSO_No_ACPI = true;
 
 	// (old option -rtc-td-hack) -rtc *,drift=slew
-	rx = QRegExp(".*-rtc\\s.*");
-	if (rx.exactMatch(all_help))
+    rx = QRegularExpression(".*-rtc\\s.*");
+    if (rx.match(all_help).hasMatch())
 		tmp_dev.PSO_RTC_TD_Hack = true;
 
 	// -mtdblock
-	rx = QRegExp(".*-mtdblock\\s.*");
-	if (rx.exactMatch(all_help))
+    rx = QRegularExpression(".*-mtdblock\\s.*");
+    if (rx.match(all_help).hasMatch())
 		tmp_dev.PSO_MTDBlock = true;
 
 	// -sd
-	rx = QRegExp(".*-sd\\s.*");
-	if (rx.exactMatch(all_help))
+    rx = QRegularExpression(".*-sd\\s.*");
+    if (rx.match(all_help).hasMatch())
 		tmp_dev.PSO_SD = true;
 
 	// -pflash
-	rx = QRegExp(".*-pflash\\s.*");
-	if (rx.exactMatch(all_help))
+    rx = QRegularExpression(".*-pflash\\s.*");
+    if (rx.match(all_help).hasMatch())
 		tmp_dev.PSO_PFlash = true;
 
 	// -name
-	rx = QRegExp(".*-name\\s.*");
-	if (rx.exactMatch(all_help))
+    rx = QRegularExpression(".*-name\\s.*");
+    if (rx.match(all_help).hasMatch())
 		tmp_dev.PSO_Name = true;
 
 	// -curses
-	rx = QRegExp(".*-curses\\s.*");
-	if (rx.exactMatch(all_help))
+    rx = QRegularExpression(".*-curses\\s.*");
+    if (rx.match(all_help).hasMatch())
 		tmp_dev.PSO_Curses = true;
 
 	// -no-frame
-	rx = QRegExp(".*-no-frame\\s.*");
-	if (rx.exactMatch(all_help))
+    rx = QRegularExpression(".*-no-frame\\s.*");
+    if (rx.match(all_help).hasMatch())
 		tmp_dev.PSO_No_Frame = true;
 
 	// -alt-grab
-	rx = QRegExp(".*-alt-grab\\s.*");
-	if (rx.exactMatch(all_help))
+    rx = QRegularExpression(".*-alt-grab\\s.*");
+    if (rx.match(all_help).hasMatch())
 		tmp_dev.PSO_Alt_Grab = true;
 
 	// -no-quit
-	rx = QRegExp(".*-no-quit\\s.*");
-	if (rx.exactMatch(all_help))
+    rx = QRegularExpression(".*-no-quit\\s.*");
+    if (rx.match(all_help).hasMatch())
 		tmp_dev.PSO_No_Quit = true;
 
 	// -sdl
-	rx = QRegExp(".*-sdl\\s.*");
-	if (rx.exactMatch(all_help))
+    rx = QRegularExpression(".*-sdl\\s.*");
+    if (rx.match(all_help).hasMatch())
 		tmp_dev.PSO_SDL = true;
 
 	// -portrait
-	rx = QRegExp(".*-portrait\\s.*");
-	if (rx.exactMatch(all_help))
+    rx = QRegularExpression(".*-portrait\\s.*");
+    if (rx.match(all_help).hasMatch())
 		tmp_dev.PSO_Portrait = true;
 
 	// -no-shutdown
-	rx = QRegExp(".*-no-shutdown\\s.*");
-	if (rx.exactMatch(all_help))
+    rx = QRegularExpression(".*-no-shutdown\\s.*");
+    if (rx.match(all_help).hasMatch())
 		tmp_dev.PSO_No_Shutdown = true;
 
 	// (old -startdate option) -rtc base=date
-	rx = QRegExp(".*-rtc\\s.*");
-	if (rx.exactMatch(all_help))
+    rx = QRegularExpression(".*-rtc\\s.*");
+    if (rx.match(all_help).hasMatch())
 		tmp_dev.PSO_Startdate = true;
 
 	// -show-cursor
-	rx = QRegExp(".*-show-cursor\\s.*");
-	if (rx.exactMatch(all_help))
+    rx = QRegularExpression(".*-show-cursor\\s.*");
+    if (rx.match(all_help).hasMatch())
 		tmp_dev.PSO_Show_Cursor = true;
 
 	// -bootp
-	rx = QRegExp(".*-bootp\\s.*");
-	if (rx.exactMatch(all_help))
+    rx = QRegularExpression(".*-bootp\\s.*");
+    if (rx.match(all_help).hasMatch())
 		tmp_dev.PSO_Bootp = true;
 
 	// -netdev
 	QString net_str = "";
-	rx = QRegExp(".*(-netdev\\s+.*)-net.*");
-	if (rx.exactMatch(all_help))
+    rx = QRegularExpression(".*(-netdev\\s+.*)-net.*");
+    if (rx.match(all_help).hasMatch())
 	{
-		QStringList rx_list = rx.capturedTexts();
+        QStringList rx_list = rx.match(all_help).capturedTexts();
 
 		/*for ( int i = 0; i < rx_list.count(); i++)
 		{
@@ -1490,7 +1490,7 @@ Available_Devices System_Info::Get_Emulator_Info(const QString &path, bool *ok,
 	}
 
 	// -net nic
-	rx = QRegExp(".*(-net\\s+nic.*)-net.*");
+    rx = QRegularExpression(".*(-net\\s+nic.*)-net.*");
 	if (rx.exactMatch(all_help))
 	{
 		QStringList rx_list = rx.capturedTexts();
@@ -1499,7 +1499,7 @@ Available_Devices System_Info::Get_Emulator_Info(const QString &path, bool *ok,
 	}
 
 	// -net user
-	rx = QRegExp(".*(-net\\s+user.*)-net.*");
+    rx = QRegularExpression(".*(-net\\s+user.*)-net.*");
 	if (rx.exactMatch(all_help))
 	{
 		QStringList rx_list = rx.capturedTexts();
@@ -1508,7 +1508,7 @@ Available_Devices System_Info::Get_Emulator_Info(const QString &path, bool *ok,
 	}
 
 	// -net bridge
-	rx = QRegExp(".*(-net\\s+bridge.*)-net.*");
+    rx = QRegularExpression(".*(-net\\s+bridge.*)-net.*");
 	if (rx.exactMatch(all_help))
 	{
 		QStringList rx_list = rx.capturedTexts();
@@ -1517,7 +1517,7 @@ Available_Devices System_Info::Get_Emulator_Info(const QString &path, bool *ok,
 	}
 
 	// -net tap
-	rx = QRegExp(".*(-net\\s+tap.*)-net.*");
+    rx = QRegularExpression(".*(-net\\s+tap.*)-net.*");
 	if (rx.exactMatch(all_help))
 	{
 		QStringList rx_list = rx.capturedTexts();
@@ -1526,7 +1526,7 @@ Available_Devices System_Info::Get_Emulator_Info(const QString &path, bool *ok,
 	}
 
 	// -net socket
-	rx = QRegExp(".*(-net\\s+socket.*)-net.*");
+    rx = QRegularExpression(".*(-net\\s+socket.*)-net.*");
 	if (rx.exactMatch(all_help))
 	{
 		QStringList rx_list = rx.capturedTexts();
@@ -1535,7 +1535,7 @@ Available_Devices System_Info::Get_Emulator_Info(const QString &path, bool *ok,
 	}
 
 	// -net vde
-	rx = QRegExp(".*(-net\\s+vde.*)-net.*");
+    rx = QRegularExpression(".*(-net\\s+vde.*)-net.*");
 	if (rx.exactMatch(all_help))
 	{
 		tmp_dev.PSO_Net_type_vde = true;
@@ -1546,7 +1546,7 @@ Available_Devices System_Info::Get_Emulator_Info(const QString &path, bool *ok,
 	}
 
 	// -net dump
-	rx = QRegExp(".*(-net\\s+dump.*)-net.*");
+    rx = QRegularExpression(".*(-net\\s+dump.*)-net.*");
 	if (rx.exactMatch(all_help))
 	{
 		tmp_dev.PSO_Net_type_dump = true;
@@ -1566,200 +1566,200 @@ Available_Devices System_Info::Get_Emulator_Info(const QString &path, bool *ok,
 	else
 	{
 		// name
-		rx = QRegExp(".*name=.*");
+        rx = QRegularExpression(".*name=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_name = true;
 
 		// addr
-		rx = QRegExp(".*addr=.*");
+        rx = QRegularExpression(".*addr=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_addr = true;
 
 		// vectors
-		rx = QRegExp(".*vectors=.*");
+        rx = QRegularExpression(".*vectors=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_vectors = true;
 
 		// net
-		rx = QRegExp(".*net=.*");
+        rx = QRegularExpression(".*net=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_net = true;
 
 		// host
-		rx = QRegExp(".*host=.*");
+        rx = QRegularExpression(".*host=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_host = true;
 
 		// restrict
-		rx = QRegExp(".*restrict=.*");
+        rx = QRegularExpression(".*restrict=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_restrict = true;
 
 		// dhcpstart
-		rx = QRegExp(".*dhcpstart=.*");
+        rx = QRegularExpression(".*dhcpstart=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_dhcpstart = true;
 
 		// dns
-		rx = QRegExp(".*dns=.*");
+        rx = QRegularExpression(".*dns=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_dns = true;
 
 		// tftp
-		rx = QRegExp(".*tftp=.*");
+        rx = QRegularExpression(".*tftp=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_tftp = true;
 
 		// bootfile
-		rx = QRegExp(".*bootfile=.*");
+        rx = QRegularExpression(".*bootfile=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_bootfile = true;
 
 		// smb
-		rx = QRegExp(".*smb=.*");
+        rx = QRegularExpression(".*smb=.*");
 		if (rx.exactMatch(net_str))
 		{
 			tmp_dev.PSO_Net_smb = true;
 		}
 
 		// hostfwd
-		rx = QRegExp(".*hostfwd=.*");
+        rx = QRegularExpression(".*hostfwd=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_hostfwd = true;
 
 		// guestfwd
-		rx = QRegExp(".*guestfwd=.*");
+        rx = QRegularExpression(".*guestfwd=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_guestfwd = true;
 
 		// ifname
-		rx = QRegExp(".*ifname=.*");
+        rx = QRegularExpression(".*ifname=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_ifname = true;
 
 		// bridge
-		rx = QRegExp(".*br=.*");
+        rx = QRegularExpression(".*br=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_bridge = true;
 
 		// script
-		rx = QRegExp(".*script=.*");
+        rx = QRegularExpression(".*script=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_script = true;
 
 		// downscript
-		rx = QRegExp(".*downscript=.*");
+        rx = QRegularExpression(".*downscript=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_downscript = true;
 
 		// helper
-		rx = QRegExp(".*helper=.*");
+        rx = QRegularExpression(".*helper=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_helper = true;
 
 		// sndbuf
-		rx = QRegExp(".*sndbuf=.*");
+        rx = QRegularExpression(".*sndbuf=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_sndbuf = true;
 
 		// vnet_hdr
-		rx = QRegExp(".*vnet_hdr=.*");
+        rx = QRegularExpression(".*vnet_hdr=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_vnet_hdr = true;
 
 		// vhost
-		rx = QRegExp(".*vhost=.*");
+        rx = QRegularExpression(".*vhost=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_vhost = true;
 
 		// vhostfd
-		rx = QRegExp(".*vhostfd=.*");
+        rx = QRegularExpression(".*vhostfd=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_vhostfd = true;
 
 		// listen
-		rx = QRegExp(".*listen=.*");
+        rx = QRegularExpression(".*listen=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_listen = true;
 
 		// connect
-		rx = QRegExp(".*connect=.*");
+        rx = QRegularExpression(".*connect=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_connect = true;
 
 		// mcast
-		rx = QRegExp(".*mcast=.*");
+        rx = QRegularExpression(".*mcast=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_mcast = true;
 
 		// sock
-		rx = QRegExp(".*sock=.*");
+        rx = QRegularExpression(".*sock=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_sock = true;
 
 		// port
-		rx = QRegExp(".*port=.*");
+        rx = QRegularExpression(".*port=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_port = true;
 
 		// group
-		rx = QRegExp(".*group=.*");
+        rx = QRegularExpression(".*group=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_group = true;
 
 		// mode
-		rx = QRegExp(".*mode=.*");
+        rx = QRegularExpression(".*mode=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_mode = true;
 
 		// file
-		rx = QRegExp(".*file=.*");
+        rx = QRegularExpression(".*file=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_file = true;
 
 		// len
-		rx = QRegExp(".*len=.*");
+        rx = QRegularExpression(".*len=.*");
 		if (rx.exactMatch(net_str))
 			tmp_dev.PSO_Net_len = true;
 	}
 
 	// -enable-kvm
-	rx = QRegExp(".*-enable-kvm\\s.*");
+    rx = QRegularExpression(".*-enable-kvm\\s.*");
 	if (rx.exactMatch(all_help))
 		tmp_dev.PSO_Enable_KVM = true;
 
 	// -no-kvm
-	rx = QRegExp(".*-no-kvm\\s.*");
+    rx = QRegularExpression(".*-no-kvm\\s.*");
 	if (rx.exactMatch(all_help))
 		tmp_dev.PSO_No_KVM = true;
 
 	// -no-kvm-irqchip
-	rx = QRegExp(".*-no-kvm-irqchip\\s.*");
+    rx = QRegularExpression(".*-no-kvm-irqchip\\s.*");
 	if (rx.exactMatch(all_help))
 		tmp_dev.PSO_No_KVM_IRQChip = true;
 
 	// -no-kvm-pit
-	rx = QRegExp(".*-no-kvm-pit\\s.*");
+    rx = QRegularExpression(".*-no-kvm-pit\\s.*");
 	if (rx.exactMatch(all_help))
 		tmp_dev.PSO_No_KVM_Pit = true;
 
 	// -no-kvm-pit-reinjection
-	rx = QRegExp(".*-no-kvm-pit-reinjection\\s.*");
+    rx = QRegularExpression(".*-no-kvm-pit-reinjection\\s.*");
 	if (rx.exactMatch(all_help))
 		tmp_dev.PSO_No_KVM_Pit_Reinjection = true;
 
 	// -enable-nesting
-	rx = QRegExp(".*-enable-nesting\\s.*");
+    rx = QRegularExpression(".*-enable-nesting\\s.*");
 	if (rx.exactMatch(all_help))
 		tmp_dev.PSO_Enable_Nesting = true;
 
 	// -kvm-shadow-memory
-	rx = QRegExp(".*kvm_shadow_mem=.*");
+    rx = QRegularExpression(".*kvm_shadow_mem=.*");
 	if (rx.exactMatch(all_help))
 		tmp_dev.PSO_KVM_Shadow_Memory = true;
 
 	// -tftp
-	rx = QRegExp(".*-tftp\\s.*");
+    rx = QRegularExpression(".*-tftp\\s.*");
 	if (rx.exactMatch(all_help))
 		tmp_dev.PSO_TFTP = true;
 
@@ -1770,7 +1770,7 @@ Available_Devices System_Info::Get_Emulator_Info(const QString &path, bool *ok,
 	}
 
 	// -smb
-	rx = QRegExp(".*-smb\\s.*");
+    rx = QRegularExpression(".*-smb\\s.*");
 	if (rx.exactMatch(all_help))
 		tmp_dev.PSO_SMB = true;
 
@@ -1781,17 +1781,17 @@ Available_Devices System_Info::Get_Emulator_Info(const QString &path, bool *ok,
 	}
 
 	// -std-vga
-	rx = QRegExp(".*-std-vga\\s.*");
+    rx = QRegularExpression(".*-std-vga\\s.*");
 	if (rx.exactMatch(all_help))
 		tmp_dev.PSO_Std_VGA = true;
 
 	// -spice
-	rx = QRegExp(".*-spice\\s.*");
+    rx = QRegularExpression(".*-spice\\s.*");
 	if (rx.exactMatch(all_help))
 		tmp_dev.PSO_SPICE = true;
 
 	// -qxl
-	rx = QRegExp(".*-qxl\\s.*");
+    rx = QRegularExpression(".*-qxl\\s.*");
 	if (rx.exactMatch(all_help))
 		tmp_dev.PSO_QXL = true;
 
@@ -1855,7 +1855,7 @@ Available_Devices System_Info::Get_Emulator_Info(const QString &path, bool *ok,
 		// Get QEMU ID String
 		for (int lx = 0; lx < regExpVariants.count(); ++lx)
 		{
-			QRegExp tmp_rx = QRegExp(regExpVariants[lx]);
+            auto tmp_rx = QRegularExpression(regExpVariants[lx]);
 			if (tmp_rx.exactMatch(tmp))
 			{
 				QStringList rx_list = tmp_rx.capturedTexts();
@@ -1881,7 +1881,7 @@ Available_Devices System_Info::Get_Emulator_Info(const QString &path, bool *ok,
 
 		// String empty?
 		if (!(qemu_dev_name.isEmpty() ||
-			  qemu_dev_name.indexOf(QRegExp("/^\\S+$/"), 0) != -1))
+              qemu_dev_name.indexOf(QRegularExpression("/^\\S+$/"), 0) != -1))
 		{
 			bool cpu_found = false;
 			for (int ix = 0; ix < default_device.CPU_List.count(); ix++)
@@ -1927,7 +1927,7 @@ Available_Devices System_Info::Get_Emulator_Info(const QString &path, bool *ok,
 			continue;
 
 		// Get QEMU ID String
-		QRegExp tmp_rx = QRegExp("([\\w-.]+)\\s+(\\S.*)");
+        auto tmp_rx = QRegularExpression("([\\w-.]+)\\s+(\\S.*)");
 		if (tmp_rx.exactMatch(tmp))
 		{
 			QStringList rx_list = tmp_rx.capturedTexts();
@@ -1987,7 +1987,7 @@ Available_Devices System_Info::Get_Emulator_Info(const QString &path, bool *ok,
 	} while (!vga_list_string.isNull());
 
 	// Get video cards names
-	rx = QRegExp(".*-vga\\s+\\[(.*)\\].*");
+    rx = QRegularExpression(".*-vga\\s+\\[(.*)\\].*");
 	if (rx.exactMatch(vga_list_string))
 	{
 		// Parse vga devices list string
@@ -2050,11 +2050,11 @@ Available_Devices System_Info::Get_Emulator_Info(const QString &path, bool *ok,
 		if (tmp.isEmpty() ||
 			tmp.startsWith("Valid sound card names") ||
 			tmp.startsWith("-soundhw") ||
-			tmp.indexOf(QRegExp("/^\\S+$/"), 0) != -1)
+            tmp.indexOf(QRegularExpression("/^\\S+$/"), 0) != -1)
 			continue;
 
 		// Get QEMU ID String
-		QRegExp tmp_rx = QRegExp("([\\w-.]+)\\s+.*");
+        auto tmp_rx = QRegularExpression("([\\w-.]+)\\s+.*");
 		if (tmp_rx.exactMatch(tmp))
 		{
 			QStringList rx_list = tmp_rx.capturedTexts();
@@ -2115,7 +2115,7 @@ Available_Devices System_Info::Get_Emulator_Info(const QString &path, bool *ok,
 		QString all_models = tmp.mid(tmp.indexOf("models:") + QString("models:").count(), tmp.count());
 		all_models.remove(QChar(' ')); // Remove all spaces
 
-		QStringList net_cards_models = all_models.split(',', QString::SkipEmptyParts);
+        QStringList net_cards_models = all_models.split(',', Qt::SkipEmptyParts);
 
 		if (net_cards_models.isEmpty())
 		{
