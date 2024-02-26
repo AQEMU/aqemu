@@ -9,10 +9,11 @@ PROJECT( AQEMU CXX )
 CMAKE_MINIMUM_REQUIRED( VERSION 3.1.0 FATAL_ERROR )
 
 # Available options
-OPTION( DEBUG "Build with debug information" )
-OPTION( WITHOUT_EMBEDDED_DISPLAY "Build without support Embedded VNC Display" )
-OPTION( UPDATE_TRANSLATIONS "Update source translation files (WARNING: make clean will delete the source .ts files!)" )
-OPTION( INSTALL_MAN "Install MAN page file" "ON" )
+OPTION( DEBUG "Build with debug information" $<IF:$<CONFIG:Debug>,ON,OFF>)
+OPTION( WITHOUT_EMBEDDED_DISPLAY "Build without support Embedded VNC Display" OFF)
+OPTION( UPDATE_TRANSLATIONS "Update source translation files (WARNING: make clean will delete the source .ts files!)" ON)
+OPTION( INSTALL_MAN "Install MAN page file" OFF)
+OPTION( MAN_PAGE_COMPRESSOR "Select MAN page file compressor. Available values: gzip, bzip2, lzma" "gzip")
 
 # Debug mode
 IF( DEBUG )
