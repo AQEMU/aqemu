@@ -42,7 +42,8 @@
 #include <QRect>
 #include <QLabel>
 #include <QHBoxLayout>
-#include <QDesktopWidget>
+// TODO: QDesktopWidget porting to qt6
+//#include <QDesktopWidget>
 
 //GenerateHTMLInfo
 #include <QTextEdit>

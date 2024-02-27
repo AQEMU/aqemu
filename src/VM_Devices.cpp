@@ -2241,16 +2241,16 @@ VM::Device_Size VM_HDD::String_to_Device_Size( const QString &size ) const
 		return zero_size;
 	}
 	
-	QRegExp RegInfo = QRegExp( "([\\d]+|[\\d]+[.,][\\d]+).*([KMG]+)" );
+    auto RegInfo = QRegularExpression( "([\\d]+|[\\d]+[.,][\\d]+).*([KMG]+)" );
 	
-	if( ! RegInfo.exactMatch(size) )
+    if( ! RegInfo.match(size).hasMatch() )
 	{
 		AQError( "VM::Device_Size VM_HDD::String_to_Device_Size( const QString &size ) const",
 				 "Cannot Match RegExp!" );
 		return zero_size;
 	}
 	
-	QStringList info_lines = RegInfo.capturedTexts();
+    QStringList info_lines = RegInfo.match(size).capturedTexts();
 	
 	bool ok = false;
 	hd_size.Size = info_lines[1].toDouble( &ok );
@@ -3992,16 +3992,16 @@ QString VM_USB::Get_ID_Line() const
 
 void VM_USB::Set_ID_Line( const QString &line )
 {
-	QRegExp id_line = QRegExp( "([\\dabcdef]{4})[:]{1}([\\dabcdef]{4})" );
+    auto id_line = QRegularExpression( "([\\dabcdef]{4})[:]{1}([\\dabcdef]{4})" );
 	
-	if( ! id_line.exactMatch(line) )
+    if( ! id_line.match(line).hasMatch() )
 	{
 		AQError( "void VM_USB::Set_ID_Line( const QString &line )",
 				 "Cannot Match QRegExp!" );
 		return;
 	}
 	
-	QStringList id_str = id_line.capturedTexts();
+    QStringList id_str = id_line.match(line).capturedTexts();
 	
 	Vendor_ID = id_str[1];
 	Product_ID = id_str[2];

@@ -35,6 +35,7 @@
 #include <QTextStream>
 
 #include <cmath>
+#include <algorithm>
 
 #ifdef Q_OS_WIN32
 #include <iostream>
@@ -310,12 +311,13 @@ bool Create_New_HDD_Image(bool encrypted, const QString &base_image,
 							QObject::tr("Error!"), QObject::tr("Cannot Create Image!\nInformation: ") + err);
 		}
 
-		QRegExp rx("Format*ing*fmt*size*");
-		rx.setPatternSyntax(QRegExp::Wildcard);
+        QString wildcardExp = QRegularExpression::wildcardToRegularExpression("Format*ing*fmt*size*");
+        QRegularExpression rx(QRegularExpression::anchoredPattern(wildcardExp),
+                              QRegularExpression::CaseInsensitiveOption);
 
 		if (verbose)
 		{
-			if (rx.exactMatch(out))
+            if (rx.match(out).hasMatch())
 			{
 				QMessageBox::information(NULL, QObject::tr("Complete!"),
 										 QObject::tr("QEMU-IMG is Creates HDD Image.\nAdditional Information:\n") + out);
@@ -402,7 +404,7 @@ QList<QString> Get_Templates_List()
 		all_templates.append(user_templates_list[ix].absoluteFilePath());
 
 	// sort
-	qSort(all_templates);
+    std::sort(all_templates.begin(), all_templates.end());
 
 	return all_templates;
 }
@@ -410,7 +412,7 @@ QList<QString> Get_Templates_List()
 QString Get_FS_Compatible_VM_Name(const QString &name)
 {
 	// QRegExp vm_name_val = QRegExp( "[^a-zA-Z0-9_]" ); // old style
-	QRegExp vm_name_val = QRegExp("[^\\w\\.]");
+    auto vm_name_val = QRegularExpression("[^\\w\\.]");
 
 	QString tmp = name;
 	tmp = tmp.replace(vm_name_val, "_");
@@ -421,7 +423,7 @@ QString Get_FS_Compatible_VM_Name(const QString &name)
 QString Get_Complete_VM_File_Path(const QString &vm_name)
 {
 	// QRegExp vm_name_val = QRegExp( "[^a-zA-Z0-9_]" ); // old style
-	QRegExp vm_name_val = QRegExp("[^\\w]");
+    auto vm_name_val = QRegularExpression("[^\\w]");
 
 	QString tmp = vm_name;
 	tmp = tmp.replace(vm_name_val, "_");

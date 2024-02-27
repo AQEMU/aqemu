@@ -329,16 +329,16 @@ bool Snapshots_Window::Update_Info()
 	
 	// Pre Str RegExp:
 	// .*Snapshot list:.*ID[\s]+TAG[\s]+VM[\s]+SIZE[\s]+DATE[\s]+VM[\s]+CLOCK(.+)
-	QRegExp RegInfo = QRegExp( ".*Snapshot list:.*ID[\\s]+TAG[\\s]+VM[\\s]+SIZE[\\s]+DATE[\\s]+VM[\\s]+CLOCK(.+)" );
+    auto RegInfo = QRegularExpression( ".*Snapshot list:.*ID[\\s]+TAG[\\s]+VM[\\s]+SIZE[\\s]+DATE[\\s]+VM[\\s]+CLOCK(.+)" );
 	
-	if( ! RegInfo.exactMatch(info_str) )
+    if( ! RegInfo.match(info_str).hasMatch() )
 	{
 		AQError( "bool Snapshots_Window::Update_Info()",
 				 "QRegExp Not Matched!" );
 		return false;
 	}
 	
-	QStringList info_lines = RegInfo.capturedTexts();
+    QStringList info_lines = RegInfo.match(info_str).capturedTexts();
 	
 	QList<VM_Snapshot> found_snapshots;
 	
@@ -347,14 +347,14 @@ bool Snapshots_Window::Update_Info()
 		// Snapshot Line RegExp:
 		// ([\d])+[\s]+([a-zA-Z0-9_]+)[\s]+([0-9KMG]+|[0-9]+.[0-9KMG]+)[\s]+(.+)[\s]{2,}(.+)
 		
-		QStringList snapshots_list = info_lines[1].split( "\n", QString::SkipEmptyParts );
-		QRegExp snap_regexp = QRegExp( "([\\d])+[\\s]+([a-zA-Z0-9_]+)[\\s]+([0-9KMG]+|[0-9]+.[0-9KMG]+)[\\s]+(.+)[\\s]{2,}(.+)" );
+        QStringList snapshots_list = info_lines[1].split( "\n", Qt::SkipEmptyParts );
+        auto snap_regexp = QRegularExpression( "([\\d])+[\\s]+([a-zA-Z0-9_]+)[\\s]+([0-9KMG]+|[0-9]+.[0-9KMG]+)[\\s]+(.+)[\\s]{2,}(.+)" );
 		
 		for( int sx = 0; sx < snapshots_list.count(); ++sx )
 		{
-			if( ! snap_regexp.exactMatch(snapshots_list[sx]) ) continue;
+            if( ! snap_regexp.match(snapshots_list[sx]).hasMatch() ) continue;
 			
-			QStringList snap_info = snap_regexp.capturedTexts();
+            QStringList snap_info = snap_regexp.match(snapshots_list[sx]).capturedTexts();
 			
 			if( snap_info.count() != 6 ) continue;
 			

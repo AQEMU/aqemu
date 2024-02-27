@@ -34,13 +34,13 @@ Old_Network_Widget::Old_Network_Widget( QWidget *parent ) : QWidget( parent )
 	Check_Network_Card = true;
 	
 	// IP Address
-	QRegExp rx( "^([1-9]|[1-9][\\d]|[1][\\d][\\d]|2[0-4][\\d]|25[0-5])(\\.([0-9]|[1-9][\\d]|[1][\\d][\\d]|2[0-4][\\d]|25[0-5])){3}$" );
-    QValidator *validator = new QRegExpValidator( rx, this );
+    QRegularExpression rx( "^([1-9]|[1-9][\\d]|[1][\\d][\\d]|2[0-4][\\d]|25[0-5])(\\.([0-9]|[1-9][\\d]|[1][\\d][\\d]|2[0-4][\\d]|25[0-5])){3}$" );
+    QValidator *validator = new QRegularExpressionValidator( rx, this );
     //ui.Edit_IP_Address->setValidator( validator );
 	
 	// MAC Address
-	rx = QRegExp( "^[\\da-fA-F]{2}(\\:[\\da-fA-F]{2}){5}$" );
-	validator = new QRegExpValidator( rx, this );
+    rx = QRegularExpression( "^[\\da-fA-F]{2}(\\:[\\da-fA-F]{2}){5}$" );
+    validator = new QRegularExpressionValidator( rx, this );
 	ui.Edit_MAC_Address->setValidator( validator );
 	
 	// Connecting Slots
@@ -677,9 +677,9 @@ bool Old_Network_Widget::Net_Card_is_Valid( int index )
 		Network_Cards[index].Get_Net_Mode() == VM::Net_Mode_Tcpconnect ||
 		Network_Cards[index].Get_Net_Mode() == VM::Net_Mode_Multicast )
 	{
-		QRegExp rx_ip( "^([1-9]|[1-9][\\d]|[1][\\d][\\d]|2[0-4][\\d]|25[0-5])(\\.([0-9]|[1-9][\\d]|[1][\\d][\\d]|2[0-4][\\d]|25[0-5])){3}$" );
+        QRegularExpression rx_ip( "^([1-9]|[1-9][\\d]|[1][\\d][\\d]|2[0-4][\\d]|25[0-5])(\\.([0-9]|[1-9][\\d]|[1][\\d][\\d]|2[0-4][\\d]|25[0-5])){3}$" );
 		
-		if( ! rx_ip.exactMatch(Network_Cards[index].Get_IP_Address()) )
+        if( ! rx_ip.match(Network_Cards[index].Get_IP_Address()).hasMatch() )
 		{
 			if( ! ( Network_Cards[index].Get_Net_Mode() == VM::Net_Mode_Tcplisten &&
 				Network_Cards[index].Get_IP_Address().isEmpty() ))
@@ -701,10 +701,10 @@ bool Old_Network_Widget::Net_Card_is_Valid( int index )
 		Network_Cards[index].Get_Net_Mode() == VM::Net_Mode_Multicast ||
 		Network_Cards[index].Get_Net_Mode() == VM::Net_Mode_Multicastfd )
 	{
-		QRegExp rx_mac = QRegExp( "^[\\da-fA-F]{2}(\\:[\\da-fA-F]{2}){5}$" );
+        auto rx_mac = QRegularExpression( "^[\\da-fA-F]{2}(\\:[\\da-fA-F]{2}){5}$" );
 		
 		if( ! Network_Cards[index].Get_MAC_Address().isEmpty() &&
-			! rx_mac.exactMatch(Network_Cards[index].Get_MAC_Address()) )
+            ! rx_mac.match(Network_Cards[index].Get_MAC_Address()).hasMatch() )
 		{
 			AQGraphic_Warning( tr("Error!"),
 							   tr("MAC Address in Card ") + QString::number(index+1) + tr(" Invalid!") );

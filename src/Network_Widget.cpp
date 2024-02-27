@@ -1972,9 +1972,9 @@ bool Network_Widget::Net_Card_is_Valid()
 
 	if (u_macaddr && ui.CH_macaddr->isChecked())
 	{
-		QRegExp rx = QRegExp("^[\\da-fA-F]{2}(\\:[\\da-fA-F]{2}){5}$");
+        auto rx = QRegularExpression("^[\\da-fA-F]{2}(\\:[\\da-fA-F]{2}){5}$");
 
-		if (!rx.exactMatch(ui.Edit_macaddr->text()))
+        if (!rx.match(ui.Edit_macaddr->text()).hasMatch())
 		{
 			AQGraphic_Warning(tr("Error!"), tr("Incorrect MAC address!"));
 			return false;
@@ -1983,9 +1983,9 @@ bool Network_Widget::Net_Card_is_Valid()
 
 	if (u_name && ui.CH_name->isChecked())
 	{
-		QRegExp rx = QRegExp("^[\\da-zA-Z_\\-]+$");
+        auto rx = QRegularExpression("^[\\da-zA-Z_\\-]+$");
 
-		if (!rx.exactMatch(ui.Edit_name->text()))
+        if (!rx.match(ui.Edit_name->text()).hasMatch())
 		{
 			AQGraphic_Warning(tr("Error!"), tr("Invalid name! Valid characters are:: a-z A-Z 0-9 _ -"));
 			return false;
@@ -1994,9 +1994,9 @@ bool Network_Widget::Net_Card_is_Valid()
 
 	if (u_hostname && ui.CH_hostname->isChecked())
 	{
-		QRegExp rx = QRegExp("^[\\da-zA-Z_\\-]+$");
+        auto rx = QRegularExpression("^[\\da-zA-Z_\\-]+$");
 
-		if (!rx.exactMatch(ui.Edit_hostname->text()))
+        if (!rx.match(ui.Edit_hostname->text()).hasMatch())
 		{
 			AQGraphic_Warning(tr("Error!"), tr("Invalid Hostname! Valid characters are:: a-z A-Z 0-9 _ -"));
 			return false;
