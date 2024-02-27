@@ -354,7 +354,7 @@ bool MachineView::event( QEvent *event )
 	{
 		QKeyEvent *ke = static_cast<QKeyEvent*>( event );
 		 
-		if( ke->key() == Qt::Key_Return && ke->modifiers() == Qt::ControlModifier + Qt::AltModifier )
+        if( ke->key() == Qt::Key_Return && (ke->modifiers() & Qt::ControlModifier) && (ke->modifiers() & Qt::AltModifier) )
 		{
 			fullscreen( false );
 			

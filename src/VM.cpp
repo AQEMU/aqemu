@@ -7120,13 +7120,13 @@ bool Virtual_Machine::Start_impl()
                         }
                         else
                         {
-                            auto kvm_intel_conf = QRegularExpression( "*CONFIG_KVM_INTEL=y*" );
-                            kvm_intel_conf.setPatternSyntax( QRegExp::Wildcard );
+                            wildcardExp = QRegularExpression::wildcardToRegularExpression("*CONFIG_KVM_INTEL=y*");
+                            QRegularExpression kvm_intel_conf(QRegularExpression::anchoredPattern(wildcardExp));
                             if( kvm_intel_conf.match(all_config).hasMatch() ) kvm_ok = true;
                             else
                             {
-                                auto kvm_amd_conf = QRegularExpression( "*CONFIG_KVM_AMD=y*" );
-                                kvm_amd_conf.setPatternSyntax( QRegExp::Wildcard );
+                                wildcardExp = QRegularExpression::wildcardToRegularExpression("*CONFIG_KVM_AMD=y*");
+                                QRegularExpression kvm_amd_conf(QRegularExpression::anchoredPattern(wildcardExp));
                                 if( kvm_amd_conf.match(all_config).hasMatch() ) kvm_ok = true;
                             }
                         }
@@ -7468,8 +7468,7 @@ void Virtual_Machine::Hide_QEMU_Error_Log()
 
 void Virtual_Machine::Show_VM_Load_Window()
 {
-	QDesktopWidget *des_widget = new QDesktopWidget();
-	QRect re = des_widget->screenGeometry( des_widget->primaryScreen() );
+    QRect re = QApplication::primaryScreen()->geometry();
 	
 	Load_VM_Window = new QWidget();
 	
@@ -7504,8 +7503,7 @@ void Virtual_Machine::Hide_VM_Load_Window()
 
 void Virtual_Machine::Show_VM_Save_Window()
 {
-    QDesktopWidget *des_widget = new QDesktopWidget();
-	QRect re = des_widget->screenGeometry( des_widget->primaryScreen() );
+    QRect re = QApplication::primaryScreen()->geometry();
 	
 	//Load_VM_Window = new QWidget();
 	Save_VM_Window = new QWidget();
