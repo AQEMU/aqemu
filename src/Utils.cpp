@@ -33,6 +33,7 @@
 #include <QProcess>
 #include <QStringList>
 #include <QTextStream>
+#include <QRandomGenerator>
 
 #include <cmath>
 #include <algorithm>
@@ -304,7 +305,7 @@ bool Create_New_HDD_Image(bool encrypted, const QString &base_image,
 		QByteArray err = qemu_img.readAllStandardError();
 		QByteArray out = qemu_img.readAllStandardOutput();
 
-		if (err.count() > 0)
+        if (err.size() > 0)
 		{
 			AQGraphic_Error("bool Create_New_HDD_Image( bool encrypted, const QString &base_image,"
 							"const QString &file_name, const QString &format, VM::Device_Size size, bool verbose )",
@@ -312,8 +313,7 @@ bool Create_New_HDD_Image(bool encrypted, const QString &base_image,
 		}
 
         QString wildcardExp = QRegularExpression::wildcardToRegularExpression("Format*ing*fmt*size*");
-        QRegularExpression rx(QRegularExpression::anchoredPattern(wildcardExp),
-                              QRegularExpression::CaseInsensitiveOption);
+        QRegularExpression rx(QRegularExpression::anchoredPattern(wildcardExp));
 
 		if (verbose)
 		{
@@ -858,9 +858,9 @@ int Get_Random(int min, int max)
 		return -1;
 	}
 
-	qsrand(QTime::currentTime().msec());
+    QRandomGenerator(QTime::currentTime().msec());
 
-	return int(qrand() / (RAND_MAX + 1.0) * (max + 1 - min) + min);
+    return int(QRandomGenerator::global()->generate() / (RAND_MAX + 1.0) * (max + 1 - min) + min);
 }
 
 void Load_Recent_Images_List()

@@ -2277,17 +2277,17 @@ bool System_Info::Scan_USB_Sys(QList<VM_USB> &list)
 	QStringList all_usb_dirs = dir.entryList(QStringList("*"), QDir::Dirs, QDir::Name);
 
 	// add only unique usb device folders
-	QRegExp re_usbNum = QRegExp("^usb\\d+$");				// like: usb5
-	QRegExp re_NumNum = QRegExp("^\\d+[-]\\d+$");			// like: 1-2
-	QRegExp re_NumNumNum = QRegExp("^\\d+[-]\\d+[.]\\d+$"); // like: 1-2.1
+    auto re_usbNum = QRegularExpression("^usb\\d+$");				// like: usb5
+    auto re_NumNum = QRegularExpression("^\\d+[-]\\d+$");			// like: 1-2
+    auto re_NumNumNum = QRegularExpression("^\\d+[-]\\d+[.]\\d+$"); // like: 1-2.1
 
 	foreach (QString cur_dir, all_usb_dirs)
 	{
-        if (re_usbNum.match(cur_dir))
+        if (re_usbNum.match(cur_dir).hasMatch())
 			usb_dirs << cur_dir;
-        else if (re_NumNum.match(cur_dir))
+        else if (re_NumNum.match(cur_dir).hasMatch())
 			usb_dirs << cur_dir;
-        else if (re_NumNumNum.match(cur_dir))
+        else if (re_NumNumNum.match(cur_dir).hasMatch())
 			usb_dirs << cur_dir;
 		else
 			continue;
@@ -2505,19 +2505,19 @@ bool System_Info::Scan_USB_Proc(QList<VM_USB> &list)
 	}
 
 	// T:  Bus=01 Lev=00 Prnt=00 Port=00 Cnt=00 Dev#=  1 Spd=480 MxCh= 6
-	QRegExp busAddr = QRegExp("T:[\\s]+Bus=([\\d]{2}).+Dev#=[\\s]*([\\d]+).+Spd=([\\d]{1,3}).*");
+    auto busAddr = QRegularExpression("T:[\\s]+Bus=([\\d]{2}).+Dev#=[\\s]*([\\d]+).+Spd=([\\d]{1,3}).*");
 
 	// P:  Vendor=0123 ProdID=abcd Rev= 0.01
-	QRegExp idHex = QRegExp("P:[\\s]+Vendor=([\\dabcdef]{4})[\\s]+ProdID=([\\dabcdef]{4}).+");
+    auto idHex = QRegularExpression("P:[\\s]+Vendor=([\\dabcdef]{4})[\\s]+ProdID=([\\dabcdef]{4}).+");
 
 	// S:  Manufacturer=Mega Cool Manufacturer
-	QRegExp manufacturer = QRegExp("S:[\\s]+Manufacturer=(.+)");
+    auto manufacturer = QRegularExpression("S:[\\s]+Manufacturer=(.+)");
 
 	// S:  Product=Super USB Device
-	QRegExp product = QRegExp("S:[\\s]+Product=(.+)");
+    auto product = QRegularExpression("S:[\\s]+Product=(.+)");
 
 	// S:  SerialNumber=0000:00:12.2
-	QRegExp serialNumber = QRegExp("S:[\\s]+SerialNumber=(.+)");
+    auto serialNumber = QRegularExpression("S:[\\s]+SerialNumber=(.+)");
 
 	for (int ix = 0; ix < linux_usb_dev.count(); ix++)
 	{
@@ -2538,9 +2538,9 @@ bool System_Info::Scan_USB_Proc(QList<VM_USB> &list)
 		{
 			if (busAddr_list.count() <= 0)
 			{
-                if (busAddr.match(linux_usb_dev[ix][bx]))
+                if (busAddr.match(linux_usb_dev[ix][bx]).hasMatch())
 				{
-					busAddr_list = busAddr.capturedTexts();
+                    busAddr_list = busAddr.match(linux_usb_dev[ix][bx]).capturedTexts();
 					continue;
 				}
 				else
@@ -2552,9 +2552,9 @@ bool System_Info::Scan_USB_Proc(QList<VM_USB> &list)
 
 			if (idHex_list.count() <= 0)
 			{
-                if (idHex.match(linux_usb_dev[ix][bx]))
+                if (idHex.match(linux_usb_dev[ix][bx]).hasMatch())
 				{
-					idHex_list = idHex.capturedTexts();
+                    idHex_list = idHex.match(linux_usb_dev[ix][bx]).capturedTexts();
 					continue;
 				}
 				else
@@ -2566,9 +2566,9 @@ bool System_Info::Scan_USB_Proc(QList<VM_USB> &list)
 
 			if (manufacturer_list.count() <= 0)
 			{
-                if (manufacturer.match(linux_usb_dev[ix][bx]))
+                if (manufacturer.match(linux_usb_dev[ix][bx]).hasMatch())
 				{
-					manufacturer_list = manufacturer.capturedTexts();
+                    manufacturer_list = manufacturer.match(linux_usb_dev[ix][bx]).capturedTexts();
 					continue;
 				}
 				else
@@ -2580,9 +2580,9 @@ bool System_Info::Scan_USB_Proc(QList<VM_USB> &list)
 
 			if (product_list.count() <= 0)
 			{
-                if (product.match(linux_usb_dev[ix][bx]))
+                if (product.match(linux_usb_dev[ix][bx]).hasMatch())
 				{
-					product_list = product.capturedTexts();
+                    product_list = product.match(linux_usb_dev[ix][bx]).capturedTexts();
 					continue;
 				}
 				else
@@ -2594,9 +2594,9 @@ bool System_Info::Scan_USB_Proc(QList<VM_USB> &list)
 
 			if (serialNumber_list.count() <= 0)
 			{
-                if (serialNumber.match(linux_usb_dev[ix][bx]))
+                if (serialNumber.match(linux_usb_dev[ix][bx]).hasMatch())
 				{
-					serialNumber_list = serialNumber.capturedTexts();
+                    serialNumber_list = serialNumber.match(linux_usb_dev[ix][bx]).capturedTexts();
 					continue;
 				}
 				else
@@ -2684,11 +2684,11 @@ void System_Info::Get_Free_Memory_Size(int &allRAM, int &freeRAM)
 
 				if (line.startsWith("MemTotal"))
 				{
-					QRegExp rx = QRegExp("MemTotal:\\s+(\\d+)\\s+.*");
+                    auto rx = QRegularExpression("MemTotal:\\s+(\\d+)\\s+.*");
 
-                    if (rx.match(line))
+                    if (rx.match(line).hasMatch())
 					{
-						QStringList res = rx.capturedTexts();
+                        QStringList res = rx.match(line).capturedTexts();
 
 						if (res.count() != 2)
 							break;
@@ -2700,11 +2700,11 @@ void System_Info::Get_Free_Memory_Size(int &allRAM, int &freeRAM)
 				}
 				else if (line.startsWith("MemFree"))
 				{
-					QRegExp rx = QRegExp("MemFree:\\s+(\\d+)\\s+.*");
+                    auto rx = QRegularExpression("MemFree:\\s+(\\d+)\\s+.*");
 
-                    if (rx.match(line))
+                    if (rx.match(line).hasMatch())
 					{
-						QStringList res = rx.capturedTexts();
+                        QStringList res = rx.match(line).capturedTexts();
 
 						if (res.count() != 2)
 							break;
@@ -2716,11 +2716,11 @@ void System_Info::Get_Free_Memory_Size(int &allRAM, int &freeRAM)
 				}
 				else if (line.startsWith("Cached"))
 				{
-					QRegExp rx = QRegExp("Cached:\\s+(\\d+)\\s+.*");
+                    auto rx = QRegularExpression("Cached:\\s+(\\d+)\\s+.*");
 
-                    if (rx.match(line))
+                    if (rx.match(line).hasMatch())
 					{
-						QStringList res = rx.capturedTexts();
+                        QStringList res = rx.match(line).capturedTexts();
 
 						if (res.count() != 2)
 							break;
@@ -2732,11 +2732,11 @@ void System_Info::Get_Free_Memory_Size(int &allRAM, int &freeRAM)
 				}
 				else if (line.startsWith("Buffers"))
 				{
-					QRegExp rx = QRegExp("Buffers:\\s+(\\d+)\\s+.*");
+                    auto rx = QRegularExpression("Buffers:\\s+(\\d+)\\s+.*");
 
-                    if (rx.match(line))
+                    if (rx.match(line).hasMatch())
 					{
-						QStringList res = rx.capturedTexts();
+                        QStringList res = rx.match(line).capturedTexts();
 
 						if (res.count() != 2)
 							break;

@@ -585,21 +585,21 @@ void VncView::mouseEventHandler(QMouseEvent *e)
                 (e->type() == QEvent::MouseButtonDblClick)) {
             if (e->button() & Qt::LeftButton)
                 m_buttonMask |= 0x01;
-            if (e->button() & Qt::MidButton)
+            if (e->button() & Qt::MiddleButton)
                 m_buttonMask |= 0x02;
             if (e->button() & Qt::RightButton)
                 m_buttonMask |= 0x04;
         } else if (e->type() == QEvent::MouseButtonRelease) {
             if (e->button() & Qt::LeftButton)
                 m_buttonMask &= 0xfe;
-            if (e->button() & Qt::MidButton)
+            if (e->button() & Qt::MiddleButton)
                 m_buttonMask &= 0xfd;
             if (e->button() & Qt::RightButton)
                 m_buttonMask &= 0xfb;
         }
     }
 
-    vncThread.mouseEvent(qRound(e->x() / m_horizontalFactor), qRound(e->y() / m_verticalFactor), m_buttonMask);
+    vncThread.mouseEvent(qRound(e->position().x() / m_horizontalFactor), qRound(e->position().y() / m_verticalFactor), m_buttonMask);
 }
 
 void VncView::wheelEventHandler(QWheelEvent *event)
@@ -610,8 +610,8 @@ void VncView::wheelEventHandler(QWheelEvent *event)
     else
         eb |= 0x8;
 
-    const int x = qRound(event->x() / m_horizontalFactor);
-    const int y = qRound(event->y() / m_verticalFactor);
+    const int x = qRound(event->position().x() / m_horizontalFactor);
+    const int y = qRound(event->position().y() / m_verticalFactor);
 
     vncThread.mouseEvent(x, y, eb | m_buttonMask);
     vncThread.mouseEvent(x, y, m_buttonMask);

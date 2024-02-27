@@ -4483,7 +4483,7 @@ bool Virtual_Machine::Load_VM( const QString &file_name )
 				// For AQEMU VM files version 0.8.2 and oldest
 				if( ! Second_Element.firstChildElement("BusAddr").text().isEmpty() )
 				{
-					QStringList busAddrList = Second_Element.firstChildElement("BusAddr").text().split( ':', QString::SkipEmptyParts );
+                    QStringList busAddrList = Second_Element.firstChildElement("BusAddr").text().split( ':', Qt::SkipEmptyParts );
 					if( busAddrList.count() != 2 )
 					{
 						AQError( "bool Virtual_Machine::Load_VM( const QString &file_name )",
@@ -6838,7 +6838,7 @@ QStringList Virtual_Machine::Build_QEMU_Args()
 	{
 		QString tmp_str = Additional_Args;
 		tmp_str.replace( "\n", " " );
-		QStringList ad_args = tmp_str.split( " ", QString::SkipEmptyParts );
+        QStringList ad_args = tmp_str.split( " ", Qt::SkipEmptyParts );
 		
 		for( int ix = 0; ix < ad_args.count(); ix++ )
 			Args << ad_args[ ix ];
@@ -7080,24 +7080,24 @@ bool Virtual_Machine::Start_impl()
                 bool kvm_ok = false;
 
                 // Version Using -
-                QRegExp kvm_intel_mod = QRegExp( "*kvm-intel*" );
-                kvm_intel_mod.setPatternSyntax( QRegExp::Wildcard );
+                QString wildcardExp = QRegularExpression::wildcardToRegularExpression("*kvm-intel*");
+                QRegularExpression kvm_intel_mod(QRegularExpression::anchoredPattern(wildcardExp));
 
-                QRegExp kvm_amd_mod = QRegExp( "*kvm-amd*" );
-                kvm_amd_mod.setPatternSyntax( QRegExp::Wildcard );
+                wildcardExp = QRegularExpression::wildcardToRegularExpression("*kvm-amd*");
+                QRegularExpression kvm_amd_mod(QRegularExpression::anchoredPattern(wildcardExp));
 
-                if( kvm_intel_mod.exactMatch(all_mod) ) kvm_ok = true;
-                else if( kvm_amd_mod.exactMatch(all_mod) ) kvm_ok = true;
+                if( kvm_intel_mod.match(all_mod).hasMatch() ) kvm_ok = true;
+                else if( kvm_amd_mod.match(all_mod).hasMatch() ) kvm_ok = true;
 
                 // Version Using _
-                kvm_intel_mod = QRegExp( "*kvm_intel*" );
-                kvm_intel_mod.setPatternSyntax( QRegExp::Wildcard );
+                wildcardExp = QRegularExpression::wildcardToRegularExpression("*kvm_intel*");
+                kvm_intel_mod.setPattern(QRegularExpression::anchoredPattern(wildcardExp));
 
-                kvm_amd_mod = QRegExp( "*kvm_amd*" );
-                kvm_amd_mod.setPatternSyntax( QRegExp::Wildcard );
+                wildcardExp = QRegularExpression::wildcardToRegularExpression("*kvm_amd*");
+                kvm_amd_mod.setPattern(QRegularExpression::anchoredPattern(wildcardExp));
 
-                if( kvm_intel_mod.exactMatch(all_mod) ) kvm_ok = true;
-                else if( kvm_amd_mod.exactMatch(all_mod) ) kvm_ok = true;
+                if( kvm_intel_mod.match(all_mod).hasMatch() ) kvm_ok = true;
+                else if( kvm_amd_mod.match(all_mod).hasMatch() ) kvm_ok = true;
 
                 if( ! kvm_ok )
                 {
@@ -7120,14 +7120,14 @@ bool Virtual_Machine::Start_impl()
                         }
                         else
                         {
-                            QRegExp kvm_intel_conf = QRegExp( "*CONFIG_KVM_INTEL=y*" );
+                            auto kvm_intel_conf = QRegularExpression( "*CONFIG_KVM_INTEL=y*" );
                             kvm_intel_conf.setPatternSyntax( QRegExp::Wildcard );
-                            if( kvm_intel_conf.exactMatch(all_config) ) kvm_ok = true;
+                            if( kvm_intel_conf.match(all_config).hasMatch() ) kvm_ok = true;
                             else
                             {
-                                QRegExp kvm_amd_conf = QRegExp( "*CONFIG_KVM_AMD=y*" );
+                                auto kvm_amd_conf = QRegularExpression( "*CONFIG_KVM_AMD=y*" );
                                 kvm_amd_conf.setPatternSyntax( QRegExp::Wildcard );
-                                if( kvm_amd_conf.exactMatch(all_config) ) kvm_ok = true;
+                                if( kvm_amd_conf.match(all_config).hasMatch() ) kvm_ok = true;
                             }
                         }
                     }
@@ -7504,7 +7504,7 @@ void Virtual_Machine::Hide_VM_Load_Window()
 
 void Virtual_Machine::Show_VM_Save_Window()
 {
-	QDesktopWidget *des_widget = new QDesktopWidget();
+    QDesktopWidget *des_widget = new QDesktopWidget();
 	QRect re = des_widget->screenGeometry( des_widget->primaryScreen() );
 	
 	//Load_VM_Window = new QWidget();
@@ -7700,7 +7700,7 @@ const Available_Devices *Virtual_Machine::Get_Current_Emulator_Devices() const
 QString Virtual_Machine::Get_Current_Emulator_Binary_Path( const QString &names ) const
 {
 	QMap<QString, QString> bin_list = Current_Emulator.Get_Binary_Files();
-	QStringList nl = names.split( " ", QString::SkipEmptyParts );
+    QStringList nl = names.split( " ", Qt::SkipEmptyParts );
 	
 	if( bin_list.count() <= 0 || nl.count() <= 0 )
 	{
@@ -9042,7 +9042,7 @@ void Virtual_Machine::Parse_StdOut()
     }
 
 	QStringList splitOutput = convOutput.split( "[K" );
-	QString cleanOutput = splitOutput.last().remove( QRegExp("\[[KD].") );
+    QString cleanOutput = splitOutput.last().remove( QRegularExpression("\[[KD].") );
 	
 	emit Clean_Console( cleanOutput );
 	emit Ready_StdOut( cleanOutput );

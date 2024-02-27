@@ -616,15 +616,12 @@ QString VM_Wizard_Window::Find_OS_Icon( const QString os_name )
 	QDir icons_dir( QDir::toNativeSeparators(Settings.value("AQEMU_Data_Folder","").toString() + "/os_icons/") );
 	QFileInfoList all_os_icons = icons_dir.entryInfoList( QStringList("*.png"), QDir::Files, QDir::Unsorted );
 
-	QRegExp rex;
-	rex.setPatternSyntax( QRegExp::Wildcard );
-	rex.setCaseSensitivity( Qt::CaseInsensitive );
-
+    QRegularExpression rex;
+    rex.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
 	for( int i = 0; i < all_os_icons.count(); i++ )
 	{
-		rex.setPattern( "*" + all_os_icons[i].baseName() + "*" );
-
-		if( rex.exactMatch(os_name) )
+        rex.setPattern(QRegularExpression::wildcardToRegularExpression("*" + all_os_icons[i].baseName() + "*"));
+        if( rex.match(os_name).hasMatch() )
 		{
 			return all_os_icons[ i ].absoluteFilePath();
 		}
@@ -633,13 +630,15 @@ QString VM_Wizard_Window::Find_OS_Icon( const QString os_name )
 	// select os family...
 
 	// Linux
-	rex.setPattern( "*linux*" );
-	if( rex.exactMatch(os_name) )
+    QString wildcardExp = QRegularExpression::wildcardToRegularExpression("*linux*");
+    rex.setPattern(wildcardExp);
+    if( rex.match(os_name).hasMatch() )
 		return ":/default_linux.png";
 
 	// Windows
-	rex.setPattern( "*windows*" );
-	if( rex.exactMatch(os_name) )
+    wildcardExp = QRegularExpression::wildcardToRegularExpression("*windows*");
+    rex.setPattern(wildcardExp);
+    if( rex.match(os_name).hasMatch() )
 		return ":/default_windows.png";
 
 	return ":/other.png";
@@ -719,15 +718,15 @@ void VM_Wizard_Window::on_CB_RAM_Size_editTextChanged( const QString &text )
 	if( text.isEmpty() )
 	    return;
 	
-	QRegExp rx( "\\s*([\\d]+)\\s*(MB|GB|M|G|)\\s*" ); // like: 512MB or 512
-	if( ! rx.exactMatch(text.toUpper()) )
+    QRegularExpression rx( "\\s*([\\d]+)\\s*(MB|GB|M|G|)\\s*" ); // like: 512MB or 512
+    if( ! rx.match(text.toUpper()).hasMatch() )
 	{
 		AQGraphic_Warning( tr("Error"),
 						   tr("Cannot convert \"%1\" to memory size!").arg(text) );
 		return;
 	}
 	
-	QStringList ramStrings = rx.capturedTexts();
+    QStringList ramStrings = rx.match(text.toUpper()).capturedTexts();
 	if( ramStrings.count() != 3 )
 	{
 		AQGraphic_Warning( tr("Error"),

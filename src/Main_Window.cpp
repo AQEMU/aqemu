@@ -85,8 +85,8 @@ Main_Window::Main_Window( QWidget *parent )
     ui.Tabs->setCurrentIndex(0);
     ui.Use_Linux_Boot_Widget->setEnabled(false);
 
-	QRegExp rx( "^[\\d]{1,2}|1[\\d]{,2}|2[0-4]{,2}|25[0-5]$" );
-	QValidator *validator = new QRegExpValidator( rx, this );
+    QRegularExpression rx( "^[\\d]{1,2}|1[\\d]{,2}|2[0-4]{,2}|25[0-5]$" );
+    QValidator *validator = new QRegularExpressionValidator( rx, this );
 	ui.CB_CPU_Count->setValidator( validator );
 
 	// This for Tab Info Backgroud Color
@@ -3723,15 +3723,15 @@ void Main_Window::on_CB_RAM_Size_editTextChanged( const QString &text )
 {
 	if( text.isEmpty() ) return;
 
-	QRegExp rx( "\\s*([\\d]+)\\s*(MB|GB|M|G|)\\s*" ); // like: 512MB or 512
-	if( ! rx.exactMatch(text.toUpper()) )
+    QRegularExpression rx( "\\s*([\\d]+)\\s*(MB|GB|M|G|)\\s*" ); // like: 512MB or 512
+    if( ! rx.match(text.toUpper()).hasMatch() )
 	{
 		AQGraphic_Warning( tr("Error"),
 						   tr("Cannot convert \"%1\" to memory size!").arg(text) );
 		return;
 	}
 
-	QStringList ramStrings = rx.capturedTexts();
+    QStringList ramStrings = rx.match(text.toUpper()).capturedTexts();
 	if( ramStrings.count() != 3 )
 	{
 		AQGraphic_Warning( tr("Error"),
@@ -4025,7 +4025,7 @@ void Main_Window::Update_Computer_Types()
         // painted already and palette returns the wanted color
         item->setData(only_native ? ui.CB_Computer_Type->palette().color(QPalette::Disabled, QPalette::Text)
                           : QVariant(), // clear item data in order to use default color
-                      Qt::TextColorRole);
+                      Qt::ForegroundRole);
     }
 
     ui.CB_Computer_Type->blockSignals(false);
