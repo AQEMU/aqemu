@@ -301,6 +301,8 @@ Character device options:
 -chardev vc,id=id[[,width=width][,height=height]][[,cols=cols][,rows=rows]]
          [,mux=on|off][,logfile=PATH][,logappend=on|off]
 -chardev ringbuf,id=id[,size=size][,logfile=PATH][,logappend=on|off]
+)"
+R"(
 -chardev file,id=id,path=path[,mux=on|off][,logfile=PATH][,logappend=on|off]
 -chardev pipe,id=id,path=path[,mux=on|off][,logfile=PATH][,logappend=on|off]
 -chardev pty,id=id[,mux=on|off][,logfile=PATH][,logappend=on|off]
