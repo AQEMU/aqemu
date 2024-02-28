@@ -29,11 +29,11 @@ Run_Guard::~Run_Guard()
     release();
 }
 
-QString Run_Guard::generateKeyHash( const QString& key, const QString& salt )
+QString Run_Guard::generateKeyHash( const QString& keyHash, const QString& salt )
 {
     QByteArray data;
 
-    data.append( key.toUtf8() );
+    data.append( keyHash.toUtf8() );
     data.append( salt.toUtf8() );
     data = QCryptographicHash::hash( data, QCryptographicHash::Sha1 ).toHex();
 
