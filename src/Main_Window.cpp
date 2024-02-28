@@ -1667,7 +1667,7 @@ void Main_Window::Update_VM_Port_Number()
 
 void Main_Window::Update_Info_Text( int info_mode )
 {
-	Virtual_Machine *tmp_vm = Get_Current_VM();
+    auto* tmp_vm = Get_Current_VM();
 
 	if( tmp_vm == NULL && info_mode == 0 )
 	{
@@ -2502,6 +2502,8 @@ QString Main_Window::Get_Current_Binary_Name()
 
 bool Main_Window::Boot_Is_Correct( Virtual_Machine *tmp_vm )
 {
+    if (!tmp_vm)
+      return false;
 	// Floppy A
 	if( tmp_vm->Get_FD0().Get_Enabled() )
 	{
@@ -4188,7 +4190,9 @@ void Main_Window::on_TB_Show_Architecture_Options_Window_clicked()
 
 void Main_Window::Discard_Changes(QDialog* dialog)
 {
-    auto old_vm = Get_Current_VM();
+    auto* old_vm = Get_Current_VM();
+    if (!old_vm)
+      return;
     Virtual_Machine old_vm_copy(*old_vm);
     Virtual_Machine tmp_vm;
     bool ok = Create_VM_From_Ui(&tmp_vm, old_vm, false);
@@ -4239,7 +4243,11 @@ void Main_Window::on_TB_Show_SMP_Settings_Window_clicked()
 		else
 		{
 			// Settings changed?
-            if( SMP_Settings->Get_Values() != Get_Current_VM()->Get_SMP() )
+            auto* old_vm = Get_Current_VM();
+            if (!old_vm)
+              return;
+
+            if( SMP_Settings->Get_Values() != old_vm->Get_SMP() )
 				VM_Changed();
 		}
 	}

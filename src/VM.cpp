@@ -1647,7 +1647,7 @@ bool Virtual_Machine::Create_VM_File( const QString &file_name, bool template_mo
 	
 	// Storage Devices
 	if( Get_Current_Emulator_Devices()->PSO_Drive &&
-	    (template_mode == false || (template_mode == true && Template_Opts & Create_Template_Window::Template_Save_HDD)) )
+        (template_mode == false || (template_mode == true && (Template_Opts & Create_Template_Window::Template_Save_HDD))) )
 	{
 		// Storage Device Count
 		Dom_Element = New_Dom_Document.createElement( "Storage_Device_Count" );
