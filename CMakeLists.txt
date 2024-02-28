@@ -8,6 +8,9 @@
 PROJECT( AQEMU CXX )
 CMAKE_MINIMUM_REQUIRED( VERSION 3.1.0 FATAL_ERROR )
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # Available options
 OPTION( DEBUG "Build with debug information" $<IF:$<CONFIG:Debug>,ON,OFF>)
 OPTION( WITHOUT_EMBEDDED_DISPLAY "Build without support Embedded VNC Display" OFF)
@@ -235,10 +238,6 @@ ADD_EXECUTABLE( aqemu
 )
 
 target_include_directories(aqemu PUBLIC src/ )
-
-# Require C++-11 standard
-SET_PROPERTY(TARGET aqemu PROPERTY CXX_STANDARD 11)
-SET_PROPERTY(TARGET aqemu PROPERTY CXX_STANDARD_REQUIRED ON)
 
 TARGET_LINK_LIBRARIES( aqemu
     Qt6::Widgets
