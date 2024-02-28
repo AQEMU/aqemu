@@ -15,7 +15,7 @@
 #include <assert.h>
 
 // Workaround GCC 4.8 not having std::regex
-#if DOCTOPT_USE_BOOST_REGEX
+#if defined(DOCTOPT_USE_BOOST_REGEX) || defined(_MSC_VER)
 #include <boost/regex.hpp>
 namespace std
 {

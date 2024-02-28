@@ -9,7 +9,8 @@
 #ifndef docopt_docopt_util_h
 #define docopt_docopt_util_h
 
-#if DOCTOPT_USE_BOOST_REGEX
+// Workaround GCC 4.8 not having std::regex
+#if defined(DOCTOPT_USE_BOOST_REGEX) || defined(_MSC_VER)
 #include <boost/regex.hpp>
 namespace std {
     using boost::regex;
