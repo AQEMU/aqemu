@@ -3014,7 +3014,7 @@ QStringList System_Info::Get_Host_FDD_List()
 			WCHAR *w = new WCHAR[tmp.count()];
 			tmp.toWCharArray(w);
 			UINT uDriveType = GetDriveType(w);
-			delete w;
+            delete[] w;
 
 			if (uDriveType == DRIVE_REMOVABLE)
 			{
@@ -3048,7 +3048,7 @@ QStringList System_Info::Get_Host_CDROM_List()
 			WCHAR *w = new WCHAR[tmp.count()];
 			tmp.toWCharArray(w);
 			UINT uDriveType = GetDriveType(w);
-			delete w;
+            delete[] w;
 
 			if (uDriveType == DRIVE_CDROM)
 			{
