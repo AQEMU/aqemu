@@ -29,6 +29,7 @@
 #include "VM_Wizard_Window.h"
 #include "System_Info.h"
 
+#ifndef Q_OS_WIN32
 #include <sys/utsname.h>
 #include <stdio.h>
 
@@ -41,6 +42,7 @@ QString Get_My_System_Architecture()
     uname(&name);
     return QString(name.machine);
 }
+#endif
 
 VM_Wizard_Window::VM_Wizard_Window( QWidget *parent )
 	: QDialog(parent)
