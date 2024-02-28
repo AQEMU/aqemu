@@ -110,7 +110,7 @@ namespace TinyXML2QDomWrapper {
             QDomProcessingInstruction createProcessingInstruction(const QString&, const QString&);
             bool setContent(QFile* file, bool b, QString* s, int* i, int* i2);
         private:
-            XMLDocument* document;
+            tinyxml2::XMLDocument* document;
     };
 
 
