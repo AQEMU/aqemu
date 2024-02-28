@@ -2997,7 +2997,7 @@ void System_Info::Get_Free_Memory_Size(int &allRAM, int &freeRAM)
 QStringList System_Info::Get_Host_FDD_List()
 {
 	DWORD len = GetLogicalDriveStrings(0, NULL);
-	TCHAR buf[len];
+    TCHAR* buf = new TCHAR[len];
 	int buf_size = sizeof(buf) / sizeof(TCHAR);
 	GetLogicalDriveStrings(buf_size, buf);
 
@@ -3024,6 +3024,7 @@ QStringList System_Info::Get_Host_FDD_List()
 			tmp = "";
 		}
 	}
+    delete[] buf;
 
 	return ret_list;
 }
@@ -3031,7 +3032,7 @@ QStringList System_Info::Get_Host_FDD_List()
 QStringList System_Info::Get_Host_CDROM_List()
 {
 	DWORD len = GetLogicalDriveStrings(0, NULL);
-	TCHAR buf[len];
+    TCHAR* buf = new TCHAR[len];
 	int buf_size = sizeof(buf) / sizeof(TCHAR);
 	GetLogicalDriveStrings(buf_size, buf);
 
@@ -3058,6 +3059,7 @@ QStringList System_Info::Get_Host_CDROM_List()
 			tmp = "";
 		}
 	}
+    delete[] buf;
 
 	return ret_list;
 }
