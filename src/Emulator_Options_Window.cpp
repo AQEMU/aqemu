@@ -47,9 +47,10 @@ Emulator_Options_Window::Emulator_Options_Window( QWidget *parent )
 	
 	Update_Info = false;
 
-	#ifdef Q_OS_WIN32
-	ui.RB_KVM->setEnabled( false );
-	#endif
+    // TODO: rewrite for Windows
+    // #ifdef Q_OS_WIN32
+    // ui.RB_KVM->setEnabled( false );
+    // #endif
 }
 
 void Emulator_Options_Window::on_Button_Find_clicked()

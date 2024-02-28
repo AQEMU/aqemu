@@ -426,9 +426,11 @@ void First_Start_Wizard::on_Button_Add_Emulator_Manual_Mode_clicked()
 {
 	Emulator_Options_Window *emulatorOptionsWin = new Emulator_Options_Window( this );
 
-	Emul.Set_Name( ui.CB_Add_Emulator_Version->currentText() );
+    // TODO: rewrite to Windows
+    //Emul.Set_Name( ui.CB_Add_Emulator_Version->currentText() );
 	Emul.Set_Path( ui.Edit_Add_Emulator_Path->text() );
-	Emul.Set_Version( String_To_Emulator_Version(ui.CB_Add_Emulator_Version->currentText()) );
+    // TODO: rewrite to Windows
+    //Emul.Set_Version( String_To_Emulator_Version(ui.CB_Add_Emulator_Version->currentText()) );
 	Emul.Set_Force_Version( true );
 	emulatorOptionsWin->Set_Emulator( Emul );
 
@@ -437,7 +439,8 @@ void First_Start_Wizard::on_Button_Add_Emulator_Manual_Mode_clicked()
 		Emul = emulatorOptionsWin->Get_Emulator();
 
 		ui.Edit_Add_Emulator_Path->setText( Emul.Get_Path() );
-		ui.CB_Add_Emulator_Version->setEditText( Emulator_Version_To_String(Emul.Get_Version()) );
+        // TODO: rewrite to Windows
+        //ui.CB_Add_Emulator_Version->setEditText( Emulator_Version_To_String(Emul.Get_Version()) );
 	}
 
 	delete emulatorOptionsWin;
@@ -529,9 +532,11 @@ bool First_Start_Wizard::Save_Settings()
 	// Check emulator
 	if( Emul.Get_Name().isEmpty() )
 	{
-		Emul.Set_Name( ui.CB_Add_Emulator_Version->currentText() );
+        // TODO: rewrite to Windows
+        //Emul.Set_Name( ui.CB_Add_Emulator_Version->currentText() );
 		Emul.Set_Path( ui.Edit_Add_Emulator_Path->text() );
-		Emul.Set_Version( String_To_Emulator_Version(ui.CB_Add_Emulator_Version->currentText()) );
+        // TODO: rewrite to Windows
+        //Emul.Set_Version( String_To_Emulator_Version(ui.CB_Add_Emulator_Version->currentText()) );
 		Emul.Set_Force_Version( true );
 		
 		bool foundEmulBinary = false;
