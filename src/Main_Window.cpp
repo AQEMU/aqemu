@@ -187,7 +187,9 @@ Main_Window::Main_Window( QWidget *parent )
 	// Get max RAM size
 	on_TB_Update_Available_RAM_Size_clicked();
 
+#ifndef Q_OS_WIN32
     init_dbus();
+#endif
 
 	// Loading AQEMU Settings
 	if( ! Load_Settings() )
