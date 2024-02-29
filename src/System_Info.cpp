@@ -2112,7 +2112,7 @@ Available_Devices System_Info::Get_Emulator_Info(const QString &path, bool *ok,
 			continue;
 
 		// Get all models string
-		QString all_models = tmp.mid(tmp.indexOf("models:") + QString("models:").count(), tmp.count());
+        QString all_models = tmp.mid(tmp.indexOf("models:") + QString("models:").size(), tmp.size());
 		all_models.remove(QChar(' ')); // Remove all spaces
 
         QStringList net_cards_models = all_models.split(',', Qt::SkipEmptyParts);
@@ -3011,7 +3011,7 @@ QStringList System_Info::Get_Host_FDD_List()
 		}
 		else
 		{
-			WCHAR *w = new WCHAR[tmp.count()];
+            WCHAR *w = new WCHAR[tmp.size()];
 			tmp.toWCharArray(w);
 			UINT uDriveType = GetDriveType(w);
             delete[] w;
@@ -3046,7 +3046,7 @@ QStringList System_Info::Get_Host_CDROM_List()
 		}
 		else
 		{
-			WCHAR *w = new WCHAR[tmp.count()];
+            WCHAR *w = new WCHAR[tmp.size()];
 			tmp.toWCharArray(w);
 			UINT uDriveType = GetDriveType(w);
             delete[] w;

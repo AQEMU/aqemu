@@ -94,7 +94,7 @@ void Create_Template_Window::on_Button_Create_clicked()
 		return;
 	}
 	
-	if( ui.Edit_Template_Folder->text().at(ui.Edit_Template_Folder->text().count()-1) != '/' )
+    if( ui.Edit_Template_Folder->text().at(ui.Edit_Template_Folder->text().size()-1) != '/' )
 	{
 		ui.Edit_Template_Folder->setText( QDir::toNativeSeparators(ui.Edit_Template_Folder->text() + "/") );
 	}

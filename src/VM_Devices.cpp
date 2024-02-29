@@ -3608,7 +3608,7 @@ QString VM_Net_Card::Generate_MAC() const
 		}
 		
 		// MAC Found?
-		if( nmac.count() != 12 )
+        if( nmac.size() != 12 )
 		{
 			AQError( "QString VM_Net_Card::Generate_MAC() const",
 					 "Cannot Get MAC for This Card!" );
@@ -3620,7 +3620,7 @@ QString VM_Net_Card::Generate_MAC() const
 	}
 	
 	// Adding separators :
-	for( int nx = 2; nx < nmac.count(); nx+=3 )
+    for( int nx = 2; nx < nmac.size(); nx+=3 )
 	{
 		nmac = nmac.insert( nx, ":" );
 	}

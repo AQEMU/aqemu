@@ -31,8 +31,6 @@
 #include "Settings_Widget.h"
 #include "Utils.h"
 
-#include <iostream>
-
 My_List_Widget::My_List_Widget(QWidget* parent) : QListWidget(parent)
 {
   

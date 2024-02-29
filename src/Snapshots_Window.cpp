@@ -26,8 +26,6 @@
 #include "Utils.h"
 #include "Snapshots_Window.h"
 #include "Snapshot_Properties_Window.h"
-#include "HDD_Image_Info.h"
-#include "Service.h"
 
 Snapshots_Window::Snapshots_Window( QWidget *parent )
 	: QDialog( parent )

@@ -49,7 +49,7 @@ const QString &Convert_HDD_Thread::Get_Error_Message() const
 
 void Convert_HDD_Thread::run()
 {
-	QProcess *proc = new QProcess();
+    auto* proc = new QProcess();
 
 	QSettings settings;
 	proc->start(settings.value("QEMU-IMG_Path", "qemu-img").toString(), Arguments);
@@ -60,10 +60,10 @@ void Convert_HDD_Thread::run()
 	if (!proc->waitForFinished(-1))
 		AQError("void Convert_HDD_Thread::run()", "Cannot Finish qemu-img!");
 
-	QString err_str = proc->readAllStandardError();
+    const QString& err_str = proc->readAllStandardError();
 	delete proc;
 
-	if (err_str.count() > 0)
+    if (err_str.size() > 0)
 	{
 		AQError("void Convert_HDD_Thread::run()", "qemu-img Send Error String!\nDetalis: " + err_str);
 		Error_Message = err_str;

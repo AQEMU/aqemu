@@ -39,7 +39,6 @@
 #endif
 
 #include "Utils.h"
-#include "Ports_Tab_Widget.h"
 #include "Emulator_Control_Window.h"
 #include "System_Info.h"
 #include "Snapshots_Window.h"
@@ -266,9 +265,9 @@ void Emulator_Control_Window::Create_Device_Menu()
 		fileIndex += jumpSize;
 		
 		// Get path
-		if( fileIndex < value.count() )
+        if( fileIndex < value.size() )
 		{
-			for( int ix = fileIndex; ix < value.count(); ++ix )
+            for( int ix = fileIndex; ix < value.size(); ++ix )
 			{
 				if( value[ix] == ' ' && value[ix-1] != '\\' ) // End of file name?
 				{
