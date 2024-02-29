@@ -20,45 +20,42 @@
 **
 ****************************************************************************/
 
-#include "Utils.h"
 #include "Snapshot_Properties_Window.h"
+#include "Utils.h"
 
-Snapshot_Properties_Window::Snapshot_Properties_Window( QWidget *parent )
-	: QDialog( parent )
+Snapshot_Properties_Window::Snapshot_Properties_Window(QWidget* parent)
+    : QDialog(parent)
 {
-	ui.setupUi( this );
+  ui.setupUi(this);
 }
 
 QString Snapshot_Properties_Window::Get_Snapshot_Name() const
 {
-	return ui.Edit_Name->text();
+  return ui.Edit_Name->text();
 }
 
-void Snapshot_Properties_Window::Set_Snapshot_Name( const QString &name )
+void Snapshot_Properties_Window::Set_Snapshot_Name(const QString& name)
 {
-	ui.Edit_Name->setText( name );
+  ui.Edit_Name->setText(name);
 }
 
 QString Snapshot_Properties_Window::Get_Snapshot_Description() const
 {
-	return ui.Edit_Description->toPlainText();
+  return ui.Edit_Description->toPlainText();
 }
 
-void Snapshot_Properties_Window::Set_Snapshot_Description( const QString &desc )
+void Snapshot_Properties_Window::Set_Snapshot_Description(const QString& desc)
 {
-	ui.Edit_Description->setPlainText( desc );
+  ui.Edit_Description->setPlainText(desc);
 }
 
 void Snapshot_Properties_Window::done(int r)
 {
-    if ( r == QDialog::Accepted )
-    {
-	    if( ui.Edit_Name->text().isEmpty() )
-	    {
-		    AQGraphic_Warning( tr("Warning"), tr("Snapshot name is empty!") );
-		    return;
-	    }
+  if (r == QDialog::Accepted) {
+    if (ui.Edit_Name->text().isEmpty()) {
+      AQGraphic_Warning(tr("Warning"), tr("Snapshot name is empty!"));
+      return;
     }
-    QDialog::done(r);
+  }
+  QDialog::done(r);
 }
-

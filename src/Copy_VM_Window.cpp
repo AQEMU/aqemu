@@ -23,66 +23,62 @@
 
 #include <QPushButton>
 
-#include "Utils.h"
 #include "Copy_VM_Window.h"
+#include "Utils.h"
 
-Copy_VM_Window::Copy_VM_Window( QWidget *parent )
-	: QDialog( parent )
+Copy_VM_Window::Copy_VM_Window(QWidget* parent) : QDialog(parent)
 {
-	ui.setupUi( this );
-	
-    All_Machine_Names.clear();
+  ui.setupUi(this);
 
-    ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled( false );
+  All_Machine_Names.clear();
 
-    connect( ui.Edit_New_VM_Name, SIGNAL(textChanged(const QString&)), this, SLOT(VM_Name_Changed(const QString&)) );
+  ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+
+  connect(ui.Edit_New_VM_Name, SIGNAL(textChanged(const QString&)), this,
+          SLOT(VM_Name_Changed(const QString&)));
 }
 
 void Copy_VM_Window::VM_Name_Changed(const QString& s)
 {
-    ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled( ! s.isEmpty() );
+  ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(!s.isEmpty());
 }
 
 QString Copy_VM_Window::Get_New_VM_Name() const
 {
-	return ui.Edit_New_VM_Name->text();
+  return ui.Edit_New_VM_Name->text();
 }
 
 bool Copy_VM_Window::Get_Copy_Disk_Images() const
 {
-	return ui.CH_Copy_Disk_Images->isChecked();
+  return ui.CH_Copy_Disk_Images->isChecked();
 }
 
 bool Copy_VM_Window::Get_Copy_Floppy() const
 {
-	return ui.CH_Copy_Floppy->isChecked();
+  return ui.CH_Copy_Floppy->isChecked();
 }
 
 bool Copy_VM_Window::Get_Copy_Hard_Drive() const
 {
-	return ui.CH_Copy_Hard_Drive->isChecked();
+  return ui.CH_Copy_Hard_Drive->isChecked();
 }
 
-void Copy_VM_Window::Add_VM_Machine_Name( const QString &name )
+void Copy_VM_Window::Add_VM_Machine_Name(const QString& name)
 {
-	All_Machine_Names << name;
+  All_Machine_Names << name;
 }
 
 void Copy_VM_Window::done(int r)
 {
-    if ( r == QDialog::Accepted )
-    {
-	    for( int ix = 0; ix < All_Machine_Names.count(); ++ix )
-	    {
-		    if( All_Machine_Names[ix] == ui.Edit_New_VM_Name->text() )
-		    {
-			    AQGraphic_Warning( tr("Error!"),
-							       tr("This VM Name Is Already Used!") );
-			    return;
-		    }
-	    }
-	
-        // OK, New Name Unique
+  if (r == QDialog::Accepted) {
+    for (int ix = 0; ix < All_Machine_Names.count(); ++ix) {
+      if (All_Machine_Names[ix] == ui.Edit_New_VM_Name->text()) {
+        AQGraphic_Warning(tr("Error!"), tr("This VM Name Is Already Used!"));
+        return;
+      }
     }
-    QDialog::done(r);
+
+    // OK, New Name Unique
+  }
+  QDialog::done(r);
 }

@@ -28,30 +28,28 @@ Dialog_Button_Box::Dialog_Button_Box(QWidget* parent) : QDialogButtonBox(parent)
 {
 }
 
-Dialog_Button_Box::Dialog_Button_Box() : QDialogButtonBox()
-{
-}
+Dialog_Button_Box::Dialog_Button_Box() : QDialogButtonBox() {}
 
 void Dialog_Button_Box::init()
 {
-    if ( button(QDialogButtonBox::Ok) && button(QDialogButtonBox::Ok)->icon().isNull() )
-        button(QDialogButtonBox::Ok)->setIcon(QIcon(":/ok.png"));
-    if ( button(QDialogButtonBox::Cancel) && button(QDialogButtonBox::Cancel)->icon().isNull() )
-        button(QDialogButtonBox::Cancel)->setIcon(QIcon(":/cancel.png"));
-    if ( button(QDialogButtonBox::Save) && button(QDialogButtonBox::Save)->icon().isNull() )
-        button(QDialogButtonBox::Save)->setIcon(QIcon(":/save.png"));
-    if ( button(QDialogButtonBox::Close) && button(QDialogButtonBox::Close)->icon().isNull() )
-        button(QDialogButtonBox::Close)->setIcon(QIcon(":/dialog-close.png"));
+  if (button(QDialogButtonBox::Ok) &&
+      button(QDialogButtonBox::Ok)->icon().isNull())
+    button(QDialogButtonBox::Ok)->setIcon(QIcon(":/ok.png"));
+  if (button(QDialogButtonBox::Cancel) &&
+      button(QDialogButtonBox::Cancel)->icon().isNull())
+    button(QDialogButtonBox::Cancel)->setIcon(QIcon(":/cancel.png"));
+  if (button(QDialogButtonBox::Save) &&
+      button(QDialogButtonBox::Save)->icon().isNull())
+    button(QDialogButtonBox::Save)->setIcon(QIcon(":/save.png"));
+  if (button(QDialogButtonBox::Close) &&
+      button(QDialogButtonBox::Close)->icon().isNull())
+    button(QDialogButtonBox::Close)->setIcon(QIcon(":/dialog-close.png"));
 }
 
-Dialog_Button_Box::~Dialog_Button_Box()
-{
-}
+Dialog_Button_Box::~Dialog_Button_Box() {}
 
 void Dialog_Button_Box::showEvent(QShowEvent* e)
 {
-    init();
-
-    e->accept();
+  init();
+  e->accept();
 }
-
