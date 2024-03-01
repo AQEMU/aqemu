@@ -71,8 +71,8 @@ void Copy_VM_Window::Add_VM_Machine_Name(const QString& name)
 void Copy_VM_Window::done(int r)
 {
   if (r == QDialog::Accepted) {
-    for (int ix = 0; ix < All_Machine_Names.count(); ++ix) {
-      if (All_Machine_Names[ix] == ui.Edit_New_VM_Name->text()) {
+    for (const auto& name : All_Machine_Names) {
+      if (name == ui.Edit_New_VM_Name->text()) {
         AQGraphic_Warning(tr("Error!"), tr("This VM Name Is Already Used!"));
         return;
       }

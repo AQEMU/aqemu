@@ -123,8 +123,8 @@ void Add_USB_Port_Window::on_Button_Update_Host_USB_clicked()
     USB_Host_List = System_Info::Get_All_Host_USB();
     QList<VM_USB> used_USB_List = System_Info::Get_Used_USB_List();
 
-    for (int ix = 0; ix < used_USB_List.count(); ix++) {
-      USB_Host_List.removeOne(used_USB_List[ix]);
+    for (const auto& usb : used_USB_List) {
+      USB_Host_List.removeOne(usb);
     }
   }
 
@@ -135,36 +135,36 @@ void Add_USB_Port_Window::on_Button_Update_Host_USB_clicked()
   }
 
   // Add new items
-  for (int ux = 0; ux < USB_Host_List.count(); ++ux) {
+  for (const auto& usb : USB_Host_List) {
     ui.Table_Host_USB->insertRow(ui.Table_Host_USB->rowCount());
     QTableWidgetItem* newItem;
 
     // Manufacturer
-    if (USB_Host_List[ux].Get_Manufacturer_Name().isEmpty())
-      newItem = new QTableWidgetItem(USB_Host_List[ux].Get_Vendor_ID());
+    if (usb.Get_Manufacturer_Name().isEmpty())
+      newItem = new QTableWidgetItem(usb.Get_Vendor_ID());
     else
-      newItem = new QTableWidgetItem(USB_Host_List[ux].Get_Manufacturer_Name());
+      newItem = new QTableWidgetItem(usb.Get_Manufacturer_Name());
 
     ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 0, newItem);
 
     // Product
-    if (USB_Host_List[ux].Get_Product_Name().isEmpty())
-      newItem = new QTableWidgetItem(USB_Host_List[ux].Get_Product_ID());
+    if (usb.Get_Product_Name().isEmpty())
+      newItem = new QTableWidgetItem(usb.Get_Product_ID());
     else
-      newItem = new QTableWidgetItem(USB_Host_List[ux].Get_Product_Name());
+      newItem = new QTableWidgetItem(usb.Get_Product_Name());
 
     ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 1, newItem);
 
     // Bus
-    newItem = new QTableWidgetItem(USB_Host_List[ux].Get_Bus());
+    newItem = new QTableWidgetItem(usb.Get_Bus());
     ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 2, newItem);
 
     // Addr
-    newItem = new QTableWidgetItem(USB_Host_List[ux].Get_Addr());
+    newItem = new QTableWidgetItem(usb.Get_Addr());
     ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 3, newItem);
 
     // Path
-    newItem = new QTableWidgetItem(USB_Host_List[ux].Get_DevPath());
+    newItem = new QTableWidgetItem(usb.Get_DevPath());
     ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 4, newItem);
   }
 
