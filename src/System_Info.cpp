@@ -2976,13 +2976,12 @@ bool System_Info::Update_Host_USB()
 
 void System_Info::Get_Free_Memory_Size(int& allRAM, int& freeRAM)
 {
-  MEMORYSTATUS mem;
-  memset((void*)&mem, 0, sizeof(mem));
+  MEMORYSTATUSEX mem;
   mem.dwLength = sizeof(mem);
-  GlobalMemoryStatus(&mem);
+  GlobalMemoryStatusEx(&mem);
 
-  freeRAM = (int)mem.dwAvailPhys / 1024.0 / 1024.0;
-  allRAM = (int)mem.dwTotalPhys / 1024.0 / 1024.0;
+  freeRAM = mem.ullAvailPhys / 1024.0 / 1024.0;
+  allRAM = mem.ullTotalPhys / 1024.0 / 1024.0;
 }
 
 QStringList System_Info::Get_Host_FDD_List()
