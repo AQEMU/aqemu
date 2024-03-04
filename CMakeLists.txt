@@ -252,6 +252,7 @@ IF( NOT WITHOUT_EMBEDDED_DISPLAY )
 	TARGET_LINK_LIBRARIES( aqemu ${LIBVNCCLIENT_LIBRARIES} )
 ENDIF( NOT WITHOUT_EMBEDDED_DISPLAY )
 
+if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 # Install files
 INSTALL( TARGETS aqemu DESTINATION bin )
 
@@ -274,6 +275,16 @@ INSTALL( FILES ${app_menu} DESTINATION share/applications )
 
 FILE( GLOB app_menu "${CMAKE_CURRENT_SOURCE_DIR}/resources/menu_data/aqemu.appdata.xml" )
 INSTALL( FILES ${app_menu} DESTINATION share/appdata )
+
+else()
+
+FILE( GLOB os_icons "${CMAKE_CURRENT_SOURCE_DIR}/resources/os_icons/*.*")
+file(COPY ${os_icons} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/os_icons/)
+
+FILE( GLOB os_templates "${CMAKE_CURRENT_SOURCE_DIR}/resources/os_templates/*.*")
+file(COPY ${os_templates} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/os_templates/)
+
+endif()
 
 # Create docs .bz2 files
 MACRO( create_docs _sources )
