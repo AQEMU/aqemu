@@ -50,7 +50,7 @@ class System_Info
 		static bool Delete_From_Used_USB_List( const VM_USB &device );
 		static bool Update_Host_USB();
 		
-		static void Get_Free_Memory_Size( int &allRAM, int &freeRAM );
+        static void Get_Free_Memory_Size( size_t &allRAM, size_t &freeRAM );
 		
 		static QStringList Get_Host_FDD_List();
 		static QStringList Get_Host_CDROM_List();

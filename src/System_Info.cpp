@@ -2974,7 +2974,7 @@ bool System_Info::Update_Host_USB()
 #include <tchar.h>
 #include <windows.h>
 
-void System_Info::Get_Free_Memory_Size(int& allRAM, int& freeRAM)
+void System_Info::Get_Free_Memory_Size(size_t& allRAM, size_t& freeRAM)
 {
   MEMORYSTATUSEX mem;
   mem.dwLength = sizeof(mem);

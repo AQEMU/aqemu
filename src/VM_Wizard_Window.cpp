@@ -745,7 +745,7 @@ void VM_Wizard_Window::on_CH_Remove_RAM_Size_Limitation_stateChanged(int state)
     Update_RAM_Size_ComboBox(32768);
   }
   else {
-    int allRAM = 0, freeRAM = 0;
+    size_t allRAM = 0, freeRAM = 0;
     System_Info::Get_Free_Memory_Size(allRAM, freeRAM);
 
     if (allRAM < ui.Memory_Size->value())
@@ -761,7 +761,7 @@ void VM_Wizard_Window::on_CH_Remove_RAM_Size_Limitation_stateChanged(int state)
 
 void VM_Wizard_Window::on_TB_Update_Available_RAM_Size_clicked()
 {
-  int allRAM = 0, freeRAM = 0;
+  size_t allRAM = 0, freeRAM = 0;
   System_Info::Get_Free_Memory_Size(allRAM, freeRAM);
   ui.TB_Update_Available_RAM_Size->setText(
       tr("Free memory: %1 MB").arg(freeRAM));
