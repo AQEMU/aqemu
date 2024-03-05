@@ -50,7 +50,7 @@ VM_Wizard_Window::VM_Wizard_Window(QWidget* parent) : QDialog(parent)
   ui.Label_Page->setBackgroundRole(QPalette::Base);
   ui.Wizard_Pages->setCurrentIndex(0);
 
-  New_VM = new Virtual_Machine();
+  New_VM = std::make_unique<Virtual_Machine>();
 
   // Loadind All Templates
   if (Load_OS_Templates()) {

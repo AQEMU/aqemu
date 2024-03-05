@@ -93,12 +93,7 @@ AQEMU_Main::AQEMU_Main()
   window = nullptr;
 }
 
-AQEMU_Main::~AQEMU_Main()
-{
-  delete settings;
-  delete window;
-  delete application;
-}
+AQEMU_Main::~AQEMU_Main() = default;
 
 int AQEMU_Main::main(int argc, char* argv[])
 {
@@ -109,7 +104,7 @@ int AQEMU_Main::main(int argc, char* argv[])
                      qPrintable(version));  // version string
 
   // Create QApplication
-  application = new QApplication(argc, argv);
+  application = std::make_unique<QApplication>(argc, argv);
 
   QString AQEMU_FILE;
   if (args.at("<AQEMU_FILE>").isString())
@@ -168,7 +163,6 @@ int AQEMU_Main::main(int argc, char* argv[])
   // the main window is closed at this point
   if (service.isActive())  //but vms might still be running
   {
-    delete window;
     window = nullptr;
     service.setMainWindow(false);
     application->setQuitOnLastWindowClosed(false);
@@ -227,7 +221,7 @@ int AQEMU_Main::main_window()
     return ret;
 
   // Show main window
-  window = new Main_Window;
+  window = std::make_unique<Main_Window>();
   window->show();
 
   application->setWindowIcon(QIcon(":/aqemu.png"));
@@ -256,11 +250,9 @@ void AQEMU_Main::first_start_wizard()
     First_Start_Wizard first_start_win(NULL);
 
     if (first_start_win.exec() == QDialog::Accepted)
-      AQDebug("int main( int argc, char *argv[] )",
-              "First Start Wizard Complete");
+      AQDebug("int main( int argc, char *argv[] )", "First Start Wizard Complete");
     else
-      AQWarning("int main( int argc, char *argv[] )",
-                "First Start Wizard Canceled!");
+      AQWarning("int main( int argc, char *argv[] )", "First Start Wizard Canceled!");
   }
 }
 
@@ -286,7 +278,7 @@ void AQEMU_Main::init_qsettings()
 #ifdef Q_OS_WIN32
   QSettings::setDefaultFormat(QSettings::IniFormat);
 #endif
-  settings = new QSettings();
+  settings = std::make_unique<QSettings>();
 }
 
 void AQEMU_Main::upgrade_settings()
@@ -294,9 +286,7 @@ void AQEMU_Main::upgrade_settings()
   // This is an Upgrade of AQEMU? Find Previous Config...
   //FIXME if( QFile::exists(QDir::homePath() + "/.config/aqemu/AQEMU.conf") )
   if (QFile::exists(settings->fileName())) {
-    QString conf_ver =
-        settings->value("AQEMU_Config_Version", CURRENT_AQEMU_VERSION)
-            .toString();
+    QString conf_ver = settings->value("AQEMU_Config_Version", CURRENT_AQEMU_VERSION).toString();
 
     if (conf_ver == "0.5") {
       AQDebug("int main( int argc, char *argv[] )",
@@ -311,23 +301,18 @@ void AQEMU_Main::upgrade_settings()
 
       QMessageBox::information(
           NULL, QObject::tr("AQEMU emulators search"),
-          QObject::tr(
-              "AQEMU will search for emulators after uptating. Please wait."),
+          QObject::tr("AQEMU will search for emulators after uptating. Please wait."),
           QMessageBox::Ok);
 
-      First_Start_Wizard* first_start_win = new First_Start_Wizard(NULL);
+      std::unique_ptr<First_Start_Wizard> first_start_win(new First_Start_Wizard(NULL));
 
       if (first_start_win->Find_Emulators())
-        AQDebug("int main( int argc, char *argv[] )",
-                "Find Emulators and Save Settings Complete");
+        AQDebug("int main( int argc, char *argv[] )", "Find Emulators and Save Settings Complete");
       else
-        AQGraphic_Error(
-            "int main( int argc, char *argv[] )", QObject::tr("Error!"),
-            QObject::tr("Cannot Find any Emulators installed in your OS! You "
-                        "should choose them In Advanced Settings!"),
-            false);
-
-      delete first_start_win;
+        AQGraphic_Error("int main( int argc, char *argv[] )", QObject::tr("Error!"),
+                        QObject::tr("Cannot Find any Emulators installed in your OS! You "
+                                    "should choose them In Advanced Settings!"),
+                        false);
 
       settings->setValue("AQEMU_Config_Version", CURRENT_AQEMU_VERSION);
     }
@@ -367,14 +352,11 @@ int AQEMU_Main::find_data_folders()
 #ifdef Q_OS_WIN32
     if (QDir(QDir::currentPath() + "\\os_icons").exists() &&
         QDir(QDir::currentPath() + "\\os_templates").exists()) {
-      settings->setValue("AQEMU_Data_Folder",
-                         QDir::toNativeSeparators(QDir::currentPath()));
-      AQDebug("int main( int argc, char *argv[] )",
-              "Use Data Folder: " + QDir::currentPath());
+      settings->setValue("AQEMU_Data_Folder", QDir::toNativeSeparators(QDir::currentPath()));
+      AQDebug("int main( int argc, char *argv[] )", "Use Data Folder: " + QDir::currentPath());
     }
     else {
-      AQGraphic_Error("int main( int argc, char *argv[] )",
-                      QObject::tr("Error!"),
+      AQGraphic_Error("int main( int argc, char *argv[] )", QObject::tr("Error!"),
                       QObject::tr("Cannot Find AQEMU Data!"), false);
     }
 #else
@@ -395,20 +377,17 @@ int AQEMU_Main::find_data_folders()
 
     // Found?
     if (settings->value("AQEMU_Data_Folder", "").toString().isEmpty()) {
-      QMessageBox::information(
-          NULL, QObject::tr("Error!"),
-          QObject::tr("Cannot Locate AQEMU Data Folder!\n"
-                      "You Should Select This Folder in Next Window!"),
-          QMessageBox::Ok);
+      QMessageBox::information(NULL, QObject::tr("Error!"),
+                               QObject::tr("Cannot Locate AQEMU Data Folder!\n"
+                                           "You Should Select This Folder in Next Window!"),
+                               QMessageBox::Ok);
 
       QString aqemuDataDir = QFileDialog::getExistingDirectory(
-          NULL, QObject::tr("Please Select AQEMU Data Folder:"), "/",
-          QFileDialog::ShowDirsOnly);
+          NULL, QObject::tr("Please Select AQEMU Data Folder:"), "/", QFileDialog::ShowDirsOnly);
 
       if (aqemuDataDir.isEmpty()) {
-        QMessageBox::critical(
-            NULL, QObject::tr("Error!"),
-            QObject::tr("AQEMU won't Work If Data Folder isn't Selected!"));
+        QMessageBox::critical(NULL, QObject::tr("Error!"),
+                              QObject::tr("AQEMU won't Work If Data Folder isn't Selected!"));
         return -1;
       }
       else {
@@ -440,12 +419,10 @@ void AQEMU_Main::log_settings()
         if (!dir.mkpath(logDirPath))
           AQGraphic_Warning(
               QObject::tr("Error"),
-              QObject::tr("Cannot create directory for log file! Path: %1")
-                  .arg(logDirPath));
+              QObject::tr("Cannot create directory for log file! Path: %1").arg(logDirPath));
       }
 
-      settings->setValue("Log/Log_Path",
-                         QDir::toNativeSeparators(logDirPath + "/aqemu.log"));
+      settings->setValue("Log/Log_Path", QDir::toNativeSeparators(logDirPath + "/aqemu.log"));
     }
     else {
       // Log Size
@@ -467,11 +444,10 @@ void AQEMU_Main::log_settings()
   AQLog_Path(settings->value("Log/Log_Path", "").toString());
 
   // Log Filter
-  AQUse_Debug_Output(
-      settings->value("Log/Print_In_STDOUT", "yes").toString() == "yes",
-      settings->value("Log/Save_Debug", "no").toString() == "yes",
-      settings->value("Log/Save_Warning", "yes").toString() == "yes",
-      settings->value("Log/Save_Error", "yes").toString() == "yes");
+  AQUse_Debug_Output(settings->value("Log/Print_In_STDOUT", "yes").toString() == "yes",
+                     settings->value("Log/Save_Debug", "no").toString() == "yes",
+                     settings->value("Log/Save_Warning", "yes").toString() == "yes",
+                     settings->value("Log/Save_Error", "yes").toString() == "yes");
 }
 
 int AQEMU_Main::root_warning()
@@ -502,10 +478,9 @@ void AQEMU_Main::vm_dir_exists_or_create()
   // VM Directory Exists?
   QDir vm_dir;
   if (!vm_dir.exists(settings->value("VM_Directory", "").toString())) {
-    int ret = QMessageBox::question(
-        NULL, QObject::tr("Warning!"),
-        QObject::tr("AQEMU VM Folder doesn't Exists! Create It?"),
-        QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+    int ret = QMessageBox::question(NULL, QObject::tr("Warning!"),
+                                    QObject::tr("AQEMU VM Folder doesn't Exists! Create It?"),
+                                    QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
 
     if (ret == QMessageBox::Yes) {
 #ifdef Q_OS_WIN32

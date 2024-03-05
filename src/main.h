@@ -59,9 +59,9 @@ class AQEMU_Main : public QObject
         int root_warning();
         void vm_dir_exists_or_create();
 
-        QSettings* settings;
-        QApplication* application;
-        Main_Window* window;
+        std::unique_ptr<QSettings> settings;
+        std::unique_ptr<QApplication> application;
+        std::unique_ptr<Main_Window> window;
 };
 
 #endif

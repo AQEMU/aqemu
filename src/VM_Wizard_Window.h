@@ -38,8 +38,8 @@ class VM_Wizard_Window: public QDialog
 	public:
 		VM_Wizard_Window( QWidget *parent = 0 );
 		void Set_VM_List( QList<Virtual_Machine*> *list );
-		
-		Virtual_Machine *New_VM;
+
+        std::unique_ptr<Virtual_Machine> New_VM;
 		
 	private slots:
         void on_KVM_toggled(bool toggled);
