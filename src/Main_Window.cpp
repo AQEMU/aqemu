@@ -2983,12 +2983,12 @@ void Main_Window::on_actionShow_New_VM_Wizard_triggered()
                      this,
                      SLOT(VM_State_Changed(Virtual_Machine*, VM::VM_State)));
 
-    QListWidgetItem* item =
-        new QListWidgetItem(vm->Get_Machine_Name(), ui.Machines_List);
+    std::unique_ptr<QListWidgetItem> item(
+        new QListWidgetItem(vm->Get_Machine_Name(), ui.Machines_List));
     item->setIcon(QIcon(vm->Get_Icon_Path()));
     item->setData(256, vm->Get_UID());
 
-    ui.Machines_List->setCurrentItem(item);
+    ui.Machines_List->setCurrentItem(item.get());
 
     Update_VM_Ui();
 
