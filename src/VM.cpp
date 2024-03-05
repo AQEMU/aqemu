@@ -164,6 +164,7 @@ Virtual_Machine::Virtual_Machine(const Virtual_Machine& vm)
   this->Use_Redirections = vm.Get_Use_Redirections();
 
   this->Network_Cards.clear();
+  this->Network_Cards.reserve(vm.Get_Network_Cards_Count());
   for (int nx = 0; nx < vm.Get_Network_Cards_Count(); nx++) {
     VM_Net_Card n_card = vm.Get_Network_Card(nx);
 
@@ -175,6 +176,7 @@ Virtual_Machine::Virtual_Machine(const Virtual_Machine& vm)
   this->Network_Cards_Native = vm.Get_Network_Cards_Native();
 
   this->Network_Redirections.clear();
+  this->Network_Redirections.reserve(vm.Get_Network_Redirections_Count());
   for (int rx = 0; rx < vm.Get_Network_Redirections_Count(); rx++) {
     VM_Redirection n_redir = vm.Get_Network_Redirection(rx);
 
@@ -190,6 +192,7 @@ Virtual_Machine::Virtual_Machine(const Virtual_Machine& vm)
 
   // USB
   this->USB_Ports.clear();
+  this->USB_Ports.reserve(vm.Get_USB_Ports().count());
   for (int ux = 0; ux < vm.Get_USB_Ports().count(); ++ux) {
     this->USB_Ports.append(VM_USB(vm.Get_USB_Ports()[ux]));
   }
@@ -727,6 +730,7 @@ Virtual_Machine& Virtual_Machine::operator=(const Virtual_Machine& vm)
   this->Use_Redirections = vm.Get_Use_Redirections();
 
   this->Network_Cards.clear();
+  this->Network_Cards.reserve(vm.Get_Network_Cards_Count());
   for (int nx = 0; nx < vm.Get_Network_Cards_Count(); nx++) {
     VM_Net_Card n_card = vm.Get_Network_Card(nx);
 
@@ -738,6 +742,7 @@ Virtual_Machine& Virtual_Machine::operator=(const Virtual_Machine& vm)
   this->Network_Cards_Native = vm.Get_Network_Cards_Native();
 
   this->Network_Redirections.clear();
+  this->Network_Redirections.reserve(vm.Get_Network_Redirections_Count());
   for (int rx = 0; rx < vm.Get_Network_Redirections_Count(); rx++) {
     VM_Redirection n_redir = vm.Get_Network_Redirection(rx);
 
@@ -752,6 +757,7 @@ Virtual_Machine& Virtual_Machine::operator=(const Virtual_Machine& vm)
   this->Parallel_Ports = vm.Get_Parallel_Ports();
 
   this->USB_Ports.clear();
+  this->USB_Ports.reserve(vm.Get_USB_Ports().count());
   for (int ux = 0; ux < vm.Get_USB_Ports().count(); ++ux) {
     this->USB_Ports.append(VM_USB(vm.Get_USB_Ports()[ux]));
   }
@@ -8595,6 +8601,7 @@ void Virtual_Machine::Set_Snapshots(const QList<VM_Snapshot>& list)
 {
   Snapshots.clear();
 
+  Snapshots.reserve(list.count());
   for (int sx = 0; sx < list.count(); ++sx) {
     Snapshots.append(VM_Snapshot(list[sx]));
   }
@@ -8645,6 +8652,7 @@ void Virtual_Machine::Set_Storage_Devices_List(
 {
   Storage_Devices.clear();
 
+  Storage_Devices.reserve(list.count());
   for (int ix = 0; ix < list.count(); ++ix) {
     Storage_Devices.append(VM_Native_Storage_Device(list[ix]));
   }
@@ -8655,6 +8663,7 @@ void Virtual_Machine::Set_Shared_Folders_List(
 {
   Shared_Folders.clear();
 
+  Shared_Folders.reserve(list.count());
   for (int ix = 0; ix < list.count(); ++ix) {
     Shared_Folders.append(VM_Shared_Folder(list[ix]));
   }
@@ -9068,6 +9077,7 @@ void Virtual_Machine::Set_USB_Ports(const QList<VM_USB>& list)
 {
   USB_Ports.clear();
 
+  USB_Ports.reserve(list.count());
   for (int ix = 0; ix < list.count(); ++ix) {
     USB_Ports.append(VM_USB(list[ix]));
   }

@@ -408,6 +408,7 @@ bool VM_Wizard_Window::Load_OS_Templates()
 {
   QList<QString> tmp_list = Get_Templates_List();
 
+  OS_Templates_List.reserve(tmp_list.count());
   for (int ax = 0; ax < tmp_list.count(); ++ax) {
     OS_Templates_List.append(QFileInfo(tmp_list[ax]));
   }

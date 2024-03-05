@@ -407,6 +407,7 @@ QList<QString> Get_Templates_List()
   }
 
   // OK. In Template Lists Only Unique Values
+  all_templates.reserve(sys_templates_list.count() + user_templates_list.count());
   for (int ix = 0; ix < sys_templates_list.count(); ++ix)
     all_templates.append(sys_templates_list[ix].absoluteFilePath());
 

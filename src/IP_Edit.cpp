@@ -148,6 +148,7 @@ IP_Edit::IP_Edit(QWidget* parent) : QFrame(parent)
   p3->setMaximumWidth(width);
   p4->setMaximumWidth(width);
 
+  lines.reserve(4);
   lines.append(p1);
   lines.append(p2);
   lines.append(p3);
