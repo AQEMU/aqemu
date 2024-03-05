@@ -95,19 +95,16 @@ Virtual_Machine::Virtual_Machine(const Virtual_Machine& vm)
   QObject::connect(Emu_Ctl, SIGNAL(Ready_Read_Command(QString)), this,
                    SLOT(Execute_Emu_Ctl_Command(QString)));
 
-  QObject::connect(QEMU_Process, SIGNAL(readyReadStandardError()), this,
-                   SLOT(Parse_StdErr()));
+  QObject::connect(QEMU_Process, SIGNAL(readyReadStandardError()), this, SLOT(Parse_StdErr()));
 
-  QObject::connect(QEMU_Process, SIGNAL(readyReadStandardOutput()), this,
-                   SLOT(Parse_StdOut()));
+  QObject::connect(QEMU_Process, SIGNAL(readyReadStandardOutput()), this, SLOT(Parse_StdOut()));
 
-  QObject::connect(Monitor_Socket, SIGNAL(readyRead()), this,
-                   SLOT(Parse_StdOut()));
+  QObject::connect(Monitor_Socket, SIGNAL(readyRead()), this, SLOT(Parse_StdOut()));
 
   QObject::connect(QEMU_Process, SIGNAL(started()), this, SLOT(QEMU_Started()));
 
-  QObject::connect(QEMU_Process, SIGNAL(finished(int, QProcess::ExitStatus)),
-                   this, SLOT(QEMU_Finished(int, QProcess::ExitStatus)));
+  QObject::connect(QEMU_Process, SIGNAL(finished(int, QProcess::ExitStatus)), this,
+                   SLOT(QEMU_Finished(int, QProcess::ExitStatus)));
 
   this->Icon_Path = vm.Get_Icon_Path();
   this->Screenshot_Path = vm.Get_Screenshot_Path();
@@ -306,19 +303,16 @@ void Virtual_Machine::Shared_Constructor()
   QObject::connect(Emu_Ctl, SIGNAL(Ready_Read_Command(QString)), this,
                    SLOT(Execute_Emu_Ctl_Command(QString)));
 
-  QObject::connect(QEMU_Process, SIGNAL(readyReadStandardError()), this,
-                   SLOT(Parse_StdErr()));
+  QObject::connect(QEMU_Process, SIGNAL(readyReadStandardError()), this, SLOT(Parse_StdErr()));
 
-  QObject::connect(QEMU_Process, SIGNAL(readyReadStandardOutput()), this,
-                   SLOT(Parse_StdOut()));
+  QObject::connect(QEMU_Process, SIGNAL(readyReadStandardOutput()), this, SLOT(Parse_StdOut()));
 
-  QObject::connect(Monitor_Socket, SIGNAL(readyRead()), this,
-                   SLOT(Parse_StdOut()));
+  QObject::connect(Monitor_Socket, SIGNAL(readyRead()), this, SLOT(Parse_StdOut()));
 
   QObject::connect(QEMU_Process, SIGNAL(started()), this, SLOT(QEMU_Started()));
 
-  QObject::connect(QEMU_Process, SIGNAL(finished(int, QProcess::ExitStatus)),
-                   this, SLOT(QEMU_Finished(int, QProcess::ExitStatus)));
+  QObject::connect(QEMU_Process, SIGNAL(finished(int, QProcess::ExitStatus)), this,
+                   SLOT(QEMU_Finished(int, QProcess::ExitStatus)));
 
   Icon_Path = ":/other.png";
   Screenshot_Path = "";
@@ -431,8 +425,7 @@ void Virtual_Machine::Shared_Constructor()
   RTC_TD_Hack = false;
 
   Start_Date = false;
-  Start_DateTime =
-      QDateTime::fromString("20.10.2000 23:59:00", "dd.MM.yyyy HH:mm:ss");
+  Start_DateTime = QDateTime::fromString("20.10.2000 23:59:00", "dd.MM.yyyy HH:mm:ss");
 
   SPICE = VM_SPICE();
 
@@ -460,76 +453,55 @@ void Virtual_Machine::Shared_Constructor()
 
 bool Virtual_Machine::operator==(const Virtual_Machine& vm) const
 {
-  if (this->Icon_Path == vm.Get_Icon_Path() &&
-      this->Computer_Type == vm.Get_Computer_Type() &&
+  if (this->Icon_Path == vm.Get_Icon_Path() && this->Computer_Type == vm.Get_Computer_Type() &&
       this->Machine_Name == vm.Get_Machine_Name() &&
       this->Machine_Accelerator == vm.Get_Machine_Accelerator() &&
-      this->Machine_Type == vm.Get_Machine_Type() &&
-      this->CPU_Type == vm.Get_CPU_Type() && this->SMP == vm.Get_SMP() &&
-      this->Keyboard_Layout == vm.Get_Keyboard_Layout() &&
-      this->Show_Boot_Menu == vm.Get_Show_Boot_Menu() &&
-      this->Video_Card == vm.Get_Video_Card() &&
-      this->Audio_Card == vm.Get_Audio_Cards() &&
-      this->Memory_Size == vm.Get_Memory_Size() &&
+      this->Machine_Type == vm.Get_Machine_Type() && this->CPU_Type == vm.Get_CPU_Type() &&
+      this->SMP == vm.Get_SMP() && this->Keyboard_Layout == vm.Get_Keyboard_Layout() &&
+      this->Show_Boot_Menu == vm.Get_Show_Boot_Menu() && this->Video_Card == vm.Get_Video_Card() &&
+      this->Audio_Card == vm.Get_Audio_Cards() && this->Memory_Size == vm.Get_Memory_Size() &&
       this->Remove_RAM_Size_Limitation == vm.Get_Remove_RAM_Size_Limitation() &&
-      this->Fullscreen == vm.Use_Fullscreen_Mode() &&
-      this->Win2K_Hack == vm.Use_Win2K_Hack() &&
+      this->Fullscreen == vm.Use_Fullscreen_Mode() && this->Win2K_Hack == vm.Use_Win2K_Hack() &&
       this->Local_Time == vm.Use_Local_Time() &&
       this->Check_FDD_Boot_Sector == vm.Use_Check_FDD_Boot_Sector() &&
-      this->ACPI == vm.Use_ACPI() &&
-      this->Snapshot_Mode == vm.Use_Snapshot_Mode() &&
-      this->No_Shutdown == vm.Use_No_Shutdown() &&
-      this->Start_CPU == vm.Use_Start_CPU() &&
+      this->ACPI == vm.Use_ACPI() && this->Snapshot_Mode == vm.Use_Snapshot_Mode() &&
+      this->No_Shutdown == vm.Use_No_Shutdown() && this->Start_CPU == vm.Use_Start_CPU() &&
       this->No_Reboot == vm.Use_No_Reboot() && this->FD0 == vm.Get_FD0() &&
-      this->FD1 == vm.Get_FD1() && this->CD_ROM == vm.Get_CD_ROM() &&
-      this->HDA == vm.Get_HDA() && this->HDB == vm.Get_HDB() &&
-      this->HDC == vm.Get_HDC() && this->HDD == vm.Get_HDD() &&
+      this->FD1 == vm.Get_FD1() && this->CD_ROM == vm.Get_CD_ROM() && this->HDA == vm.Get_HDA() &&
+      this->HDB == vm.Get_HDB() && this->HDC == vm.Get_HDC() && this->HDD == vm.Get_HDD() &&
       this->Use_Network == vm.Get_Use_Network() &&
       this->Native_Network == vm.Use_Native_Network() &&
       this->Use_Redirections == vm.Get_Use_Redirections() &&
       this->Get_Network_Cards_Count() == vm.Get_Network_Cards_Count() &&
-      this->Get_Network_Redirections_Count() ==
-          vm.Get_Network_Redirections_Count() &&
-      this->TFTP_Prefix == vm.Get_TFTP_Prefix() &&
-      this->SMB_Directory == vm.Get_SMB_Directory() &&
-      this->Linux_Boot == vm.Get_Use_Linux_Boot() &&
-      this->bzImage_Path == vm.Get_bzImage_Path() &&
+      this->Get_Network_Redirections_Count() == vm.Get_Network_Redirections_Count() &&
+      this->TFTP_Prefix == vm.Get_TFTP_Prefix() && this->SMB_Directory == vm.Get_SMB_Directory() &&
+      this->Linux_Boot == vm.Get_Use_Linux_Boot() && this->bzImage_Path == vm.Get_bzImage_Path() &&
       this->Initrd_Path == vm.Get_Initrd_Path() &&
       this->Kernel_ComLine == vm.Get_Kernel_ComLine() &&
       this->Additional_Args == vm.Get_Additional_Args() &&
       this->Only_User_Args == vm.Get_Only_User_Args() &&
       this->Use_User_Emulator_Binary == vm.Get_Use_User_Emulator_Binary() &&
-      this->Use_ROM_File == vm.Get_Use_ROM_File() &&
-      this->ROM_File == vm.Get_ROM_File() &&
-      this->MTDBlock == vm.Use_MTDBlock_File() &&
-      this->MTDBlock_File == vm.Get_MTDBlock_File() &&
+      this->Use_ROM_File == vm.Get_Use_ROM_File() && this->ROM_File == vm.Get_ROM_File() &&
+      this->MTDBlock == vm.Use_MTDBlock_File() && this->MTDBlock_File == vm.Get_MTDBlock_File() &&
       this->SecureDigital == vm.Use_SecureDigital_File() &&
       this->SecureDigital_File == vm.Get_SecureDigital_File() &&
-      this->PFlash == vm.Use_PFlash_File() &&
-      this->PFlash_File == vm.Get_PFlash_File() &&
-      this->Enable_KVM == vm.Use_KVM() &&
-      this->KVM_IRQChip == vm.Use_KVM_IRQChip() &&
+      this->PFlash == vm.Use_PFlash_File() && this->PFlash_File == vm.Get_PFlash_File() &&
+      this->Enable_KVM == vm.Use_KVM() && this->KVM_IRQChip == vm.Use_KVM_IRQChip() &&
       this->No_KVM_Pit == vm.Use_No_KVM_Pit() &&
       this->KVM_No_Pit_Reinjection == vm.Use_KVM_No_Pit_Reinjection() &&
       this->KVM_Nesting == vm.Use_KVM_Nesting() &&
       this->KVM_Shadow_Memory == vm.Use_KVM_Shadow_Memory() &&
       this->KVM_Shadow_Memory_Size == vm.Get_KVM_Shadow_Memory_Size() &&
       this->Init_Graphic_Mode == vm.Get_Init_Graphic_Mode() &&
-      this->No_Frame == vm.Use_No_Frame() &&
-      this->Alt_Grab == vm.Use_Alt_Grab() &&
-      this->No_Quit == vm.Use_No_Quit() &&
-      this->Portrait == vm.Use_Portrait() &&
-      this->Show_Cursor == vm.Use_Show_Cursor() &&
-      this->Curses == vm.Use_Curses() &&
-      this->RTC_TD_Hack == vm.Use_RTC_TD_Hack() &&
-      this->Start_Date == vm.Use_Start_Date() &&
-      this->Start_DateTime == vm.Get_Start_Date() &&
-      this->SPICE == vm.Get_SPICE() && this->VNC == vm.Use_VNC() &&
-      this->VNC_Socket_Mode == vm.Get_VNC_Socket_Mode() &&
+      this->No_Frame == vm.Use_No_Frame() && this->Alt_Grab == vm.Use_Alt_Grab() &&
+      this->No_Quit == vm.Use_No_Quit() && this->Portrait == vm.Use_Portrait() &&
+      this->Show_Cursor == vm.Use_Show_Cursor() && this->Curses == vm.Use_Curses() &&
+      this->RTC_TD_Hack == vm.Use_RTC_TD_Hack() && this->Start_Date == vm.Use_Start_Date() &&
+      this->Start_DateTime == vm.Get_Start_Date() && this->SPICE == vm.Get_SPICE() &&
+      this->VNC == vm.Use_VNC() && this->VNC_Socket_Mode == vm.Get_VNC_Socket_Mode() &&
       this->VNC_Unix_Socket_Path == vm.Get_VNC_Unix_Socket_Path() &&
       this->VNC_Display_Number == vm.Get_VNC_Display_Number() &&
-      this->VNC_Password == vm.Use_VNC_Password() &&
-      this->VNC_TLS == vm.Use_VNC_TLS() &&
+      this->VNC_Password == vm.Use_VNC_Password() && this->VNC_TLS == vm.Use_VNC_TLS() &&
       this->VNC_x509 == vm.Use_VNC_x509() &&
       this->VNC_x509_Folder_Path == vm.Get_VNC_x509_Folder_Path() &&
       this->VNC_x509verify == vm.Use_VNC_x509verify() &&
@@ -537,8 +509,7 @@ bool Virtual_Machine::operator==(const Virtual_Machine& vm) const
     // Boot Order
     if (Boot_Order_List.count() == vm.Get_Boot_Order_List().count()) {
       for (int bx = 0; bx < Boot_Order_List.count(); bx++) {
-        if ((Boot_Order_List[bx].Enabled !=
-             vm.Get_Boot_Order_List()[bx].Enabled) ||
+        if ((Boot_Order_List[bx].Enabled != vm.Get_Boot_Order_List()[bx].Enabled) ||
             (Boot_Order_List[bx].Type != vm.Get_Boot_Order_List()[bx].Type))
           return false;
       }
@@ -589,8 +560,7 @@ bool Virtual_Machine::operator==(const Virtual_Machine& vm) const
       return false;
 
     // Network Redirections
-    if (Get_Network_Redirections_Count() ==
-        vm.Get_Network_Redirections_Count()) {
+    if (Get_Network_Redirections_Count() == vm.Get_Network_Redirections_Count()) {
       for (int rx = 0; rx < Get_Network_Redirections_Count(); ++rx) {
         if (Network_Redirections[rx] != vm.Get_Network_Redirection(rx))
           return false;
@@ -663,19 +633,16 @@ Virtual_Machine& Virtual_Machine::operator=(const Virtual_Machine& vm)
   QObject::connect(Emu_Ctl, SIGNAL(Ready_Read_Command(QString)), this,
                    SLOT(Execute_Emu_Ctl_Command(QString)));
 
-  QObject::connect(QEMU_Process, SIGNAL(readyReadStandardError()), this,
-                   SLOT(Parse_StdErr()));
+  QObject::connect(QEMU_Process, SIGNAL(readyReadStandardError()), this, SLOT(Parse_StdErr()));
 
-  QObject::connect(QEMU_Process, SIGNAL(readyReadStandardOutput()), this,
-                   SLOT(Parse_StdOut()));
+  QObject::connect(QEMU_Process, SIGNAL(readyReadStandardOutput()), this, SLOT(Parse_StdOut()));
 
-  QObject::connect(Monitor_Socket, SIGNAL(readyRead()), this,
-                   SLOT(Parse_StdOut()));
+  QObject::connect(Monitor_Socket, SIGNAL(readyRead()), this, SLOT(Parse_StdOut()));
 
   QObject::connect(QEMU_Process, SIGNAL(started()), this, SLOT(QEMU_Started()));
 
-  QObject::connect(QEMU_Process, SIGNAL(finished(int, QProcess::ExitStatus)),
-                   this, SLOT(QEMU_Finished(int, QProcess::ExitStatus)));
+  QObject::connect(QEMU_Process, SIGNAL(finished(int, QProcess::ExitStatus)), this,
+                   SLOT(QEMU_Finished(int, QProcess::ExitStatus)));
 
   this->Icon_Path = vm.Get_Icon_Path();
   this->Screenshot_Path = vm.Get_Screenshot_Path();
@@ -837,8 +804,7 @@ void Virtual_Machine::Set_VM_XML_File_Path(const QString& path)
   VM_XML_File_Path = path;
 }
 
-bool Virtual_Machine::Create_VM_File(const QString& file_name,
-                                     bool template_mode)
+bool Virtual_Machine::Create_VM_File(const QString& file_name, bool template_mode)
 {
   VM_XML_File_Path = file_name;
 
@@ -852,8 +818,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
 
   QDomDocument New_Dom_Document("AQEMU");
   QDomProcessingInstruction Pro_Instr =
-      New_Dom_Document.createProcessingInstruction(
-          "xml", "version=\"1.0\" encoding=\"UTF-8\"");
+      New_Dom_Document.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\"");
   New_Dom_Document.appendChild(Pro_Instr);
   QDomElement Root_Element;
 
@@ -876,8 +841,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
     // Temlate Options
     Dom_Element = New_Dom_Document.createElement("Template_Options");
     VM_Element.appendChild(Dom_Element);
-    Dom_Text =
-        New_Dom_Document.createTextNode(QString::number((int)Template_Opts));
+    Dom_Text = New_Dom_Document.createTextNode(QString::number((int)Template_Opts));
     Dom_Element.appendChild(Dom_Text);
   }
 
@@ -914,8 +878,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
   QString data_folder = settings.value("AQEMU_Data_Folder", "").toString();
   if (!data_folder.isEmpty()) {
     if (Icon_Path.startsWith(data_folder))  //save relative path if possible
-      Dom_Text = New_Dom_Document.createTextNode(
-          QString(Icon_Path).replace(data_folder, ""));
+      Dom_Text = New_Dom_Document.createTextNode(QString(Icon_Path).replace(data_folder, ""));
     else
       Dom_Text = New_Dom_Document.createTextNode(Icon_Path);
   }
@@ -947,8 +910,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
   // Emulator Type (legacy name) = now Machine_Accelerator
   Dom_Element = New_Dom_Document.createElement("Machine_Accelerator");
   VM_Element.appendChild(Dom_Element);
-  Dom_Text =
-      New_Dom_Document.createTextNode(VM::Accel_To_String(Machine_Accelerator));
+  Dom_Text = New_Dom_Document.createTextNode(VM::Accel_To_String(Machine_Accelerator));
   Dom_Element.appendChild(Dom_Text);
 
   // Computer Type
@@ -1011,13 +973,11 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
   // Boot Device
   Dom_Element = New_Dom_Document.createElement("Boot_Device_Count");
   VM_Element.appendChild(Dom_Element);
-  Dom_Text =
-      New_Dom_Document.createTextNode(QString::number(Boot_Order_List.count()));
+  Dom_Text = New_Dom_Document.createTextNode(QString::number(Boot_Order_List.count()));
   Dom_Element.appendChild(Dom_Text);
 
   for (int bx = 0; bx < Boot_Order_List.count(); bx++) {
-    Dom_Element =
-        New_Dom_Document.createElement("Boot_Device_" + QString::number(bx));
+    Dom_Element = New_Dom_Document.createElement("Boot_Device_" + QString::number(bx));
 
     Sec_Element = New_Dom_Document.createElement("Enabled");
     Dom_Element.appendChild(Sec_Element);
@@ -1305,8 +1265,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
   Dom_Element.appendChild(Dom_Text);
 
   // Floppy's and CD-ROM
-  if (template_mode &&
-      !(Template_Opts & Create_Template_Window::Template_Save_FDD_CD)) {
+  if (template_mode && !(Template_Opts & Create_Template_Window::Template_Save_FDD_CD)) {
     // Floppy 0
     Dom_Element = New_Dom_Document.createElement("FD0");
 
@@ -1324,8 +1283,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
 
     // Native Device
     Sec_Element = New_Dom_Document.createElement("Native_Device");
-    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element,
-                                  VM_Native_Storage_Device());
+    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element, VM_Native_Storage_Device());
     Dom_Element.appendChild(Sec_Element);
 
     VM_Element.appendChild(Dom_Element);
@@ -1347,8 +1305,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
 
     // Native Device
     Sec_Element = New_Dom_Document.createElement("Native_Device");
-    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element,
-                                  VM_Native_Storage_Device());
+    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element, VM_Native_Storage_Device());
     Dom_Element.appendChild(Sec_Element);
 
     VM_Element.appendChild(Dom_Element);
@@ -1370,8 +1327,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
 
     // Native Device
     Sec_Element = New_Dom_Document.createElement("Native_Device");
-    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element,
-                                  VM_Native_Storage_Device());
+    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element, VM_Native_Storage_Device());
     Dom_Element.appendChild(Sec_Element);
 
     VM_Element.appendChild(Dom_Element);
@@ -1397,8 +1353,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
 
     // Native Device
     Sec_Element = New_Dom_Document.createElement("Native_Device");
-    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element,
-                                  FD0.Get_Native_Device());
+    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element, FD0.Get_Native_Device());
     Dom_Element.appendChild(Sec_Element);
 
     VM_Element.appendChild(Dom_Element);
@@ -1423,8 +1378,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
 
     // Native Device
     Sec_Element = New_Dom_Document.createElement("Native_Device");
-    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element,
-                                  FD1.Get_Native_Device());
+    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element, FD1.Get_Native_Device());
     Dom_Element.appendChild(Sec_Element);
 
     VM_Element.appendChild(Dom_Element);
@@ -1449,15 +1403,13 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
 
     // Native Device
     Sec_Element = New_Dom_Document.createElement("Native_Device");
-    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element,
-                                  CD_ROM.Get_Native_Device());
+    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element, CD_ROM.Get_Native_Device());
     Dom_Element.appendChild(Sec_Element);
 
     VM_Element.appendChild(Dom_Element);
   }
 
-  if (template_mode &&
-      !(Template_Opts & Create_Template_Window::Template_Save_HDD)) {
+  if (template_mode && !(Template_Opts & Create_Template_Window::Template_Save_HDD)) {
     // HDA
     Dom_Element = New_Dom_Document.createElement("HDA");
 
@@ -1475,8 +1427,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
 
     // Native Device
     Sec_Element = New_Dom_Document.createElement("Native_Device");
-    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element,
-                                  VM_Native_Storage_Device());
+    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element, VM_Native_Storage_Device());
     Dom_Element.appendChild(Sec_Element);
 
     VM_Element.appendChild(Dom_Element);
@@ -1498,8 +1449,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
 
     // Native Device
     Sec_Element = New_Dom_Document.createElement("Native_Device");
-    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element,
-                                  VM_Native_Storage_Device());
+    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element, VM_Native_Storage_Device());
     Dom_Element.appendChild(Sec_Element);
 
     VM_Element.appendChild(Dom_Element);
@@ -1521,8 +1471,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
 
     // Native Device
     Sec_Element = New_Dom_Document.createElement("Native_Device");
-    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element,
-                                  VM_Native_Storage_Device());
+    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element, VM_Native_Storage_Device());
     Dom_Element.appendChild(Sec_Element);
 
     VM_Element.appendChild(Dom_Element);
@@ -1544,8 +1493,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
 
     // Native Device
     Sec_Element = New_Dom_Document.createElement("Native_Device");
-    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element,
-                                  VM_Native_Storage_Device());
+    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element, VM_Native_Storage_Device());
     Dom_Element.appendChild(Sec_Element);
 
     VM_Element.appendChild(Dom_Element);
@@ -1573,8 +1521,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
 
     // Native Device
     Sec_Element = New_Dom_Document.createElement("Native_Device");
-    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element,
-                                  HDA.Get_Native_Device());
+    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element, HDA.Get_Native_Device());
     Dom_Element.appendChild(Sec_Element);
 
     VM_Element.appendChild(Dom_Element);
@@ -1601,8 +1548,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
 
     // Native Device
     Sec_Element = New_Dom_Document.createElement("Native_Device");
-    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element,
-                                  HDB.Get_Native_Device());
+    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element, HDB.Get_Native_Device());
     Dom_Element.appendChild(Sec_Element);
 
     VM_Element.appendChild(Dom_Element);
@@ -1629,8 +1575,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
 
     // Native Device
     Sec_Element = New_Dom_Document.createElement("Native_Device");
-    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element,
-                                  HDC.Get_Native_Device());
+    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element, HDC.Get_Native_Device());
     Dom_Element.appendChild(Sec_Element);
 
     VM_Element.appendChild(Dom_Element);
@@ -1657,8 +1602,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
 
     // Native Device
     Sec_Element = New_Dom_Document.createElement("Native_Device");
-    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element,
-                                  HDD.Get_Native_Device());
+    Save_VM_Native_Storage_Device(New_Dom_Document, Sec_Element, HDD.Get_Native_Device());
     Dom_Element.appendChild(Sec_Element);
 
     VM_Element.appendChild(Dom_Element);
@@ -1667,20 +1611,16 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
   // Storage Devices
   if (Get_Current_Emulator_Devices()->PSO_Drive &&
       (template_mode == false ||
-       (template_mode == true &&
-        (Template_Opts & Create_Template_Window::Template_Save_HDD)))) {
+       (template_mode == true && (Template_Opts & Create_Template_Window::Template_Save_HDD)))) {
     // Storage Device Count
     Dom_Element = New_Dom_Document.createElement("Storage_Device_Count");
     VM_Element.appendChild(Dom_Element);
-    Dom_Text = New_Dom_Document.createTextNode(
-        QString::number(Storage_Devices.count()));
+    Dom_Text = New_Dom_Document.createTextNode(QString::number(Storage_Devices.count()));
     Dom_Element.appendChild(Dom_Text);
 
     for (int sx = 0; sx < Storage_Devices.count(); ++sx) {
-      Dom_Element = New_Dom_Document.createElement("Storage_Device_" +
-                                                   QString::number(sx));
-      Save_VM_Native_Storage_Device(New_Dom_Document, Dom_Element,
-                                    Storage_Devices[sx]);
+      Dom_Element = New_Dom_Document.createElement("Storage_Device_" + QString::number(sx));
+      Save_VM_Native_Storage_Device(New_Dom_Document, Dom_Element, Storage_Devices[sx]);
       VM_Element.appendChild(Dom_Element);
     }
   }
@@ -1697,13 +1637,11 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
     // Storage Device Count
     Dom_Element = New_Dom_Document.createElement("Shared_Folder_Count");
     VM_Element.appendChild(Dom_Element);
-    Dom_Text = New_Dom_Document.createTextNode(
-        QString::number(Shared_Folders.count()));
+    Dom_Text = New_Dom_Document.createTextNode(QString::number(Shared_Folders.count()));
     Dom_Element.appendChild(Dom_Text);
 
     for (int sx = 0; sx < Shared_Folders.count(); ++sx) {
-      Dom_Element = New_Dom_Document.createElement("Shared_Folder_" +
-                                                   QString::number(sx));
+      Dom_Element = New_Dom_Document.createElement("Shared_Folder_" + QString::number(sx));
       Save_VM_Shared_Folder(New_Dom_Document, Dom_Element, Shared_Folders[sx]);
       VM_Element.appendChild(Dom_Element);
     }
@@ -1729,13 +1667,11 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
     // Snapshots Count
     Dom_Element = New_Dom_Document.createElement("Snapshots_Count");
     VM_Element.appendChild(Dom_Element);
-    Dom_Text =
-        New_Dom_Document.createTextNode(QString::number(Snapshots.count()));
+    Dom_Text = New_Dom_Document.createTextNode(QString::number(Snapshots.count()));
     Dom_Element.appendChild(Dom_Text);
 
     for (int sx = 0; sx < Snapshots.count(); ++sx) {
-      Dom_Element =
-          New_Dom_Document.createElement("Snapshot_" + QString::number(sx));
+      Dom_Element = New_Dom_Document.createElement("Snapshot_" + QString::number(sx));
 
       // Tag
       Sec_Element = New_Dom_Document.createElement("Tag");
@@ -1752,8 +1688,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
       // Description
       Sec_Element = New_Dom_Document.createElement("Description");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text =
-          New_Dom_Document.createTextNode(Snapshots[sx].Get_Description());
+      Dom_Text = New_Dom_Document.createTextNode(Snapshots[sx].Get_Description());
       Sec_Element.appendChild(Dom_Text);
 
       // END
@@ -1762,8 +1697,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
   }
 
   // Network
-  if (template_mode &&
-      !(Template_Opts & Create_Template_Window::Template_Save_Network)) {
+  if (template_mode && !(Template_Opts & Create_Template_Window::Template_Save_Network)) {
     // Use Network
     Dom_Element = New_Dom_Document.createElement("Use_Network");
     VM_Element.appendChild(Dom_Element);
@@ -1838,19 +1772,16 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
     // Network Cards Count
     Dom_Element = New_Dom_Document.createElement("Network_Cards_Count");
     VM_Element.appendChild(Dom_Element);
-    Dom_Text =
-        New_Dom_Document.createTextNode(QString::number(Network_Cards.count()));
+    Dom_Text = New_Dom_Document.createTextNode(QString::number(Network_Cards.count()));
     Dom_Element.appendChild(Dom_Text);
 
     for (int nx = 0; nx < Network_Cards.count(); nx++) {
-      Dom_Element =
-          New_Dom_Document.createElement("Network_Card_" + QString::number(nx));
+      Dom_Element = New_Dom_Document.createElement("Network_Card_" + QString::number(nx));
 
       // Card Model
       Sec_Element = New_Dom_Document.createElement("Card_Model");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text =
-          New_Dom_Document.createTextNode(Network_Cards[nx].Get_Card_Model());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards[nx].Get_Card_Model());
       Sec_Element.appendChild(Dom_Text);
 
       // Network Mode
@@ -1904,36 +1835,31 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
       // Hostname
       Sec_Element = New_Dom_Document.createElement("Hostname");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text =
-          New_Dom_Document.createTextNode(Network_Cards[nx].Get_Hostname());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards[nx].Get_Hostname());
       Sec_Element.appendChild(Dom_Text);
 
       // IP Address
       Sec_Element = New_Dom_Document.createElement("IP_Address");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text =
-          New_Dom_Document.createTextNode(Network_Cards[nx].Get_IP_Address());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards[nx].Get_IP_Address());
       Sec_Element.appendChild(Dom_Text);
 
       // MAC Address
       Sec_Element = New_Dom_Document.createElement("MAC_Address");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text =
-          New_Dom_Document.createTextNode(Network_Cards[nx].Get_MAC_Address());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards[nx].Get_MAC_Address());
       Sec_Element.appendChild(Dom_Text);
 
       // Port
       Sec_Element = New_Dom_Document.createElement("Port");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          QString::number(Network_Cards[nx].Get_Port()));
+      Dom_Text = New_Dom_Document.createTextNode(QString::number(Network_Cards[nx].Get_Port()));
       Sec_Element.appendChild(Dom_Text);
 
       // VLAN
       Sec_Element = New_Dom_Document.createElement("VLAN");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          QString::number(Network_Cards[nx].Get_VLAN()));
+      Dom_Text = New_Dom_Document.createTextNode(QString::number(Network_Cards[nx].Get_VLAN()));
       Sec_Element.appendChild(Dom_Text);
 
       // Use TUN TAP Script
@@ -1950,22 +1876,20 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
       // TUN TAP Script
       Sec_Element = New_Dom_Document.createElement("TUN_TAP_Script");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards[nx].Get_TUN_TAP_Script());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards[nx].Get_TUN_TAP_Script());
       Sec_Element.appendChild(Dom_Text);
 
       // Interface Name
       Sec_Element = New_Dom_Document.createElement("Interface_Name");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards[nx].Get_Interface_Name());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards[nx].Get_Interface_Name());
       Sec_Element.appendChild(Dom_Text);
 
       // File Descriptor
       Sec_Element = New_Dom_Document.createElement("File_Descriptor");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          QString::number(Network_Cards[nx].Get_File_Descriptor()));
+      Dom_Text =
+          New_Dom_Document.createTextNode(QString::number(Network_Cards[nx].Get_File_Descriptor()));
       Sec_Element.appendChild(Dom_Text);
 
       VM_Element.appendChild(Dom_Element);
@@ -1986,13 +1910,11 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
     // Network Cards Count
     Dom_Element = New_Dom_Document.createElement("Network_Cards_Native_Count");
     VM_Element.appendChild(Dom_Element);
-    Dom_Text = New_Dom_Document.createTextNode(
-        QString::number(Network_Cards_Native.count()));
+    Dom_Text = New_Dom_Document.createTextNode(QString::number(Network_Cards_Native.count()));
     Dom_Element.appendChild(Dom_Text);
 
     for (int nx = 0; nx < Network_Cards_Native.count(); nx++) {
-      Dom_Element = New_Dom_Document.createElement("Network_Card_Native_" +
-                                                   QString::number(nx));
+      Dom_Element = New_Dom_Document.createElement("Network_Card_Native_" + QString::number(nx));
 
       Sec_Element = New_Dom_Document.createElement("Network_Type");
       Dom_Element.appendChild(Sec_Element);
@@ -2048,67 +1970,62 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
       // Card_Model
       Sec_Element = New_Dom_Document.createElement("Card_Model");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Get_Card_Model());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Card_Model());
       Sec_Element.appendChild(Dom_Text);
 
       // MAC_Address
       Sec_Element = New_Dom_Document.createElement("Use_MAC_Address");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_MAC_Address() ? "yes" : "no");
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_MAC_Address() ? "yes"
+                                                                                            : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("MAC_Address");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Get_MAC_Address());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_MAC_Address());
       Sec_Element.appendChild(Dom_Text);
 
       // VLAN
       Sec_Element = New_Dom_Document.createElement("Use_VLAN");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_VLAN() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_VLAN() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("VLAN");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          QString::number(Network_Cards_Native[nx].Get_VLAN()));
+      Dom_Text =
+          New_Dom_Document.createTextNode(QString::number(Network_Cards_Native[nx].Get_VLAN()));
       Sec_Element.appendChild(Dom_Text);
 
       // Name
       Sec_Element = New_Dom_Document.createElement("Use_Name");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_Name() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_Name() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("Name");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text =
-          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Name());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Name());
       Sec_Element.appendChild(Dom_Text);
 
       // Hostname
       Sec_Element = New_Dom_Document.createElement("Use_Hostname");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_Hostname() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_Hostname() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("Hostname");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Get_Hostname());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Hostname());
       Sec_Element.appendChild(Dom_Text);
 
       // PortDev
       Sec_Element = New_Dom_Document.createElement("PortDev");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Get_PortDev());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_PortDev());
       Sec_Element.appendChild(Dom_Text);
 
       // File_Descriptor
@@ -2133,21 +2050,19 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
 
       Sec_Element = New_Dom_Document.createElement("Interface_Name");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Get_Interface_Name());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Interface_Name());
       Sec_Element.appendChild(Dom_Text);
 
       // Bridge_Name
       Sec_Element = New_Dom_Document.createElement("Use_Bridge_Name");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_Bridge_Name() ? "yes" : "no");
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_Bridge_Name() ? "yes"
+                                                                                            : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("Bridge_Name");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Get_Bridge_Name());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Bridge_Name());
       Sec_Element.appendChild(Dom_Text);
 
       // TUN_TAP_Script
@@ -2159,8 +2074,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
 
       Sec_Element = New_Dom_Document.createElement("TUN_TAP_Script");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Get_TUN_TAP_Script());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_TUN_TAP_Script());
       Sec_Element.appendChild(Dom_Text);
 
       // TUN_TAP_Down_Script
@@ -2172,8 +2086,8 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
 
       Sec_Element = New_Dom_Document.createElement("TUN_TAP_Down_Script");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Get_TUN_TAP_Down_Script());
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_TUN_TAP_Down_Script());
       Sec_Element.appendChild(Dom_Text);
 
       // Bridge_Helper
@@ -2185,346 +2099,323 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
 
       Sec_Element = New_Dom_Document.createElement("Bridge_Helper");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Get_Bridge_Helper());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Bridge_Helper());
       Sec_Element.appendChild(Dom_Text);
 
       // Listen
       Sec_Element = New_Dom_Document.createElement("Use_Listen");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_Listen() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_Listen() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("Listen");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Get_Listen());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Listen());
       Sec_Element.appendChild(Dom_Text);
 
       // Connect
       Sec_Element = New_Dom_Document.createElement("Use_Connect");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_Connect() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_Connect() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("Connect");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Get_Connect());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Connect());
       Sec_Element.appendChild(Dom_Text);
 
       // MCast
       Sec_Element = New_Dom_Document.createElement("Use_MCast");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_MCast() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_MCast() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("MCast");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text =
-          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_MCast());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_MCast());
       Sec_Element.appendChild(Dom_Text);
 
       // Sock
       Sec_Element = New_Dom_Document.createElement("Use_Sock");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_Sock() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_Sock() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("Sock");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text =
-          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Sock());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Sock());
       Sec_Element.appendChild(Dom_Text);
 
       // Port
       Sec_Element = New_Dom_Document.createElement("Use_Port");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_Port() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_Port() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("Port");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          QString::number(Network_Cards_Native[nx].Get_Port()));
+      Dom_Text =
+          New_Dom_Document.createTextNode(QString::number(Network_Cards_Native[nx].Get_Port()));
       Sec_Element.appendChild(Dom_Text);
 
       // Group
       Sec_Element = New_Dom_Document.createElement("Use_Group");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_Group() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_Group() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("Group");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text =
-          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Group());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Group());
       Sec_Element.appendChild(Dom_Text);
 
       // Mode
       Sec_Element = New_Dom_Document.createElement("Use_Mode");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_Mode() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_Mode() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("Mode");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text =
-          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Mode());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Mode());
       Sec_Element.appendChild(Dom_Text);
 
       // File
       Sec_Element = New_Dom_Document.createElement("Use_File");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_File() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_File() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("File");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text =
-          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_File());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_File());
       Sec_Element.appendChild(Dom_Text);
 
       // Len
       Sec_Element = New_Dom_Document.createElement("Use_Len");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_Len() ? "yes" : "no");
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_Len() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("Len");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          QString::number(Network_Cards_Native[nx].Get_Len()));
+      Dom_Text =
+          New_Dom_Document.createTextNode(QString::number(Network_Cards_Native[nx].Get_Len()));
       Sec_Element.appendChild(Dom_Text);
 
       // Addr
       Sec_Element = New_Dom_Document.createElement("Use_Addr");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_Addr() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_Addr() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("Addr");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text =
-          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Addr());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Addr());
       Sec_Element.appendChild(Dom_Text);
 
       // Vectors
       Sec_Element = New_Dom_Document.createElement("Use_Vectors");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_Vectors() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_Vectors() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("Vectors");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          QString::number(Network_Cards_Native[nx].Get_Vectors()));
+      Dom_Text =
+          New_Dom_Document.createTextNode(QString::number(Network_Cards_Native[nx].Get_Vectors()));
       Sec_Element.appendChild(Dom_Text);
 
       // Net
       Sec_Element = New_Dom_Document.createElement("Use_Net");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_Net() ? "yes" : "no");
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_Net() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("Net");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text =
-          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Net());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Net());
       Sec_Element.appendChild(Dom_Text);
 
       // Host
       Sec_Element = New_Dom_Document.createElement("Use_Host");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_Host() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_Host() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("Host");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text =
-          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Host());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Host());
       Sec_Element.appendChild(Dom_Text);
 
       // Restrict
       Sec_Element = New_Dom_Document.createElement("Use_Restrict");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_Restrict() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_Restrict() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("Restrict");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Get_Restrict() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Restrict() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       // DHCPstart
       Sec_Element = New_Dom_Document.createElement("Use_DHCPstart");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_DHCPstart() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_DHCPstart() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("DHCPstart");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Get_DHCPstart());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_DHCPstart());
       Sec_Element.appendChild(Dom_Text);
 
       // DNS
       Sec_Element = New_Dom_Document.createElement("Use_DNS");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_DNS() ? "yes" : "no");
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_DNS() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("DNS");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text =
-          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_DNS());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_DNS());
       Sec_Element.appendChild(Dom_Text);
 
       // Tftp
       Sec_Element = New_Dom_Document.createElement("Use_Tftp");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_Tftp() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_Tftp() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("Tftp");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text =
-          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Tftp());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Tftp());
       Sec_Element.appendChild(Dom_Text);
 
       // Bootfile
       Sec_Element = New_Dom_Document.createElement("Use_Bootfile");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_Bootfile() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_Bootfile() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("Bootfile");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Get_Bootfile());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_Bootfile());
       Sec_Element.appendChild(Dom_Text);
 
       // HostFwd
       Sec_Element = New_Dom_Document.createElement("Use_HostFwd");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_HostFwd() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_HostFwd() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("HostFwd");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Get_HostFwd());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_HostFwd());
       Sec_Element.appendChild(Dom_Text);
 
       // GuestFwd
       Sec_Element = New_Dom_Document.createElement("Use_GuestFwd");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_GuestFwd() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_GuestFwd() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("GuestFwd");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Get_GuestFwd());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_GuestFwd());
       Sec_Element.appendChild(Dom_Text);
 
       // SMB
       Sec_Element = New_Dom_Document.createElement("Use_SMB");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_SMB() ? "yes" : "no");
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_SMB() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("SMB");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text =
-          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_SMB());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_SMB());
       Sec_Element.appendChild(Dom_Text);
 
       // SMBserver
       Sec_Element = New_Dom_Document.createElement("Use_SMBserver");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_SMBserver() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_SMBserver() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("SMBserver");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Get_SMBserver());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_SMBserver());
       Sec_Element.appendChild(Dom_Text);
 
       // Sndbuf
       Sec_Element = New_Dom_Document.createElement("Use_Sndbuf");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_Sndbuf() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_Sndbuf() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("Sndbuf");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          QString::number(Network_Cards_Native[nx].Get_Sndbuf()));
+      Dom_Text =
+          New_Dom_Document.createTextNode(QString::number(Network_Cards_Native[nx].Get_Sndbuf()));
       Sec_Element.appendChild(Dom_Text);
 
       // VNet_hdr
       Sec_Element = New_Dom_Document.createElement("Use_VNet_hdr");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_VNet_hdr() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_VNet_hdr() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("VNet_hdr");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Get_VNet_hdr() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_VNet_hdr() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       // VHost
       Sec_Element = New_Dom_Document.createElement("Use_VHost");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_VHost() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_VHost() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("VHost");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Get_VHost() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Get_VHost() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       // VHostFd
       Sec_Element = New_Dom_Document.createElement("Use_VHostFd");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Cards_Native[nx].Use_VHostFd() ? "yes" : "no");
+      Dom_Text =
+          New_Dom_Document.createTextNode(Network_Cards_Native[nx].Use_VHostFd() ? "yes" : "no");
       Sec_Element.appendChild(Dom_Text);
 
       Sec_Element = New_Dom_Document.createElement("VHostFd");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          QString::number(Network_Cards_Native[nx].Get_VHostFd()));
+      Dom_Text =
+          New_Dom_Document.createTextNode(QString::number(Network_Cards_Native[nx].Get_VHostFd()));
       Sec_Element.appendChild(Dom_Text);
 
       VM_Element.appendChild(Dom_Element);
@@ -2533,20 +2424,17 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
     // Redirections count
     Dom_Element = New_Dom_Document.createElement("Redirections_Count");
     VM_Element.appendChild(Dom_Element);
-    Dom_Text = New_Dom_Document.createTextNode(
-        QString::number(Network_Redirections.count()));
+    Dom_Text = New_Dom_Document.createTextNode(QString::number(Network_Redirections.count()));
     Dom_Element.appendChild(Dom_Text);
 
     // Network Redirections
     for (int rx = 0; rx < Network_Redirections.count(); rx++) {
-      Dom_Element = New_Dom_Document.createElement("Network_Redirections_" +
-                                                   QString::number(rx));
+      Dom_Element = New_Dom_Document.createElement("Network_Redirections_" + QString::number(rx));
 
       // Protocol
       Sec_Element = New_Dom_Document.createElement("Protocol");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Redirections[rx].Get_Protocol());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Redirections[rx].Get_Protocol());
       Sec_Element.appendChild(Dom_Text);
 
       // Host Port
@@ -2559,8 +2447,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
       // Guest IP
       Sec_Element = New_Dom_Document.createElement("Guest_IP");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Network_Redirections[rx].Get_Guest_IP());
+      Dom_Text = New_Dom_Document.createTextNode(Network_Redirections[rx].Get_Guest_IP());
       Sec_Element.appendChild(Dom_Text);
 
       // Guest Port
@@ -2586,8 +2473,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
     Dom_Element.appendChild(Dom_Text);
   }
 
-  if (template_mode &&
-      !(Template_Opts & Create_Template_Window::Template_Save_Ports)) {
+  if (template_mode && !(Template_Opts & Create_Template_Window::Template_Save_Ports)) {
     // Serial Port
     Dom_Element = New_Dom_Document.createElement("Serial_Ports_Count");
     VM_Element.appendChild(Dom_Element);
@@ -2610,13 +2496,11 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
     // Serial Port
     Dom_Element = New_Dom_Document.createElement("Serial_Port_Count");
     VM_Element.appendChild(Dom_Element);
-    Dom_Text =
-        New_Dom_Document.createTextNode(QString::number(Serial_Ports.count()));
+    Dom_Text = New_Dom_Document.createTextNode(QString::number(Serial_Ports.count()));
     Dom_Element.appendChild(Dom_Text);
 
     for (int px = 0; px < Serial_Ports.count(); px++) {
-      Dom_Element =
-          New_Dom_Document.createElement("Serial_Port_" + QString::number(px));
+      Dom_Element = New_Dom_Document.createElement("Serial_Port_" + QString::number(px));
 
       // Port Redirection
       Sec_Element = New_Dom_Document.createElement("Port_Redirection");
@@ -2697,8 +2581,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
       // Parametrs Line
       Sec_Element = New_Dom_Document.createElement("Parametrs");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Serial_Ports[px].Get_Parametrs_Line());
+      Dom_Text = New_Dom_Document.createTextNode(Serial_Ports[px].Get_Parametrs_Line());
       Sec_Element.appendChild(Dom_Text);
 
       VM_Element.appendChild(Dom_Element);
@@ -2707,13 +2590,11 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
     // Parallel Port
     Dom_Element = New_Dom_Document.createElement("Parallel_Port_Count");
     VM_Element.appendChild(Dom_Element);
-    Dom_Text = New_Dom_Document.createTextNode(
-        QString::number(Parallel_Ports.count()));
+    Dom_Text = New_Dom_Document.createTextNode(QString::number(Parallel_Ports.count()));
     Dom_Element.appendChild(Dom_Text);
 
     for (int px = 0; px < Parallel_Ports.count(); px++) {
-      Dom_Element = New_Dom_Document.createElement("Parallel_Port_" +
-                                                   QString::number(px));
+      Dom_Element = New_Dom_Document.createElement("Parallel_Port_" + QString::number(px));
 
       // Port Redirection
       Sec_Element = New_Dom_Document.createElement("Port_Redirection");
@@ -2794,8 +2675,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
       // Parametrs Line
       Sec_Element = New_Dom_Document.createElement("Parametrs");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          Parallel_Ports[px].Get_Parametrs_Line());
+      Dom_Text = New_Dom_Document.createTextNode(Parallel_Ports[px].Get_Parametrs_Line());
       Sec_Element.appendChild(Dom_Text);
 
       VM_Element.appendChild(Dom_Element);
@@ -2804,34 +2684,30 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
     // USB Ports
     Dom_Element = New_Dom_Document.createElement("USB_Ports_Count");
     VM_Element.appendChild(Dom_Element);
-    Dom_Text =
-        New_Dom_Document.createTextNode(QString::number(USB_Ports.count()));
+    Dom_Text = New_Dom_Document.createTextNode(QString::number(USB_Ports.count()));
     Dom_Element.appendChild(Dom_Text);
 
     // USB Devices
     for (int ux = 0; ux < USB_Ports.count(); ++ux) {
-      Dom_Element =
-          New_Dom_Document.createElement("USB_Port_" + QString::number(ux));
+      Dom_Element = New_Dom_Document.createElement("USB_Port_" + QString::number(ux));
 
       // Use Host Device
       Sec_Element = New_Dom_Document.createElement("Use_Host_Device");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          USB_Ports[ux].Get_Use_Host_Device() ? "true" : "false");
+      Dom_Text =
+          New_Dom_Document.createTextNode(USB_Ports[ux].Get_Use_Host_Device() ? "true" : "false");
       Sec_Element.appendChild(Dom_Text);
 
       // Manufacturer Name
       Sec_Element = New_Dom_Document.createElement("Manufacturer_Name");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text = New_Dom_Document.createTextNode(
-          USB_Ports[ux].Get_Manufacturer_Name());
+      Dom_Text = New_Dom_Document.createTextNode(USB_Ports[ux].Get_Manufacturer_Name());
       Sec_Element.appendChild(Dom_Text);
 
       // Product Name
       Sec_Element = New_Dom_Document.createElement("Product_Name");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text =
-          New_Dom_Document.createTextNode(USB_Ports[ux].Get_Product_Name());
+      Dom_Text = New_Dom_Document.createTextNode(USB_Ports[ux].Get_Product_Name());
       Sec_Element.appendChild(Dom_Text);
 
       // Vendor_ID
@@ -2843,8 +2719,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
       // Product_ID
       Sec_Element = New_Dom_Document.createElement("Product_ID");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text =
-          New_Dom_Document.createTextNode(USB_Ports[ux].Get_Product_ID());
+      Dom_Text = New_Dom_Document.createTextNode(USB_Ports[ux].Get_Product_ID());
       Sec_Element.appendChild(Dom_Text);
 
       VM_Element.appendChild(Dom_Element);
@@ -2876,8 +2751,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
       // Serial Number
       Sec_Element = New_Dom_Document.createElement("Serial_Number");
       Dom_Element.appendChild(Sec_Element);
-      Dom_Text =
-          New_Dom_Document.createTextNode(USB_Ports[ux].Get_Serial_Number());
+      Dom_Text = New_Dom_Document.createTextNode(USB_Ports[ux].Get_Serial_Number());
       Sec_Element.appendChild(Dom_Text);
 
       VM_Element.appendChild(Dom_Element);
@@ -3121,8 +2995,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
   // KVM_Shadow_Memory_Size
   Dom_Element = New_Dom_Document.createElement("KVM_Shadow_Memory_Size");
   VM_Element.appendChild(Dom_Element);
-  Dom_Text =
-      New_Dom_Document.createTextNode(QString::number(KVM_Shadow_Memory_Size));
+  Dom_Text = New_Dom_Document.createTextNode(QString::number(KVM_Shadow_Memory_Size));
   Dom_Element.appendChild(Dom_Text);
 
   // Init_Graphic_Mode
@@ -3142,22 +3015,19 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
   // Width
   Sec_Element = New_Dom_Document.createElement("Width");
   Dom_Element.appendChild(Sec_Element);
-  Dom_Text = New_Dom_Document.createTextNode(
-      QString::number(Init_Graphic_Mode.Get_Width()));
+  Dom_Text = New_Dom_Document.createTextNode(QString::number(Init_Graphic_Mode.Get_Width()));
   Sec_Element.appendChild(Dom_Text);
 
   // Height
   Sec_Element = New_Dom_Document.createElement("Height");
   Dom_Element.appendChild(Sec_Element);
-  Dom_Text = New_Dom_Document.createTextNode(
-      QString::number(Init_Graphic_Mode.Get_Height()));
+  Dom_Text = New_Dom_Document.createTextNode(QString::number(Init_Graphic_Mode.Get_Height()));
   Sec_Element.appendChild(Dom_Text);
 
   // Depth
   Sec_Element = New_Dom_Document.createElement("Depth");
   Dom_Element.appendChild(Sec_Element);
-  Dom_Text = New_Dom_Document.createTextNode(
-      QString::number(Init_Graphic_Mode.Get_Depth()));
+  Dom_Text = New_Dom_Document.createTextNode(QString::number(Init_Graphic_Mode.Get_Depth()));
   Sec_Element.appendChild(Dom_Text);
 
   VM_Element.appendChild(Dom_Element);
@@ -3253,8 +3123,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
   // Start_DateTime
   Dom_Element = New_Dom_Document.createElement("Start_Date");
   VM_Element.appendChild(Dom_Element);
-  Dom_Text = New_Dom_Document.createTextNode(
-      Start_DateTime.toString("dd.MM.yyyy HH:mm:ss"));
+  Dom_Text = New_Dom_Document.createTextNode(Start_DateTime.toString("dd.MM.yyyy HH:mm:ss"));
   Dom_Element.appendChild(Dom_Text);
 
   // SPICE
@@ -3263,22 +3132,19 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
   // Use SPICE
   Sec_Element = New_Dom_Document.createElement("Use_SPICE");
   Dom_Element.appendChild(Sec_Element);
-  Dom_Text =
-      New_Dom_Document.createTextNode(SPICE.Use_SPICE() ? "true" : "false");
+  Dom_Text = New_Dom_Document.createTextNode(SPICE.Use_SPICE() ? "true" : "false");
   Sec_Element.appendChild(Dom_Text);
 
   // GXL_Devices_Count
   Sec_Element = New_Dom_Document.createElement("GXL_Devices_Count");
   Dom_Element.appendChild(Sec_Element);
-  Dom_Text = New_Dom_Document.createTextNode(
-      QString::number(SPICE.Get_GXL_Devices_Count()));
+  Dom_Text = New_Dom_Document.createTextNode(QString::number(SPICE.Get_GXL_Devices_Count()));
   Sec_Element.appendChild(Dom_Text);
 
   // RAM_Size
   Sec_Element = New_Dom_Document.createElement("RAM_Size");
   Dom_Element.appendChild(Sec_Element);
-  Dom_Text =
-      New_Dom_Document.createTextNode(QString::number(SPICE.Get_RAM_Size()));
+  Dom_Text = New_Dom_Document.createTextNode(QString::number(SPICE.Get_RAM_Size()));
   Sec_Element.appendChild(Dom_Text);
 
   // Port
@@ -3290,22 +3156,19 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
   // Use_SPort
   Sec_Element = New_Dom_Document.createElement("Use_SPort");
   Dom_Element.appendChild(Sec_Element);
-  Dom_Text =
-      New_Dom_Document.createTextNode(SPICE.Use_SPort() ? "true" : "false");
+  Dom_Text = New_Dom_Document.createTextNode(SPICE.Use_SPort() ? "true" : "false");
   Sec_Element.appendChild(Dom_Text);
 
   // SPort
   Sec_Element = New_Dom_Document.createElement("SPort");
   Dom_Element.appendChild(Sec_Element);
-  Dom_Text =
-      New_Dom_Document.createTextNode(QString::number(SPICE.Get_SPort()));
+  Dom_Text = New_Dom_Document.createTextNode(QString::number(SPICE.Get_SPort()));
   Sec_Element.appendChild(Dom_Text);
 
   // Use_Hostname
   Sec_Element = New_Dom_Document.createElement("Use_Hostname");
   Dom_Element.appendChild(Sec_Element);
-  Dom_Text =
-      New_Dom_Document.createTextNode(SPICE.Use_Hostname() ? "true" : "false");
+  Dom_Text = New_Dom_Document.createTextNode(SPICE.Use_Hostname() ? "true" : "false");
   Sec_Element.appendChild(Dom_Text);
 
   // Hostname
@@ -3317,8 +3180,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
   // Use_Image_Compression
   Sec_Element = New_Dom_Document.createElement("Use_Image_Compression");
   Dom_Element.appendChild(Sec_Element);
-  Dom_Text = New_Dom_Document.createTextNode(
-      SPICE.Use_Image_Compression() ? "true" : "false");
+  Dom_Text = New_Dom_Document.createTextNode(SPICE.Use_Image_Compression() ? "true" : "false");
   Sec_Element.appendChild(Dom_Text);
 
   // Image_Compression_Type
@@ -3368,20 +3230,18 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
   // Use_Video_Stream_Compression
   Sec_Element = New_Dom_Document.createElement("Use_Video_Stream_Compression");
   Dom_Element.appendChild(Sec_Element);
-  Dom_Text = New_Dom_Document.createTextNode(
-      SPICE.Use_Video_Stream_Compression() ? "true" : "false");
+  Dom_Text =
+      New_Dom_Document.createTextNode(SPICE.Use_Video_Stream_Compression() ? "true" : "false");
   Sec_Element.appendChild(Dom_Text);
 
   // Use_Renderer
   Sec_Element = New_Dom_Document.createElement("Use_Renderer");
   Dom_Element.appendChild(Sec_Element);
-  Dom_Text =
-      New_Dom_Document.createTextNode(SPICE.Use_Renderer() ? "true" : "false");
+  Dom_Text = New_Dom_Document.createTextNode(SPICE.Use_Renderer() ? "true" : "false");
   Sec_Element.appendChild(Dom_Text);
 
   // Renderers_List
-  QDomElement rendererListElement =
-      New_Dom_Document.createElement("Renderers_List");
+  QDomElement rendererListElement = New_Dom_Document.createElement("Renderers_List");
 
   for (int ix = 0; ix < SPICE.Get_Renderer_List().count(); ++ix) {
     switch (SPICE.Get_Renderer_List()[ix]) {
@@ -3414,15 +3274,13 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
   // Use_Playback_Compression
   Sec_Element = New_Dom_Document.createElement("Use_Playback_Compression");
   Dom_Element.appendChild(Sec_Element);
-  Dom_Text = New_Dom_Document.createTextNode(
-      SPICE.Use_Playback_Compression() ? "true" : "false");
+  Dom_Text = New_Dom_Document.createTextNode(SPICE.Use_Playback_Compression() ? "true" : "false");
   Sec_Element.appendChild(Dom_Text);
 
   // Use_Password
   Sec_Element = New_Dom_Document.createElement("Use_Password");
   Dom_Element.appendChild(Sec_Element);
-  Dom_Text =
-      New_Dom_Document.createTextNode(SPICE.Use_Password() ? "true" : "false");
+  Dom_Text = New_Dom_Document.createTextNode(SPICE.Use_Password() ? "true" : "false");
   Sec_Element.appendChild(Dom_Text);
 
   // Password
@@ -3468,8 +3326,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
   // VNC Display Number
   Dom_Element = New_Dom_Document.createElement("VNC_Display_Number");
   VM_Element.appendChild(Dom_Element);
-  Dom_Text =
-      New_Dom_Document.createTextNode(QString::number(VNC_Display_Number));
+  Dom_Text = New_Dom_Document.createTextNode(QString::number(VNC_Display_Number));
   Dom_Element.appendChild(Dom_Text);
 
   // Use VNC Password
@@ -3553,9 +3410,8 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name,
   return true;
 }
 
-bool Virtual_Machine::Create_Template(
-    const QString& vm_path, const QString& template_name,
-    Create_Template_Window::Template_Options opts)
+bool Virtual_Machine::Create_Template(const QString& vm_path, const QString& template_name,
+                                      Create_Template_Window::Template_Options opts)
 {
   Template_Name = template_name;
   Template_Opts = opts;
@@ -3583,8 +3439,7 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
     QString Error_String;
     int Error_Line, Error_Column;
 
-    if (!VM_Dom_Document.setContent(&VM_File, true, &Error_String, &Error_Line,
-                                    &Error_Column)) {
+    if (!VM_Dom_Document.setContent(&VM_File, true, &Error_String, &Error_Line, &Error_Column)) {
       AQError("bool Virtual_Machine::Load_VM( const QString &file_name )",
               QString("Parse Error!\nLine: %1\nColumn: %2\nString: %3")
                   .arg(Error_Line)
@@ -3610,8 +3465,7 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
       }
 
       // Read All Data in File
-      QDomElement Child_Element =
-          Root_Element.firstChildElement("Virtual_Machine");
+      QDomElement Child_Element = Root_Element.firstChildElement("Virtual_Machine");
       bool load_emulator = true;
       bool old_version_storage_devices = false;
       bool load_boot_order_setcton = false;
@@ -3641,8 +3495,7 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
         Machine_Accelerator = VM::TCG;
 
         // KVM ?
-        if (Child_Element.firstChildElement("Computer_Type").text() ==
-            "qemu-kvm") {
+        if (Child_Element.firstChildElement("Computer_Type").text() == "qemu-kvm") {
           Machine_Accelerator = VM::KVM;
         }
 
@@ -3653,11 +3506,11 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
         AQError("bool Virtual_Machine::Load_VM( const QString &file_name )",
                 "This is AQEMU VM File Version Not Support!");
 
-        int ret_but = QMessageBox::question(
-            NULL, tr("Version Invalid!"),
-            tr("Version of this AQEMU VM File isn't 0.5\nLoad This File "
-               "anyway?"),
-            QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+        int ret_but =
+            QMessageBox::question(NULL, tr("Version Invalid!"),
+                                  tr("Version of this AQEMU VM File isn't 0.5\nLoad This File "
+                                     "anyway?"),
+                                  QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
 
         if (ret_but != QMessageBox::Yes)
           return false;
@@ -3673,21 +3526,16 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
 
       if (load_emulator) {
         // Emulator Name
-        QString emul_name =
-            Child_Element.firstChildElement("Emulator_Name").text();
+        QString emul_name = Child_Element.firstChildElement("Emulator_Name").text();
 
         // Emulator Type (legacy option) = equals Machine Name
 
         QString accel = "";
-        if (!Child_Element.firstChildElement("Machine_Accelerator")
-                 .text()
-                 .isEmpty()) {
+        if (!Child_Element.firstChildElement("Machine_Accelerator").text().isEmpty()) {
           accel = Child_Element.firstChildElement("Machine_Accelerator").text();
         }
         else {
-          if (!Child_Element.firstChildElement("Emulator_Type")
-                   .text()
-                   .isEmpty())
+          if (!Child_Element.firstChildElement("Emulator_Type").text().isEmpty())
             accel = Child_Element.firstChildElement("Emulator_Type").text();
         }
 
@@ -3733,8 +3581,7 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
 
       // Icon Path
       Icon_Path = Child_Element.firstChildElement("Icon_Path").text();
-      if (Icon_Path.startsWith(
-              ":/images/"))  //for compatibility with old .aqemu files
+      if (Icon_Path.startsWith(":/images/"))  //for compatibility with old .aqemu files
       {
         Icon_Path.replace(":/images/", ":/");
       }
@@ -3751,23 +3598,19 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
         bool abs_found = false;
         for (int i = 0; i < dataDirs.count(); i++) {
           if (Icon_Path.startsWith(dataDirs.at(i))) {
-            Icon_Path.replace(
-                dataDirs.at(i),
-                settings.value("AQEMU_Data_Folder", "").toString());
+            Icon_Path.replace(dataDirs.at(i), settings.value("AQEMU_Data_Folder", "").toString());
             abs_found = true;
             break;
           }
         }
 
         if (!abs_found) {
-          Icon_Path =
-              settings.value("AQEMU_Data_Folder", "").toString() + Icon_Path;
+          Icon_Path = settings.value("AQEMU_Data_Folder", "").toString() + Icon_Path;
         }
       }
 
       // Screenshot Path
-      Screenshot_Path =
-          Child_Element.firstChildElement("Screenshot_Path").text();
+      Screenshot_Path = Child_Element.firstChildElement("Screenshot_Path").text();
 
       // Machine Name
       Machine_Name = Child_Element.firstChildElement("Machine_Name").text();
@@ -3779,20 +3622,14 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
       CPU_Type = Child_Element.firstChildElement("CPU_Type").text();
 
       // SMP
-      SMP.SMP_Count =
-          Child_Element.firstChildElement("SMP_CPU_Count").text().toInt();
-      SMP.SMP_Cores =
-          Child_Element.firstChildElement("SMP_Cores").text().toInt();
-      SMP.SMP_Threads =
-          Child_Element.firstChildElement("SMP_Threads").text().toInt();
-      SMP.SMP_Sockets =
-          Child_Element.firstChildElement("SMP_Sockets").text().toInt();
-      SMP.SMP_MaxCPUs =
-          Child_Element.firstChildElement("SMP_MaxCPUs").text().toInt();
+      SMP.SMP_Count = Child_Element.firstChildElement("SMP_CPU_Count").text().toInt();
+      SMP.SMP_Cores = Child_Element.firstChildElement("SMP_Cores").text().toInt();
+      SMP.SMP_Threads = Child_Element.firstChildElement("SMP_Threads").text().toInt();
+      SMP.SMP_Sockets = Child_Element.firstChildElement("SMP_Sockets").text().toInt();
+      SMP.SMP_MaxCPUs = Child_Element.firstChildElement("SMP_MaxCPUs").text().toInt();
 
       // Keyboard Layout
-      Keyboard_Layout =
-          Child_Element.firstChildElement("Keyboard_Layout").text();
+      Keyboard_Layout = Child_Element.firstChildElement("Keyboard_Layout").text();
 
       QDomElement Second_Element;
 
@@ -3801,8 +3638,7 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
 
       if (load_boot_order_setcton &&
           Child_Element.firstChildElement("Boot_Device").text().isEmpty()) {
-        int bootOrderCount =
-            Child_Element.firstChildElement("Boot_Device_Count").text().toInt();
+        int bootOrderCount = Child_Element.firstChildElement("Boot_Device_Count").text().toInt();
 
         if (bootOrderCount == 0) {
           VM::Boot_Order tmpBootOrder;
@@ -3837,12 +3673,10 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
         }
 
         for (int bx = 0; bx < bootOrderCount; bx++) {
-          Second_Element = Child_Element.firstChildElement("Boot_Device_" +
-                                                           QString::number(bx));
+          Second_Element = Child_Element.firstChildElement("Boot_Device_" + QString::number(bx));
 
           VM::Boot_Order tmpBootDev;
-          tmpBootDev.Enabled =
-              Second_Element.firstChildElement("Enabled").text() == "true";
+          tmpBootDev.Enabled = Second_Element.firstChildElement("Enabled").text() == "true";
           QString bootType = Second_Element.firstChildElement("Type").text();
 
           if (bootType == "FDA")
@@ -3924,8 +3758,7 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
       }
 
       // Show Boot Menu
-      Show_Boot_Menu =
-          (Child_Element.firstChildElement("Show_Boot_Menu").text() == "true");
+      Show_Boot_Menu = (Child_Element.firstChildElement("Show_Boot_Menu").text() == "true");
 
       // Video Card
       Video_Card = Child_Element.firstChildElement("Video_Card").text();
@@ -3936,87 +3769,69 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
       VM::Sound_Cards snd_card;
 
       // Audio_sb16
-      snd_card.Audio_sb16 =
-          Second_Element.firstChildElement("Audio_sb16").text() == "true";
+      snd_card.Audio_sb16 = Second_Element.firstChildElement("Audio_sb16").text() == "true";
 
       // Audio_es1370
-      snd_card.Audio_es1370 =
-          Second_Element.firstChildElement("Audio_es1370").text() == "true";
+      snd_card.Audio_es1370 = Second_Element.firstChildElement("Audio_es1370").text() == "true";
 
       // Audio_Adlib
-      snd_card.Audio_Adlib =
-          Second_Element.firstChildElement("Audio_Adlib").text() == "true";
+      snd_card.Audio_Adlib = Second_Element.firstChildElement("Audio_Adlib").text() == "true";
 
       // Audio_PC_Speaker
       snd_card.Audio_PC_Speaker =
           Second_Element.firstChildElement("Audio_PC_Speaker").text() == "true";
 
       // Audio_GUS
-      snd_card.Audio_GUS =
-          Second_Element.firstChildElement("Audio_GUS").text() == "true";
+      snd_card.Audio_GUS = Second_Element.firstChildElement("Audio_GUS").text() == "true";
 
       // Audio_AC97
-      snd_card.Audio_AC97 =
-          Second_Element.firstChildElement("Audio_AC97").text() == "true";
+      snd_card.Audio_AC97 = Second_Element.firstChildElement("Audio_AC97").text() == "true";
 
       // Audio_HDA
-      snd_card.Audio_HDA =
-          Second_Element.firstChildElement("Audio_HDA").text() == "true";
+      snd_card.Audio_HDA = Second_Element.firstChildElement("Audio_HDA").text() == "true";
 
       // Audio_cs4231
-      snd_card.Audio_cs4231a =
-          Second_Element.firstChildElement("Audio_cs4231a").text() == "true";
+      snd_card.Audio_cs4231a = Second_Element.firstChildElement("Audio_cs4231a").text() == "true";
 
       Set_Audio_Cards(snd_card);
 
       // Check Free RAM
       Remove_RAM_Size_Limitation =
-          (Child_Element.firstChildElement("Remove_RAM_Size_Limitation")
-               .text() == "true");
+          (Child_Element.firstChildElement("Remove_RAM_Size_Limitation").text() == "true");
 
       // Memory Size ( RAM )
-      Memory_Size =
-          Child_Element.firstChildElement("Memory_Size").text().toInt();
+      Memory_Size = Child_Element.firstChildElement("Memory_Size").text().toInt();
 
       // Fullscreen
-      Fullscreen =
-          (Child_Element.firstChildElement("Fullscreen").text() == "true");
+      Fullscreen = (Child_Element.firstChildElement("Fullscreen").text() == "true");
 
       // Win2K_Hack
-      Win2K_Hack =
-          (Child_Element.firstChildElement("Win2K_Hack").text() == "true");
+      Win2K_Hack = (Child_Element.firstChildElement("Win2K_Hack").text() == "true");
 
       // Localtime
-      Local_Time =
-          (Child_Element.firstChildElement("Local_Time").text() == "true");
+      Local_Time = (Child_Element.firstChildElement("Local_Time").text() == "true");
 
       // Check FDD Boot Sector
       Check_FDD_Boot_Sector =
-          (Child_Element.firstChildElement("Check_FDD_Boot_Sector").text() ==
-           "true");
+          (Child_Element.firstChildElement("Check_FDD_Boot_Sector").text() == "true");
 
       // ACPI
       ACPI = (Child_Element.firstChildElement("ACPI").text() == "true");
 
       // Snapshot_Mode
-      Snapshot_Mode =
-          (Child_Element.firstChildElement("Snapshot_Mode").text() == "true");
+      Snapshot_Mode = (Child_Element.firstChildElement("Snapshot_Mode").text() == "true");
 
       // Start_CPU
-      Start_CPU =
-          (Child_Element.firstChildElement("Start_CPU").text() == "true");
+      Start_CPU = (Child_Element.firstChildElement("Start_CPU").text() == "true");
 
       // No_Reboot
-      No_Reboot =
-          (Child_Element.firstChildElement("No_Reboot").text() == "true");
+      No_Reboot = (Child_Element.firstChildElement("No_Reboot").text() == "true");
 
       // No_Shutdown
-      No_Shutdown =
-          (Child_Element.firstChildElement("No_Shutdown").text() == "true");
+      No_Shutdown = (Child_Element.firstChildElement("No_Shutdown").text() == "true");
 
       // Floppy and CD-ROM
-      if (template_mode &&
-          Template_Opts ^ Create_Template_Window::Template_Save_FDD_CD) {
+      if (template_mode && Template_Opts ^ Create_Template_Window::Template_Save_FDD_CD) {
         // Floppy 0
         FD0 = VM_Storage_Device(false, "");
 
@@ -4032,52 +3847,41 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
           FD0 = VM_Storage_Device();
 
           Second_Element = Child_Element.firstChildElement("FD0");
-          FD0.Set_Enabled(
-              (Second_Element.firstChildElement("Enabled").text() == "true"));
+          FD0.Set_Enabled((Second_Element.firstChildElement("Enabled").text() == "true"));
 
           if (Second_Element.firstChildElement("Host_Device").text() == "true")
-            FD0.Set_File_Name(
-                Second_Element.firstChildElement("Host_File_Name").text());
+            FD0.Set_File_Name(Second_Element.firstChildElement("Host_File_Name").text());
           else
-            FD0.Set_File_Name(
-                Second_Element.firstChildElement("Image_File_Name").text());
+            FD0.Set_File_Name(Second_Element.firstChildElement("Image_File_Name").text());
 
           // Floppy 1
           FD1 = VM_Storage_Device();
 
           Second_Element = Child_Element.firstChildElement("FD1");
-          FD1.Set_Enabled(
-              (Second_Element.firstChildElement("Enabled").text() == "true"));
+          FD1.Set_Enabled((Second_Element.firstChildElement("Enabled").text() == "true"));
 
           if (Second_Element.firstChildElement("Host_Device").text() == "true")
-            FD1.Set_File_Name(
-                Second_Element.firstChildElement("Host_File_Name").text());
+            FD1.Set_File_Name(Second_Element.firstChildElement("Host_File_Name").text());
           else
-            FD1.Set_File_Name(
-                Second_Element.firstChildElement("Image_File_Name").text());
+            FD1.Set_File_Name(Second_Element.firstChildElement("Image_File_Name").text());
 
           // CD-ROM
           CD_ROM = VM_Storage_Device();
 
           Second_Element = Child_Element.firstChildElement("CD_ROM");
-          CD_ROM.Set_Enabled(
-              (Second_Element.firstChildElement("Enabled").text() == "true"));
+          CD_ROM.Set_Enabled((Second_Element.firstChildElement("Enabled").text() == "true"));
 
           if (Second_Element.firstChildElement("Host_Device").text() == "true")
-            CD_ROM.Set_File_Name(
-                Second_Element.firstChildElement("Host_File_Name").text());
+            CD_ROM.Set_File_Name(Second_Element.firstChildElement("Host_File_Name").text());
           else
-            CD_ROM.Set_File_Name(
-                Second_Element.firstChildElement("Image_File_Name").text());
+            CD_ROM.Set_File_Name(Second_Element.firstChildElement("Image_File_Name").text());
         }
         else {
           // Floppy 0
           FD0 = VM_Storage_Device();
           Second_Element = Child_Element.firstChildElement("FD0");
-          FD0.Set_Enabled(
-              (Second_Element.firstChildElement("Enabled").text() == "true"));
-          FD0.Set_File_Name(
-              Second_Element.firstChildElement("File_Name").text());
+          FD0.Set_Enabled((Second_Element.firstChildElement("Enabled").text() == "true"));
+          FD0.Set_File_Name(Second_Element.firstChildElement("File_Name").text());
 
           Second_Element = Second_Element.firstChildElement("Native_Device");
           FD0.Set_Native_Device(Load_VM_Native_Storage_Device(Second_Element));
@@ -4085,10 +3889,8 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
           // Floppy 1
           FD1 = VM_Storage_Device();
           Second_Element = Child_Element.firstChildElement("FD1");
-          FD1.Set_Enabled(
-              (Second_Element.firstChildElement("Enabled").text() == "true"));
-          FD1.Set_File_Name(
-              Second_Element.firstChildElement("File_Name").text());
+          FD1.Set_Enabled((Second_Element.firstChildElement("Enabled").text() == "true"));
+          FD1.Set_File_Name(Second_Element.firstChildElement("File_Name").text());
 
           Second_Element = Second_Element.firstChildElement("Native_Device");
           FD1.Set_Native_Device(Load_VM_Native_Storage_Device(Second_Element));
@@ -4096,14 +3898,11 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
           // CD-ROM
           CD_ROM = VM_Storage_Device();
           Second_Element = Child_Element.firstChildElement("CD_ROM");
-          CD_ROM.Set_Enabled(
-              (Second_Element.firstChildElement("Enabled").text() == "true"));
-          CD_ROM.Set_File_Name(
-              Second_Element.firstChildElement("File_Name").text());
+          CD_ROM.Set_Enabled((Second_Element.firstChildElement("Enabled").text() == "true"));
+          CD_ROM.Set_File_Name(Second_Element.firstChildElement("File_Name").text());
 
           Second_Element = Second_Element.firstChildElement("Native_Device");
-          CD_ROM.Set_Native_Device(
-              Load_VM_Native_Storage_Device(Second_Element));
+          CD_ROM.Set_Native_Device(Load_VM_Native_Storage_Device(Second_Element));
         }
       }
 
@@ -4112,48 +3911,40 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
         if (Template_Opts | Create_Template_Window::Template_Save_HDD) {
           // HDA
           Second_Element = Child_Element.firstChildElement("HDA");
-          HDA.Set_Enabled(
-              (Second_Element.firstChildElement("Enabled").text() == "true"));
-          HDA.Set_Virtual_Size(HDA.String_to_Device_Size(
-              Second_Element.firstChildElement("Size").text()));
-          HDA.Set_Image_Format(
-              Second_Element.firstChildElement("Format").text());
+          HDA.Set_Enabled((Second_Element.firstChildElement("Enabled").text() == "true"));
+          HDA.Set_Virtual_Size(
+              HDA.String_to_Device_Size(Second_Element.firstChildElement("Size").text()));
+          HDA.Set_Image_Format(Second_Element.firstChildElement("Format").text());
 
           Second_Element = Second_Element.firstChildElement("Native_Device");
           HDA.Set_Native_Device(Load_VM_Native_Storage_Device(Second_Element));
 
           // HDB
           Second_Element = Child_Element.firstChildElement("HDB");
-          HDB.Set_Enabled(
-              (Second_Element.firstChildElement("Enabled").text() == "true"));
-          HDB.Set_Virtual_Size(HDB.String_to_Device_Size(
-              Second_Element.firstChildElement("Size").text()));
-          HDB.Set_Image_Format(
-              Second_Element.firstChildElement("Format").text());
+          HDB.Set_Enabled((Second_Element.firstChildElement("Enabled").text() == "true"));
+          HDB.Set_Virtual_Size(
+              HDB.String_to_Device_Size(Second_Element.firstChildElement("Size").text()));
+          HDB.Set_Image_Format(Second_Element.firstChildElement("Format").text());
 
           Second_Element = Second_Element.firstChildElement("Native_Device");
           HDB.Set_Native_Device(Load_VM_Native_Storage_Device(Second_Element));
 
           // HDC
           Second_Element = Child_Element.firstChildElement("HDC");
-          HDC.Set_Enabled(
-              (Second_Element.firstChildElement("Enabled").text() == "true"));
-          HDC.Set_Virtual_Size(HDC.String_to_Device_Size(
-              Second_Element.firstChildElement("Size").text()));
-          HDC.Set_Image_Format(
-              Second_Element.firstChildElement("Format").text());
+          HDC.Set_Enabled((Second_Element.firstChildElement("Enabled").text() == "true"));
+          HDC.Set_Virtual_Size(
+              HDC.String_to_Device_Size(Second_Element.firstChildElement("Size").text()));
+          HDC.Set_Image_Format(Second_Element.firstChildElement("Format").text());
 
           Second_Element = Second_Element.firstChildElement("Native_Device");
           HDC.Set_Native_Device(Load_VM_Native_Storage_Device(Second_Element));
 
           // HDD
           Second_Element = Child_Element.firstChildElement("HDD");
-          HDD.Set_Enabled(
-              (Second_Element.firstChildElement("Enabled").text() == "true"));
-          HDD.Set_Virtual_Size(HDD.String_to_Device_Size(
-              Second_Element.firstChildElement("Size").text()));
-          HDD.Set_Image_Format(
-              Second_Element.firstChildElement("Format").text());
+          HDD.Set_Enabled((Second_Element.firstChildElement("Enabled").text() == "true"));
+          HDD.Set_Virtual_Size(
+              HDD.String_to_Device_Size(Second_Element.firstChildElement("Size").text()));
+          HDD.Set_Image_Format(Second_Element.firstChildElement("Format").text());
 
           Second_Element = Second_Element.firstChildElement("Native_Device");
           HDD.Set_Native_Device(Load_VM_Native_Storage_Device(Second_Element));
@@ -4183,40 +3974,32 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
       else {
         // HDA
         Second_Element = Child_Element.firstChildElement("HDA");
-        HDA.Set_Enabled(
-            (Second_Element.firstChildElement("Enabled").text() == "true"));
-        HDA.Set_File_Name(
-            Second_Element.firstChildElement("Image_File_Name").text());
+        HDA.Set_Enabled((Second_Element.firstChildElement("Enabled").text() == "true"));
+        HDA.Set_File_Name(Second_Element.firstChildElement("Image_File_Name").text());
 
         Second_Element = Second_Element.firstChildElement("Native_Device");
         HDA.Set_Native_Device(Load_VM_Native_Storage_Device(Second_Element));
 
         // HDB
         Second_Element = Child_Element.firstChildElement("HDB");
-        HDB.Set_Enabled(
-            (Second_Element.firstChildElement("Enabled").text() == "true"));
-        HDB.Set_File_Name(
-            Second_Element.firstChildElement("Image_File_Name").text());
+        HDB.Set_Enabled((Second_Element.firstChildElement("Enabled").text() == "true"));
+        HDB.Set_File_Name(Second_Element.firstChildElement("Image_File_Name").text());
 
         Second_Element = Second_Element.firstChildElement("Native_Device");
         HDB.Set_Native_Device(Load_VM_Native_Storage_Device(Second_Element));
 
         // HDC
         Second_Element = Child_Element.firstChildElement("HDC");
-        HDC.Set_Enabled(
-            (Second_Element.firstChildElement("Enabled").text() == "true"));
-        HDC.Set_File_Name(
-            Second_Element.firstChildElement("Image_File_Name").text());
+        HDC.Set_Enabled((Second_Element.firstChildElement("Enabled").text() == "true"));
+        HDC.Set_File_Name(Second_Element.firstChildElement("Image_File_Name").text());
 
         Second_Element = Second_Element.firstChildElement("Native_Device");
         HDC.Set_Native_Device(Load_VM_Native_Storage_Device(Second_Element));
 
         // HDD
         Second_Element = Child_Element.firstChildElement("HDD");
-        HDD.Set_Enabled(
-            (Second_Element.firstChildElement("Enabled").text() == "true"));
-        HDD.Set_File_Name(
-            Second_Element.firstChildElement("Image_File_Name").text());
+        HDD.Set_Enabled((Second_Element.firstChildElement("Enabled").text() == "true"));
+        HDD.Set_File_Name(Second_Element.firstChildElement("Image_File_Name").text());
 
         Second_Element = Second_Element.firstChildElement("Native_Device");
         HDD.Set_Native_Device(Load_VM_Native_Storage_Device(Second_Element));
@@ -4224,13 +4007,10 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
 
       // Native Storage Devices
       int Storage_Device_Count =
-          Child_Element.firstChildElement("Storage_Device_Count")
-              .text()
-              .toInt();
+          Child_Element.firstChildElement("Storage_Device_Count").text().toInt();
 
       for (int sx = 0; sx < Storage_Device_Count; ++sx) {
-        Second_Element = Child_Element.firstChildElement("Storage_Device_" +
-                                                         QString::number(sx));
+        Second_Element = Child_Element.firstChildElement("Storage_Device_" + QString::number(sx));
 
         // Add Device
         Storage_Devices << Load_VM_Native_Storage_Device(Second_Element);
@@ -4241,20 +4021,17 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
           Child_Element.firstChildElement("Shared_Folder_Count").text().toInt();
 
       for (int sx = 0; sx < Shared_Folder_Count; ++sx) {
-        Second_Element = Child_Element.firstChildElement("Shared_Folder_" +
-                                                         QString::number(sx));
+        Second_Element = Child_Element.firstChildElement("Shared_Folder_" + QString::number(sx));
 
         // Add Device
         Shared_Folders << Load_VM_Shared_Folder(Second_Element);
       }
 
       // Snapshots
-      int Snapshots_Count =
-          Child_Element.firstChildElement("Snapshots_Count").text().toInt();
+      int Snapshots_Count = Child_Element.firstChildElement("Snapshots_Count").text().toInt();
 
       for (int sx = 0; sx < Snapshots_Count; ++sx) {
-        Second_Element =
-            Child_Element.firstChildElement("Snapshot_" + QString::number(sx));
+        Second_Element = Child_Element.firstChildElement("Snapshot_" + QString::number(sx));
 
         VM_Snapshot tmp_snapshot;
 
@@ -4265,40 +4042,32 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
         tmp_snapshot.Set_Name(Second_Element.firstChildElement("Name").text());
 
         // Description
-        tmp_snapshot.Set_Description(
-            Second_Element.firstChildElement("Description").text());
+        tmp_snapshot.Set_Description(Second_Element.firstChildElement("Description").text());
 
         // add snapshot
         Snapshots << tmp_snapshot;
       }
 
       // Use Network
-      Use_Network =
-          (Child_Element.firstChildElement("Use_Network").text() == "true");
+      Use_Network = (Child_Element.firstChildElement("Use_Network").text() == "true");
 
       // Use Redirections
-      Use_Redirections =
-          (Child_Element.firstChildElement("Use_Redirections").text() ==
-           "true");
+      Use_Redirections = (Child_Element.firstChildElement("Use_Redirections").text() == "true");
 
       // Network Cards Count
-      int NetCardsCount =
-          Child_Element.firstChildElement("Network_Cards_Count").text().toInt();
+      int NetCardsCount = Child_Element.firstChildElement("Network_Cards_Count").text().toInt();
       Network_Cards.clear();
 
       // Network Cards...
       for (int nx = 0; nx < NetCardsCount; nx++) {
-        Second_Element = Child_Element.firstChildElement("Network_Card_" +
-                                                         QString::number(nx));
+        Second_Element = Child_Element.firstChildElement("Network_Card_" + QString::number(nx));
 
         VM_Net_Card tmp_card;
 
         // Card Model
-        tmp_card.Set_Card_Model(
-            Second_Element.firstChildElement("Card_Model").text());
+        tmp_card.Set_Card_Model(Second_Element.firstChildElement("Card_Model").text());
 
-        QString tmp_str =
-            Second_Element.firstChildElement("Network_Mode").text();
+        QString tmp_str = Second_Element.firstChildElement("Network_Mode").text();
 
         // Network Mode
         if (tmp_str == "None") {
@@ -4335,37 +4104,29 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
         }
 
         // Hostname
-        tmp_card.Set_Hostname(
-            Second_Element.firstChildElement("Hostname").text());
+        tmp_card.Set_Hostname(Second_Element.firstChildElement("Hostname").text());
 
         // IP Address
-        tmp_card.Set_IP_Address(
-            Second_Element.firstChildElement("IP_Address").text());
+        tmp_card.Set_IP_Address(Second_Element.firstChildElement("IP_Address").text());
 
         // MAC Address
-        tmp_card.Set_MAC_Address(
-            Second_Element.firstChildElement("MAC_Address").text());
+        tmp_card.Set_MAC_Address(Second_Element.firstChildElement("MAC_Address").text());
 
         // Port
-        tmp_card.Set_Port(
-            Second_Element.firstChildElement("Port").text().toInt());
+        tmp_card.Set_Port(Second_Element.firstChildElement("Port").text().toInt());
 
         // VLAN
-        tmp_card.Set_VLAN(
-            Second_Element.firstChildElement("VLAN").text().toInt());
+        tmp_card.Set_VLAN(Second_Element.firstChildElement("VLAN").text().toInt());
 
         // Use TUN TAP Script
         tmp_card.Set_Use_TUN_TAP_Script(
-            !(Second_Element.firstChildElement("Use_TUN_TAP_Script").text() ==
-              "false"));
+            !(Second_Element.firstChildElement("Use_TUN_TAP_Script").text() == "false"));
 
         // TUN TAP Script
-        tmp_card.Set_TUN_TAP_Script(
-            Second_Element.firstChildElement("TUN_TAP_Script").text());
+        tmp_card.Set_TUN_TAP_Script(Second_Element.firstChildElement("TUN_TAP_Script").text());
 
         // Interface Name
-        tmp_card.Set_Interface_Name(
-            Second_Element.firstChildElement("Interface_Name").text());
+        tmp_card.Set_Interface_Name(Second_Element.firstChildElement("Interface_Name").text());
 
         // File Descriptor
         tmp_card.Set_File_Descriptor(
@@ -4376,26 +4137,22 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
 
       // Native Network Card
       // Use Native_Network
-      Native_Network =
-          (Child_Element.firstChildElement("Native_Network").text() == "true");
+      Native_Network = (Child_Element.firstChildElement("Native_Network").text() == "true");
 
       // Network Cards Count
       int NetCardsNativeCount =
-          Child_Element.firstChildElement("Network_Cards_Native_Count")
-              .text()
-              .toInt();
+          Child_Element.firstChildElement("Network_Cards_Native_Count").text().toInt();
       Network_Cards_Native.clear();
 
       // Network Cards...
       for (int nx = 0; nx < NetCardsNativeCount; nx++) {
-        Second_Element = Child_Element.firstChildElement(
-            "Network_Card_Native_" + QString::number(nx));
+        Second_Element =
+            Child_Element.firstChildElement("Network_Card_Native_" + QString::number(nx));
 
         VM_Net_Card_Native tmp_card;
 
         // Network_Type
-        QString netCardNative_Type =
-            Second_Element.firstChildElement("Network_Type").text();
+        QString netCardNative_Type = Second_Element.firstChildElement("Network_Type").text();
 
         if (netCardNative_Type == "NIC")
           tmp_card.Set_Network_Type(VM::Net_Mode_Native_NIC);
@@ -4421,207 +4178,143 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
           tmp_card.Set_Network_Type(VM::Net_Mode_Native_User);
         }
 
-        tmp_card.Set_Card_Model(
-            Second_Element.firstChildElement("Card_Model").text());
-        tmp_card.Use_MAC_Address(
-            Second_Element.firstChildElement("Use_MAC_Address").text() ==
-            "yes");
+        tmp_card.Set_Card_Model(Second_Element.firstChildElement("Card_Model").text());
+        tmp_card.Use_MAC_Address(Second_Element.firstChildElement("Use_MAC_Address").text() ==
+                                 "yes");
 
-        tmp_card.Set_MAC_Address(
-            Second_Element.firstChildElement("MAC_Address").text());
-        tmp_card.Use_VLAN(Second_Element.firstChildElement("Use_VLAN").text() ==
-                          "yes");
+        tmp_card.Set_MAC_Address(Second_Element.firstChildElement("MAC_Address").text());
+        tmp_card.Use_VLAN(Second_Element.firstChildElement("Use_VLAN").text() == "yes");
 
-        tmp_card.Set_VLAN(
-            Second_Element.firstChildElement("VLAN").text().toInt());
-        tmp_card.Use_Name(Second_Element.firstChildElement("Use_Name").text() ==
-                          "yes");
+        tmp_card.Set_VLAN(Second_Element.firstChildElement("VLAN").text().toInt());
+        tmp_card.Use_Name(Second_Element.firstChildElement("Use_Name").text() == "yes");
 
         tmp_card.Set_Name(Second_Element.firstChildElement("Name").text());
-        tmp_card.Use_Hostname(
-            Second_Element.firstChildElement("Use_Hostname").text() == "yes");
+        tmp_card.Use_Hostname(Second_Element.firstChildElement("Use_Hostname").text() == "yes");
 
-        tmp_card.Set_Hostname(
-            Second_Element.firstChildElement("Hostname").text());
-        tmp_card.Set_PortDev(
-            Second_Element.firstChildElement("PortDev").text());
+        tmp_card.Set_Hostname(Second_Element.firstChildElement("Hostname").text());
+        tmp_card.Set_PortDev(Second_Element.firstChildElement("PortDev").text());
 
         tmp_card.Use_File_Descriptor(
-            Second_Element.firstChildElement("Use_File_Descriptor").text() ==
-            "yes");
+            Second_Element.firstChildElement("Use_File_Descriptor").text() == "yes");
         tmp_card.Set_File_Descriptor(
             Second_Element.firstChildElement("File_Descriptor").text().toInt());
 
-        tmp_card.Use_Interface_Name(
-            Second_Element.firstChildElement("Use_Interface_Name").text() ==
-            "yes");
-        tmp_card.Set_Interface_Name(
-            Second_Element.firstChildElement("Interface_Name").text());
+        tmp_card.Use_Interface_Name(Second_Element.firstChildElement("Use_Interface_Name").text() ==
+                                    "yes");
+        tmp_card.Set_Interface_Name(Second_Element.firstChildElement("Interface_Name").text());
 
-        tmp_card.Use_Bridge_Name(
-            Second_Element.firstChildElement("Use_Bridge_Name").text() ==
-            "yes");
-        tmp_card.Set_Bridge_Name(
-            Second_Element.firstChildElement("Bridge_Name").text());
+        tmp_card.Use_Bridge_Name(Second_Element.firstChildElement("Use_Bridge_Name").text() ==
+                                 "yes");
+        tmp_card.Set_Bridge_Name(Second_Element.firstChildElement("Bridge_Name").text());
 
-        tmp_card.Use_TUN_TAP_Script(
-            Second_Element.firstChildElement("Use_TUN_TAP_Script").text() ==
-            "yes");
-        tmp_card.Set_TUN_TAP_Script(
-            Second_Element.firstChildElement("TUN_TAP_Script").text());
+        tmp_card.Use_TUN_TAP_Script(Second_Element.firstChildElement("Use_TUN_TAP_Script").text() ==
+                                    "yes");
+        tmp_card.Set_TUN_TAP_Script(Second_Element.firstChildElement("TUN_TAP_Script").text());
 
         tmp_card.Use_TUN_TAP_Down_Script(
-            Second_Element.firstChildElement("Use_TUN_TAP_Down_Script")
-                .text() == "yes");
+            Second_Element.firstChildElement("Use_TUN_TAP_Down_Script").text() == "yes");
         tmp_card.Set_TUN_TAP_Down_Script(
             Second_Element.firstChildElement("TUN_TAP_Down_Script").text());
 
-        tmp_card.Use_Bridge_Helper(
-            Second_Element.firstChildElement("Use_Bridge_Helper").text() ==
-            "yes");
-        tmp_card.Set_Bridge_Helper(
-            Second_Element.firstChildElement("Bridge_Helper").text());
+        tmp_card.Use_Bridge_Helper(Second_Element.firstChildElement("Use_Bridge_Helper").text() ==
+                                   "yes");
+        tmp_card.Set_Bridge_Helper(Second_Element.firstChildElement("Bridge_Helper").text());
 
-        tmp_card.Use_Listen(
-            Second_Element.firstChildElement("Use_Listen").text() == "yes");
+        tmp_card.Use_Listen(Second_Element.firstChildElement("Use_Listen").text() == "yes");
         tmp_card.Set_Listen(Second_Element.firstChildElement("Listen").text());
 
-        tmp_card.Use_Connect(
-            Second_Element.firstChildElement("Use_Connect").text() == "yes");
-        tmp_card.Set_Connect(
-            Second_Element.firstChildElement("Connect").text());
+        tmp_card.Use_Connect(Second_Element.firstChildElement("Use_Connect").text() == "yes");
+        tmp_card.Set_Connect(Second_Element.firstChildElement("Connect").text());
 
-        tmp_card.Use_MCast(
-            Second_Element.firstChildElement("Use_MCast").text() == "yes");
+        tmp_card.Use_MCast(Second_Element.firstChildElement("Use_MCast").text() == "yes");
         tmp_card.Set_MCast(Second_Element.firstChildElement("MCast").text());
 
-        tmp_card.Use_Sock(Second_Element.firstChildElement("Use_Sock").text() ==
-                          "yes");
+        tmp_card.Use_Sock(Second_Element.firstChildElement("Use_Sock").text() == "yes");
         tmp_card.Set_Sock(Second_Element.firstChildElement("Sock").text());
 
-        tmp_card.Use_Port(Second_Element.firstChildElement("Use_Port").text() ==
-                          "yes");
-        tmp_card.Set_Port(
-            Second_Element.firstChildElement("Port").text().toInt());
+        tmp_card.Use_Port(Second_Element.firstChildElement("Use_Port").text() == "yes");
+        tmp_card.Set_Port(Second_Element.firstChildElement("Port").text().toInt());
 
-        tmp_card.Use_Group(
-            Second_Element.firstChildElement("Use_Group").text() == "yes");
+        tmp_card.Use_Group(Second_Element.firstChildElement("Use_Group").text() == "yes");
         tmp_card.Set_Group(Second_Element.firstChildElement("Group").text());
 
-        tmp_card.Use_Mode(Second_Element.firstChildElement("Use_Mode").text() ==
-                          "yes");
+        tmp_card.Use_Mode(Second_Element.firstChildElement("Use_Mode").text() == "yes");
         tmp_card.Set_Mode(Second_Element.firstChildElement("Mode").text());
 
-        tmp_card.Use_File(Second_Element.firstChildElement("Use_File").text() ==
-                          "yes");
+        tmp_card.Use_File(Second_Element.firstChildElement("Use_File").text() == "yes");
         tmp_card.Set_File(Second_Element.firstChildElement("File").text());
 
-        tmp_card.Use_Len(Second_Element.firstChildElement("Use_Len").text() ==
-                         "yes");
-        tmp_card.Set_Len(
-            Second_Element.firstChildElement("Len").text().toInt());
+        tmp_card.Use_Len(Second_Element.firstChildElement("Use_Len").text() == "yes");
+        tmp_card.Set_Len(Second_Element.firstChildElement("Len").text().toInt());
 
-        tmp_card.Use_Addr(Second_Element.firstChildElement("Use_Addr").text() ==
-                          "yes");
+        tmp_card.Use_Addr(Second_Element.firstChildElement("Use_Addr").text() == "yes");
         tmp_card.Set_Addr(Second_Element.firstChildElement("Addr").text());
 
-        tmp_card.Use_Vectors(
-            Second_Element.firstChildElement("Use_Vectors").text() == "yes");
-        tmp_card.Set_Vectors(
-            Second_Element.firstChildElement("Vectors").text().toInt());
+        tmp_card.Use_Vectors(Second_Element.firstChildElement("Use_Vectors").text() == "yes");
+        tmp_card.Set_Vectors(Second_Element.firstChildElement("Vectors").text().toInt());
 
-        tmp_card.Use_Net(Second_Element.firstChildElement("Use_Net").text() ==
-                         "yes");
+        tmp_card.Use_Net(Second_Element.firstChildElement("Use_Net").text() == "yes");
         tmp_card.Set_Net(Second_Element.firstChildElement("Net").text());
 
-        tmp_card.Use_Host(Second_Element.firstChildElement("Use_Host").text() ==
-                          "yes");
+        tmp_card.Use_Host(Second_Element.firstChildElement("Use_Host").text() == "yes");
         tmp_card.Set_Host(Second_Element.firstChildElement("Host").text());
 
-        tmp_card.Use_Restrict(
-            Second_Element.firstChildElement("Use_Restrict").text() == "yes");
-        tmp_card.Set_Restrict(
-            Second_Element.firstChildElement("Restrict").text() == "yes");
+        tmp_card.Use_Restrict(Second_Element.firstChildElement("Use_Restrict").text() == "yes");
+        tmp_card.Set_Restrict(Second_Element.firstChildElement("Restrict").text() == "yes");
 
-        tmp_card.Use_DHCPstart(
-            Second_Element.firstChildElement("Use_DHCPstart").text() == "yes");
-        tmp_card.Set_DHCPstart(
-            Second_Element.firstChildElement("DHCPstart").text());
+        tmp_card.Use_DHCPstart(Second_Element.firstChildElement("Use_DHCPstart").text() == "yes");
+        tmp_card.Set_DHCPstart(Second_Element.firstChildElement("DHCPstart").text());
 
-        tmp_card.Use_DNS(Second_Element.firstChildElement("Use_DNS").text() ==
-                         "yes");
+        tmp_card.Use_DNS(Second_Element.firstChildElement("Use_DNS").text() == "yes");
         tmp_card.Set_DNS(Second_Element.firstChildElement("DNS").text());
 
-        tmp_card.Use_Tftp(Second_Element.firstChildElement("Use_Tftp").text() ==
-                          "yes");
+        tmp_card.Use_Tftp(Second_Element.firstChildElement("Use_Tftp").text() == "yes");
         tmp_card.Set_Tftp(Second_Element.firstChildElement("Tftp").text());
 
-        tmp_card.Use_Bootfile(
-            Second_Element.firstChildElement("Use_Bootfile").text() == "yes");
-        tmp_card.Set_Bootfile(
-            Second_Element.firstChildElement("Bootfile").text());
+        tmp_card.Use_Bootfile(Second_Element.firstChildElement("Use_Bootfile").text() == "yes");
+        tmp_card.Set_Bootfile(Second_Element.firstChildElement("Bootfile").text());
 
-        tmp_card.Use_HostFwd(
-            Second_Element.firstChildElement("Use_HostFwd").text() == "yes");
-        tmp_card.Set_HostFwd(
-            Second_Element.firstChildElement("HostFwd").text());
+        tmp_card.Use_HostFwd(Second_Element.firstChildElement("Use_HostFwd").text() == "yes");
+        tmp_card.Set_HostFwd(Second_Element.firstChildElement("HostFwd").text());
 
-        tmp_card.Use_GuestFwd(
-            Second_Element.firstChildElement("Use_GuestFwd").text() == "yes");
-        tmp_card.Set_GuestFwd(
-            Second_Element.firstChildElement("GuestFwd").text());
+        tmp_card.Use_GuestFwd(Second_Element.firstChildElement("Use_GuestFwd").text() == "yes");
+        tmp_card.Set_GuestFwd(Second_Element.firstChildElement("GuestFwd").text());
 
-        tmp_card.Use_SMB(Second_Element.firstChildElement("Use_SMB").text() ==
-                         "yes");
+        tmp_card.Use_SMB(Second_Element.firstChildElement("Use_SMB").text() == "yes");
         tmp_card.Set_SMB(Second_Element.firstChildElement("SMB").text());
 
-        tmp_card.Use_SMBserver(
-            Second_Element.firstChildElement("Use_SMBserver").text() == "yes");
-        tmp_card.Set_SMBserver(
-            Second_Element.firstChildElement("SMBserver").text());
+        tmp_card.Use_SMBserver(Second_Element.firstChildElement("Use_SMBserver").text() == "yes");
+        tmp_card.Set_SMBserver(Second_Element.firstChildElement("SMBserver").text());
 
-        tmp_card.Use_Sndbuf(
-            Second_Element.firstChildElement("Use_Sndbuf").text() == "yes");
-        tmp_card.Set_Sndbuf(
-            Second_Element.firstChildElement("Sndbuf").text().toInt());
+        tmp_card.Use_Sndbuf(Second_Element.firstChildElement("Use_Sndbuf").text() == "yes");
+        tmp_card.Set_Sndbuf(Second_Element.firstChildElement("Sndbuf").text().toInt());
 
-        tmp_card.Use_VNet_hdr(
-            Second_Element.firstChildElement("Use_VNet_hdr").text() == "yes");
-        tmp_card.Set_VNet_hdr(
-            Second_Element.firstChildElement("VNet_hdr").text() == "yes");
+        tmp_card.Use_VNet_hdr(Second_Element.firstChildElement("Use_VNet_hdr").text() == "yes");
+        tmp_card.Set_VNet_hdr(Second_Element.firstChildElement("VNet_hdr").text() == "yes");
 
-        tmp_card.Use_VHost(
-            Second_Element.firstChildElement("Use_VHost").text() == "yes");
-        tmp_card.Set_VHost(Second_Element.firstChildElement("VHost").text() ==
-                           "yes");
+        tmp_card.Use_VHost(Second_Element.firstChildElement("Use_VHost").text() == "yes");
+        tmp_card.Set_VHost(Second_Element.firstChildElement("VHost").text() == "yes");
 
-        tmp_card.Use_VHostFd(
-            Second_Element.firstChildElement("Use_VHostFd").text() == "yes");
-        tmp_card.Set_VHostFd(
-            Second_Element.firstChildElement("VHostFd").text().toInt());
+        tmp_card.Use_VHostFd(Second_Element.firstChildElement("Use_VHostFd").text() == "yes");
+        tmp_card.Set_VHostFd(Second_Element.firstChildElement("VHostFd").text().toInt());
 
         Network_Cards_Native << tmp_card;
       }
 
       // Redirections count
-      int RedirsCount =
-          Child_Element.firstChildElement("Redirections_Count").text().toInt();
+      int RedirsCount = Child_Element.firstChildElement("Redirections_Count").text().toInt();
 
       // Network Redirections...
       for (int rx = 0; rx < RedirsCount; rx++) {
-        Second_Element = Child_Element.firstChildElement(
-            "Network_Redirections_" + QString::number(rx));
+        Second_Element =
+            Child_Element.firstChildElement("Network_Redirections_" + QString::number(rx));
 
         VM_Redirection tmp_redir;
 
-        tmp_redir.Set_Protocol(
-            Second_Element.firstChildElement("Protocol").text());
-        tmp_redir.Set_Host_Port(
-            (Second_Element.firstChildElement("Host_Port").text().toInt()));
-        tmp_redir.Set_Guest_IP(
-            Second_Element.firstChildElement("Guest_IP").text());
-        tmp_redir.Set_Guest_Port(
-            Second_Element.firstChildElement("Guest_Port").text().toInt());
+        tmp_redir.Set_Protocol(Second_Element.firstChildElement("Protocol").text());
+        tmp_redir.Set_Host_Port((Second_Element.firstChildElement("Host_Port").text().toInt()));
+        tmp_redir.Set_Guest_IP(Second_Element.firstChildElement("Guest_IP").text());
+        tmp_redir.Set_Guest_Port(Second_Element.firstChildElement("Guest_Port").text().toInt());
 
         Add_Network_Redirection(tmp_redir);
       }
@@ -4633,18 +4326,15 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
       SMB_Directory = Child_Element.firstChildElement("SMB_Directory").text();
 
       // Serial Ports Count
-      int serial_count =
-          Child_Element.firstChildElement("Serial_Port_Count").text().toInt();
+      int serial_count = Child_Element.firstChildElement("Serial_Port_Count").text().toInt();
 
       // Serial Port
       for (int px = 0; px < serial_count; ++px) {
         VM_Port tmp_port;
 
-        Second_Element = Child_Element.firstChildElement("Serial_Port_" +
-                                                         QString::number(px));
+        Second_Element = Child_Element.firstChildElement("Serial_Port_" + QString::number(px));
 
-        QString tmp_str =
-            Second_Element.firstChildElement("Port_Redirection").text();
+        QString tmp_str = Second_Element.firstChildElement("Port_Redirection").text();
 
         if (tmp_str == "vc")
           tmp_port.Set_Port_Redirection(VM::PR_vc);
@@ -4682,25 +4372,21 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
           tmp_port.Set_Port_Redirection(VM::PR_Default);
 
         // Parametrs Line
-        tmp_port.Set_Parametrs_Line(
-            Second_Element.firstChildElement("Parametrs").text());
+        tmp_port.Set_Parametrs_Line(Second_Element.firstChildElement("Parametrs").text());
 
         Serial_Ports << tmp_port;
       }
 
       // Parallel Ports Count
-      int parallel_count =
-          Child_Element.firstChildElement("Parallel_Port_Count").text().toInt();
+      int parallel_count = Child_Element.firstChildElement("Parallel_Port_Count").text().toInt();
 
       // Parallel Port
       for (int px = 0; px < parallel_count; ++px) {
         VM_Port tmp_port;
 
-        Second_Element = Child_Element.firstChildElement("Parallel_Port_" +
-                                                         QString::number(px));
+        Second_Element = Child_Element.firstChildElement("Parallel_Port_" + QString::number(px));
 
-        QString tmp_str =
-            Second_Element.firstChildElement("Port_Redirection").text();
+        QString tmp_str = Second_Element.firstChildElement("Port_Redirection").text();
 
         if (tmp_str == "vc")
           tmp_port.Set_Port_Redirection(VM::PR_vc);
@@ -4738,43 +4424,33 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
           tmp_port.Set_Port_Redirection(VM::PR_Default);
 
         // Parametrs Line
-        tmp_port.Set_Parametrs_Line(
-            Second_Element.firstChildElement("Parametrs").text());
+        tmp_port.Set_Parametrs_Line(Second_Element.firstChildElement("Parametrs").text());
 
         Parallel_Ports << tmp_port;
       }
 
       // USB Count
-      int usb_count =
-          Child_Element.firstChildElement("USB_Ports_Count").text().toInt();
+      int usb_count = Child_Element.firstChildElement("USB_Ports_Count").text().toInt();
 
       // USB Devices
       for (int ux = 0; ux < usb_count; ++ux) {
-        Second_Element =
-            Child_Element.firstChildElement("USB_Port_" + QString::number(ux));
+        Second_Element = Child_Element.firstChildElement("USB_Port_" + QString::number(ux));
 
         VM_USB tmp_usb;
 
-        tmp_usb.Set_Use_Host_Device(
-            Second_Element.firstChildElement("Use_Host_Device").text() ==
-            "true");
-        tmp_usb.Set_Manufacturer_Name(
-            Second_Element.firstChildElement("Manufacturer_Name").text());
-        tmp_usb.Set_Product_Name(
-            Second_Element.firstChildElement("Product_Name").text());
-        tmp_usb.Set_Vendor_ID(
-            Second_Element.firstChildElement("Vendor_ID").text());
-        tmp_usb.Set_Product_ID(
-            Second_Element.firstChildElement("Product_ID").text());
-        tmp_usb.Set_Serial_Number(
-            Second_Element.firstChildElement("Serial_Number").text());
+        tmp_usb.Set_Use_Host_Device(Second_Element.firstChildElement("Use_Host_Device").text() ==
+                                    "true");
+        tmp_usb.Set_Manufacturer_Name(Second_Element.firstChildElement("Manufacturer_Name").text());
+        tmp_usb.Set_Product_Name(Second_Element.firstChildElement("Product_Name").text());
+        tmp_usb.Set_Vendor_ID(Second_Element.firstChildElement("Vendor_ID").text());
+        tmp_usb.Set_Product_ID(Second_Element.firstChildElement("Product_ID").text());
+        tmp_usb.Set_Serial_Number(Second_Element.firstChildElement("Serial_Number").text());
         tmp_usb.Set_Speed(Second_Element.firstChildElement("Speed").text());
 
         // For AQEMU VM files version 0.8.2 and oldest
         if (!Second_Element.firstChildElement("BusAddr").text().isEmpty()) {
           QStringList busAddrList =
-              Second_Element.firstChildElement("BusAddr").text().split(
-                  ':', Qt::SkipEmptyParts);
+              Second_Element.firstChildElement("BusAddr").text().split(':', Qt::SkipEmptyParts);
           if (busAddrList.count() != 2) {
             AQError("bool Virtual_Machine::Load_VM( const QString &file_name )",
                     "Cannot parse obsolete USB Bus.Addr string! Data: " +
@@ -4797,30 +4473,25 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
         usb_k = usb_m = usb_t = usb_wt = usb_b = false;
 
         // Keyboard
-        usb_k =
-            (Child_Element.firstChildElement("USB_Keyboard").text() == "true");
+        usb_k = (Child_Element.firstChildElement("USB_Keyboard").text() == "true");
 
         // Mouse
         usb_m = (Child_Element.firstChildElement("USB_Mouse").text() == "true");
 
         // Tablet
-        usb_t =
-            (Child_Element.firstChildElement("USB_Tablet").text() == "true");
+        usb_t = (Child_Element.firstChildElement("USB_Tablet").text() == "true");
 
         // Wacom Tablet
-        usb_wt = (Child_Element.firstChildElement("USB_WacomTablet").text() ==
-                  "true");
+        usb_wt = (Child_Element.firstChildElement("USB_WacomTablet").text() == "true");
 
         // Braille
-        usb_b =
-            (Child_Element.firstChildElement("USB_Braille").text() == "true");
+        usb_b = (Child_Element.firstChildElement("USB_Braille").text() == "true");
 
         // Set
         tmp_usb.Set_USB_QEMU_Devices(usb_k, usb_m, usb_t, usb_wt, usb_b);
 
         // Next code for compatibity old versions
-        if (usb_k == false && usb_m == false && usb_t == false &&
-            usb_wt == false && usb_b == false)
+        if (usb_k == false && usb_m == false && usb_t == false && usb_wt == false && usb_b == false)
           tmp_usb.Set_Use_Host_Device(true);
 
         // Add device
@@ -4828,8 +4499,7 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
       }
 
       // Linux Boot
-      Linux_Boot =
-          (Child_Element.firstChildElement("Linux_Boot").text() == "true");
+      Linux_Boot = (Child_Element.firstChildElement("Linux_Boot").text() == "true");
 
       // bzImage Path
       bzImage_Path = Child_Element.firstChildElement("bzImage_Path").text();
@@ -4841,121 +4511,95 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
       Kernel_ComLine = Child_Element.firstChildElement("Kernel_ComLine").text();
 
       // Use ROM File
-      Use_ROM_File =
-          (Child_Element.firstChildElement("Use_ROM_File").text() == "true");
+      Use_ROM_File = (Child_Element.firstChildElement("Use_ROM_File").text() == "true");
 
       // ROM File Path
       ROM_File = Child_Element.firstChildElement("ROM_File").text();
 
       // Use MTDBlock File
-      MTDBlock = (Child_Element.firstChildElement("Use_MTDBlock_File").text() ==
-                  "true");
+      MTDBlock = (Child_Element.firstChildElement("Use_MTDBlock_File").text() == "true");
 
       // MTDBlock File
       MTDBlock_File = Child_Element.firstChildElement("MTDBlock_File").text();
 
       // Use SecureDigital File
-      SecureDigital =
-          (Child_Element.firstChildElement("Use_SecureDigital_File").text() ==
-           "true");
+      SecureDigital = (Child_Element.firstChildElement("Use_SecureDigital_File").text() == "true");
 
       // SecureDigital File
-      SecureDigital_File =
-          Child_Element.firstChildElement("SecureDigital_File").text();
+      SecureDigital_File = Child_Element.firstChildElement("SecureDigital_File").text();
 
       // Use PFlash File
-      PFlash =
-          (Child_Element.firstChildElement("Use_PFlash_File").text() == "true");
+      PFlash = (Child_Element.firstChildElement("Use_PFlash_File").text() == "true");
 
       // PFlash File
       PFlash_File = Child_Element.firstChildElement("PFlash_File").text();
 
       // Enable KVM
-      Enable_KVM =
-          !(Child_Element.firstChildElement("Enable_KVM").text() == "false");
+      Enable_KVM = !(Child_Element.firstChildElement("Enable_KVM").text() == "false");
 
       // Use KVM IRQChip
-      KVM_IRQChip =
-          (Child_Element.firstChildElement("Use_KVM_IRQChip").text() == "true");
+      KVM_IRQChip = (Child_Element.firstChildElement("Use_KVM_IRQChip").text() == "true");
 
       // Use No KVM Pit
-      No_KVM_Pit =
-          (Child_Element.firstChildElement("Use_No_KVM_Pit").text() == "true");
+      No_KVM_Pit = (Child_Element.firstChildElement("Use_No_KVM_Pit").text() == "true");
 
       // KVM_No_Pit_Reinjection
       KVM_No_Pit_Reinjection =
-          (Child_Element.firstChildElement("Use_KVM_No_Pit_Reinjection")
-               .text() == "true");
+          (Child_Element.firstChildElement("Use_KVM_No_Pit_Reinjection").text() == "true");
 
       // Use_No_KVM_Pit
-      KVM_Nesting =
-          (Child_Element.firstChildElement("Use_KVM_Nesting").text() == "true");
+      KVM_Nesting = (Child_Element.firstChildElement("Use_KVM_Nesting").text() == "true");
 
       // Use KVM Shadow Memory
       KVM_Shadow_Memory =
-          (Child_Element.firstChildElement("Use_KVM_Shadow_Memory").text() ==
-           "true");
+          (Child_Element.firstChildElement("Use_KVM_Shadow_Memory").text() == "true");
 
       // KVM_Shadow_Memory_Size
       KVM_Shadow_Memory_Size =
-          (uint)Child_Element.firstChildElement("KVM_Shadow_Memory_Size")
-              .text()
-              .toInt();
+          (uint)Child_Element.firstChildElement("KVM_Shadow_Memory_Size").text().toInt();
 
       // Init Graphic Mode
       Second_Element = Child_Element.firstChildElement("Init_Graphic_Mode");
 
       // Enabled
-      Init_Graphic_Mode.Set_Enabled(
-          Second_Element.firstChildElement("Enabled").text() == "true");
+      Init_Graphic_Mode.Set_Enabled(Second_Element.firstChildElement("Enabled").text() == "true");
 
       // Width
-      Init_Graphic_Mode.Set_Width(
-          Second_Element.firstChildElement("Width").text().toInt());
+      Init_Graphic_Mode.Set_Width(Second_Element.firstChildElement("Width").text().toInt());
 
       // Height
-      Init_Graphic_Mode.Set_Height(
-          Second_Element.firstChildElement("Height").text().toInt());
+      Init_Graphic_Mode.Set_Height(Second_Element.firstChildElement("Height").text().toInt());
 
       // Depth
-      Init_Graphic_Mode.Set_Depth(
-          Second_Element.firstChildElement("Depth").text().toInt());
+      Init_Graphic_Mode.Set_Depth(Second_Element.firstChildElement("Depth").text().toInt());
 
       // Use No Frame
-      No_Frame =
-          (Child_Element.firstChildElement("Use_No_Frame").text() == "true");
+      No_Frame = (Child_Element.firstChildElement("Use_No_Frame").text() == "true");
 
       // Use Alt Grab
-      Alt_Grab =
-          (Child_Element.firstChildElement("Use_Alt_Grab").text() == "true");
+      Alt_Grab = (Child_Element.firstChildElement("Use_Alt_Grab").text() == "true");
 
       // Use No Quit
-      No_Quit =
-          (Child_Element.firstChildElement("Use_No_Quit").text() == "true");
+      No_Quit = (Child_Element.firstChildElement("Use_No_Quit").text() == "true");
 
       // Use Portrait
-      Portrait =
-          (Child_Element.firstChildElement("Use_Portrait").text() == "true");
+      Portrait = (Child_Element.firstChildElement("Use_Portrait").text() == "true");
 
       // Show_Cursor
-      Show_Cursor =
-          (Child_Element.firstChildElement("Show_Cursor").text() == "true");
+      Show_Cursor = (Child_Element.firstChildElement("Show_Cursor").text() == "true");
 
       // Curses
       Curses = (Child_Element.firstChildElement("Curses").text() == "true");
 
       // RTC_TD_Hack
-      RTC_TD_Hack =
-          (Child_Element.firstChildElement("RTC_TD_Hack").text() == "true");
+      RTC_TD_Hack = (Child_Element.firstChildElement("RTC_TD_Hack").text() == "true");
 
       // Start Date
-      Start_Date =
-          (Child_Element.firstChildElement("Use_Start_Date").text() == "true");
+      Start_Date = (Child_Element.firstChildElement("Use_Start_Date").text() == "true");
 
       // Start DateTime
-      Start_DateTime = QDateTime::fromString(
-          Child_Element.firstChildElement("Start_Date").text(),
-          "dd.MM.yyyy HH:mm:ss");
+      Start_DateTime = QDateTime::fromString(Child_Element.firstChildElement("Start_Date").text(),
+                                             "dd.MM.yyyy HH:mm:ss");
 
       // SPICE
       Second_Element = Child_Element.firstChildElement("SPICE");
@@ -4963,49 +4607,39 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
       if (!Second_Element.isNull()) {
         bool ok = false;
 
-        SPICE.Use_SPICE(Second_Element.firstChildElement("Use_SPICE").text() ==
-                        "true");
+        SPICE.Use_SPICE(Second_Element.firstChildElement("Use_SPICE").text() == "true");
 
         SPICE.Set_GXL_Devices_Count(
-            Second_Element.firstChildElement("GXL_Devices_Count")
-                .text()
-                .toUInt(&ok));
+            Second_Element.firstChildElement("GXL_Devices_Count").text().toUInt(&ok));
         if (!ok)
           AQError("bool Virtual_Machine::Load_VM( const QString &file_name )",
                   "SPICE GXL_Devices_Count invalid!");
 
-        SPICE.Set_RAM_Size(
-            Second_Element.firstChildElement("RAM_Size").text().toInt(&ok));
+        SPICE.Set_RAM_Size(Second_Element.firstChildElement("RAM_Size").text().toInt(&ok));
         if (!ok)
           AQError("bool Virtual_Machine::Load_VM( const QString &file_name )",
                   "SPICE RAM_Size invalid!");
 
-        SPICE.Set_Port(
-            Second_Element.firstChildElement("Port").text().toUInt(&ok));
+        SPICE.Set_Port(Second_Element.firstChildElement("Port").text().toUInt(&ok));
         if (!ok)
           AQError("bool Virtual_Machine::Load_VM( const QString &file_name )",
                   "SPICE Port invalid");
 
-        SPICE.Use_SPort(Second_Element.firstChildElement("Use_SPort").text() ==
-                        "true");
+        SPICE.Use_SPort(Second_Element.firstChildElement("Use_SPort").text() == "true");
 
-        SPICE.Set_SPort(
-            Second_Element.firstChildElement("SPort").text().toUInt(&ok));
+        SPICE.Set_SPort(Second_Element.firstChildElement("SPort").text().toUInt(&ok));
         if (!ok)
           AQError("bool Virtual_Machine::Load_VM( const QString &file_name )",
                   "SPICE SPort invalid!");
 
-        SPICE.Use_Hostname(
-            Second_Element.firstChildElement("Use_Hostname").text() == "true");
+        SPICE.Use_Hostname(Second_Element.firstChildElement("Use_Hostname").text() == "true");
 
         SPICE.Set_Hostname(Second_Element.firstChildElement("Hostname").text());
 
         SPICE.Use_Image_Compression(
-            Second_Element.firstChildElement("Use_Image_Compression").text() ==
-            "true");
+            Second_Element.firstChildElement("Use_Image_Compression").text() == "true");
 
-        QString spiceIC =
-            Second_Element.firstChildElement("Image_Compression_Type").text();
+        QString spiceIC = Second_Element.firstChildElement("Image_Compression_Type").text();
         if (spiceIC == "on")
           SPICE.Set_Image_Compression(VM::SPICE_IC_Type_on);
         else if (spiceIC == "auto_glz")
@@ -5025,14 +4659,11 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
                   "SPICE image compression type invalid!");
 
         SPICE.Use_Video_Stream_Compression(
-            Second_Element.firstChildElement("Use_Video_Stream_Compression")
-                .text() == "true");
+            Second_Element.firstChildElement("Use_Video_Stream_Compression").text() == "true");
 
-        SPICE.Use_Renderer(
-            Second_Element.firstChildElement("Use_Renderer").text() == "true");
+        SPICE.Use_Renderer(Second_Element.firstChildElement("Use_Renderer").text() == "true");
 
-        QDomElement rendererListElement =
-            Second_Element.firstChildElement("Renderers_List");
+        QDomElement rendererListElement = Second_Element.firstChildElement("Renderers_List");
         if (rendererListElement.isNull())
           AQError("bool Virtual_Machine::Load_VM( const QString &file_name )",
                   "SPICE renderer list is empty!");
@@ -5052,9 +4683,8 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
             else if (rendererTypeStr == "cairo")
               rendererList << VM::SPICE_Renderer_cairo;
             else
-              AQError(
-                  "bool Virtual_Machine::Load_VM( const QString &file_name )",
-                  "SPICE renderer type invalid!");
+              AQError("bool Virtual_Machine::Load_VM( const QString &file_name )",
+                      "SPICE renderer type invalid!");
           }
 
           if (rendererList.isEmpty())
@@ -5065,11 +4695,9 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
         }
 
         SPICE.Use_Playback_Compression(
-            Second_Element.firstChildElement("Use_Playback_Compression")
-                .text() == "true");
+            Second_Element.firstChildElement("Use_Playback_Compression").text() == "true");
 
-        SPICE.Use_Password(
-            Second_Element.firstChildElement("Use_Password").text() == "true");
+        SPICE.Use_Password(Second_Element.firstChildElement("Use_Password").text() == "true");
 
         SPICE.Set_Password(Second_Element.firstChildElement("Password").text());
       }
@@ -5078,57 +4706,43 @@ bool Virtual_Machine::Load_VM(const QString& file_name)
       VNC = (Child_Element.firstChildElement("Use_VNC").text() == "true");
 
       // VNC Socket Mode
-      VNC_Socket_Mode =
-          (Child_Element.firstChildElement("VNC_Socket_Mode").text() == "true");
+      VNC_Socket_Mode = (Child_Element.firstChildElement("VNC_Socket_Mode").text() == "true");
 
       // VNC Unix Socket Path
-      VNC_Unix_Socket_Path =
-          Child_Element.firstChildElement("VNC_Unix_Socket_Path").text();
+      VNC_Unix_Socket_Path = Child_Element.firstChildElement("VNC_Unix_Socket_Path").text();
 
       // VNC Display Number
       VNC_Display_Number =
-          (uint)Child_Element.firstChildElement("VNC_Display_Number")
-              .text()
-              .toInt();
+          (uint)Child_Element.firstChildElement("VNC_Display_Number").text().toInt();
 
       // Use VNC Password
-      VNC_Password =
-          (Child_Element.firstChildElement("Use_VNC_Password").text() ==
-           "true");
+      VNC_Password = (Child_Element.firstChildElement("Use_VNC_Password").text() == "true");
 
       // Use VNC TLS
-      VNC_TLS =
-          (Child_Element.firstChildElement("Use_VNC_TLS").text() == "true");
+      VNC_TLS = (Child_Element.firstChildElement("Use_VNC_TLS").text() == "true");
 
       // Use VNC x509
-      VNC_x509 =
-          (Child_Element.firstChildElement("Use_VNC_x509").text() == "true");
+      VNC_x509 = (Child_Element.firstChildElement("Use_VNC_x509").text() == "true");
 
       // VNC x509 Folder Path
-      VNC_x509_Folder_Path =
-          Child_Element.firstChildElement("VNC_x509_Folder_Path").text();
+      VNC_x509_Folder_Path = Child_Element.firstChildElement("VNC_x509_Folder_Path").text();
 
       // Use VNC x509verify
-      VNC_x509verify =
-          (Child_Element.firstChildElement("Use_VNC_x509verify").text() ==
-           "true");
+      VNC_x509verify = (Child_Element.firstChildElement("Use_VNC_x509verify").text() == "true");
 
       // VNC x509verify Folder Path
       VNC_x509verify_Folder_Path =
           Child_Element.firstChildElement("VNC_x509verify_Folder_Path").text();
 
       // Additional Arguments
-      Additional_Args =
-          Child_Element.firstChildElement("Additional_Args").text();
+      Additional_Args = Child_Element.firstChildElement("Additional_Args").text();
 
       // Only_User_Args
-      Only_User_Args =
-          (Child_Element.firstChildElement("Only_User_Args").text() == "true");
+      Only_User_Args = (Child_Element.firstChildElement("Only_User_Args").text() == "true");
 
       // Use_User_Emulator_Binary
       Use_User_Emulator_Binary =
-          (Child_Element.firstChildElement("Use_User_Emulator_Binary").text() ==
-           "true");
+          (Child_Element.firstChildElement("Use_User_Emulator_Binary").text() == "true");
 
       return true;
     }
@@ -5141,16 +4755,13 @@ VM_Native_Storage_Device Virtual_Machine::Load_VM_Native_Storage_Device(
   VM_Native_Storage_Device tmp_device;
 
   // Use File Path
-  tmp_device.Use_File_Path(
-      Second_Element.firstChildElement("Use_File_Path").text() == "true");
+  tmp_device.Use_File_Path(Second_Element.firstChildElement("Use_File_Path").text() == "true");
 
   // File Path
-  tmp_device.Set_File_Path(
-      Second_Element.firstChildElement("File_Path").text());
+  tmp_device.Set_File_Path(Second_Element.firstChildElement("File_Path").text());
 
   // Use Interface
-  tmp_device.Use_Interface(
-      Second_Element.firstChildElement("Use_Interface").text() == "true");
+  tmp_device.Use_Interface(Second_Element.firstChildElement("Use_Interface").text() == "true");
 
   // Interface
   QString interface_str = Second_Element.firstChildElement("Interface").text();
@@ -5178,13 +4789,11 @@ VM_Native_Storage_Device Virtual_Machine::Load_VM_Native_Storage_Device(
         "VM_Native_Storage_Device "
         "Virtual_Machine::Load_VM_Native_Storage_Device( const QDomElement "
         "&Second_Element ) const",
-        "Storage Device Interface Default Section! Value: \"" + interface_str +
-            "\"");
+        "Storage Device Interface Default Section! Value: \"" + interface_str + "\"");
   }
 
   // Use Bus Unit
-  tmp_device.Use_Bus_Unit(
-      Second_Element.firstChildElement("Use_Bus_Unit").text() == "true");
+  tmp_device.Use_Bus_Unit(Second_Element.firstChildElement("Use_Bus_Unit").text() == "true");
 
   // Bus
   tmp_device.Set_Bus(Second_Element.firstChildElement("Bus").text().toInt());
@@ -5193,16 +4802,13 @@ VM_Native_Storage_Device Virtual_Machine::Load_VM_Native_Storage_Device(
   tmp_device.Set_Bus(Second_Element.firstChildElement("Unit").text().toInt());
 
   // Use Index
-  tmp_device.Use_Index(Second_Element.firstChildElement("Use_Index").text() ==
-                       "true");
+  tmp_device.Use_Index(Second_Element.firstChildElement("Use_Index").text() == "true");
 
   // Index
-  tmp_device.Set_Index(
-      Second_Element.firstChildElement("Index").text().toInt());
+  tmp_device.Set_Index(Second_Element.firstChildElement("Index").text().toInt());
 
   // Use Media
-  tmp_device.Use_Media(Second_Element.firstChildElement("Use_Media").text() ==
-                       "true");
+  tmp_device.Use_Media(Second_Element.firstChildElement("Use_Media").text() == "true");
 
   // Media
   QString media_str = Second_Element.firstChildElement("Media").text();
@@ -5222,68 +4828,54 @@ VM_Native_Storage_Device Virtual_Machine::Load_VM_Native_Storage_Device(
   }
 
   // Use hdachs
-  tmp_device.Use_hdachs(Second_Element.firstChildElement("Use_hdachs").text() ==
-                        "true");
+  tmp_device.Use_hdachs(Second_Element.firstChildElement("Use_hdachs").text() == "true");
 
   // Cyls
-  tmp_device.Set_Cyls(
-      Second_Element.firstChildElement("Cyls").text().toULongLong());
+  tmp_device.Set_Cyls(Second_Element.firstChildElement("Cyls").text().toULongLong());
 
   // Heads
-  tmp_device.Set_Heads(
-      Second_Element.firstChildElement("Heads").text().toULongLong());
+  tmp_device.Set_Heads(Second_Element.firstChildElement("Heads").text().toULongLong());
 
   // Secs
-  tmp_device.Set_Secs(
-      Second_Element.firstChildElement("Secs").text().toULongLong());
+  tmp_device.Set_Secs(Second_Element.firstChildElement("Secs").text().toULongLong());
 
   // Trans
-  tmp_device.Set_Cyls(
-      Second_Element.firstChildElement("Trans").text().toULongLong());
+  tmp_device.Set_Cyls(Second_Element.firstChildElement("Trans").text().toULongLong());
 
   // Use Snapshot
-  tmp_device.Use_Snapshot(
-      Second_Element.firstChildElement("Use_Snapshot").text() == "true");
+  tmp_device.Use_Snapshot(Second_Element.firstChildElement("Use_Snapshot").text() == "true");
 
   // Snapshot
-  tmp_device.Set_Snapshot(Second_Element.firstChildElement("Snapshot").text() ==
-                          "true");
+  tmp_device.Set_Snapshot(Second_Element.firstChildElement("Snapshot").text() == "true");
 
   // Use Cache
-  tmp_device.Use_Cache(Second_Element.firstChildElement("Use_Cache").text() ==
-                       "true");
+  tmp_device.Use_Cache(Second_Element.firstChildElement("Use_Cache").text() == "true");
 
   // Cache
   tmp_device.Set_Cache(Second_Element.firstChildElement("Cache").text());
 
   // Use AIO
-  tmp_device.Use_AIO(Second_Element.firstChildElement("Use_AIO").text() ==
-                     "true");
+  tmp_device.Use_AIO(Second_Element.firstChildElement("Use_AIO").text() == "true");
 
   // AIO
   tmp_device.Set_AIO(Second_Element.firstChildElement("AIO").text());
 
   // Use Boot
-  tmp_device.Use_Boot(Second_Element.firstChildElement("Use_Boot").text() ==
-                      "true");
+  tmp_device.Use_Boot(Second_Element.firstChildElement("Use_Boot").text() == "true");
 
   // Boot
-  tmp_device.Set_Boot(Second_Element.firstChildElement("Boot").text() ==
-                      "true");
+  tmp_device.Set_Boot(Second_Element.firstChildElement("Boot").text() == "true");
 
   // Use Discard
-  tmp_device.Use_Discard(
-      Second_Element.firstChildElement("Use_Discard").text() == "true");
+  tmp_device.Use_Discard(Second_Element.firstChildElement("Use_Discard").text() == "true");
 
   // Discard
-  tmp_device.Set_Discard(Second_Element.firstChildElement("Discard").text() ==
-                         "true");
+  tmp_device.Set_Discard(Second_Element.firstChildElement("Discard").text() == "true");
 
   return tmp_device;
 }
 
-VM_Shared_Folder Virtual_Machine::Load_VM_Shared_Folder(
-    const QDomElement& Second_Element) const
+VM_Shared_Folder Virtual_Machine::Load_VM_Shared_Folder(const QDomElement& Second_Element) const
 {
   VM_Shared_Folder tmp_device;
 
@@ -5293,9 +4885,9 @@ VM_Shared_Folder Virtual_Machine::Load_VM_Shared_Folder(
   return tmp_device;
 }
 
-void Virtual_Machine::Save_VM_Native_Storage_Device(
-    QDomDocument& New_Dom_Document, QDomElement& Dom_Element,
-    const VM_Native_Storage_Device& device) const
+void Virtual_Machine::Save_VM_Native_Storage_Device(QDomDocument& New_Dom_Document,
+                                                    QDomElement& Dom_Element,
+                                                    const VM_Native_Storage_Device& device) const
 {
   // Use File Path
   QDomElement Sec_Element = New_Dom_Document.createElement("Use_File_Path");
@@ -5412,8 +5004,7 @@ void Virtual_Machine::Save_VM_Native_Storage_Device(
   // Unit
   Sec_Element = New_Dom_Document.createElement("Unit");
   Dom_Element.appendChild(Sec_Element);
-  Dom_Text =
-      New_Dom_Document.createTextNode(QString::number(device.Get_Unit()));
+  Dom_Text = New_Dom_Document.createTextNode(QString::number(device.Get_Unit()));
   Sec_Element.appendChild(Dom_Text);
 
   // Use Index
@@ -5430,8 +5021,7 @@ void Virtual_Machine::Save_VM_Native_Storage_Device(
   // Index
   Sec_Element = New_Dom_Document.createElement("Index");
   Dom_Element.appendChild(Sec_Element);
-  Dom_Text =
-      New_Dom_Document.createTextNode(QString::number(device.Get_Index()));
+  Dom_Text = New_Dom_Document.createTextNode(QString::number(device.Get_Index()));
   Sec_Element.appendChild(Dom_Text);
 
   // Use Media
@@ -5483,29 +5073,25 @@ void Virtual_Machine::Save_VM_Native_Storage_Device(
   // Cyls
   Sec_Element = New_Dom_Document.createElement("Cyls");
   Dom_Element.appendChild(Sec_Element);
-  Dom_Text =
-      New_Dom_Document.createTextNode(QString::number(device.Get_Cyls()));
+  Dom_Text = New_Dom_Document.createTextNode(QString::number(device.Get_Cyls()));
   Sec_Element.appendChild(Dom_Text);
 
   // Heads
   Sec_Element = New_Dom_Document.createElement("Heads");
   Dom_Element.appendChild(Sec_Element);
-  Dom_Text =
-      New_Dom_Document.createTextNode(QString::number(device.Get_Heads()));
+  Dom_Text = New_Dom_Document.createTextNode(QString::number(device.Get_Heads()));
   Sec_Element.appendChild(Dom_Text);
 
   // Secs
   Sec_Element = New_Dom_Document.createElement("Secs");
   Dom_Element.appendChild(Sec_Element);
-  Dom_Text =
-      New_Dom_Document.createTextNode(QString::number(device.Get_Secs()));
+  Dom_Text = New_Dom_Document.createTextNode(QString::number(device.Get_Secs()));
   Sec_Element.appendChild(Dom_Text);
 
   // Trans
   Sec_Element = New_Dom_Document.createElement("Trans");
   Dom_Element.appendChild(Sec_Element);
-  Dom_Text =
-      New_Dom_Document.createTextNode(QString::number(device.Get_Trans()));
+  Dom_Text = New_Dom_Document.createTextNode(QString::number(device.Get_Trans()));
   Sec_Element.appendChild(Dom_Text);
 
   // Use Snapshot
@@ -5608,15 +5194,14 @@ void Virtual_Machine::Save_VM_Native_Storage_Device(
   Sec_Element.appendChild(Dom_Text);
 }
 
-void Virtual_Machine::Save_VM_Shared_Folder(
-    QDomDocument& New_Dom_Document, QDomElement& Dom_Element,
-    const VM_Shared_Folder& shared_folder) const
+void Virtual_Machine::Save_VM_Shared_Folder(QDomDocument& New_Dom_Document,
+                                            QDomElement& Dom_Element,
+                                            const VM_Shared_Folder& shared_folder) const
 {
   // Folder Path
   QDomElement Sec_Element = New_Dom_Document.createElement("Path");
   Dom_Element.appendChild(Sec_Element);
-  QDomText Dom_Text =
-      New_Dom_Document.createTextNode(shared_folder.Get_Folder());
+  QDomText Dom_Text = New_Dom_Document.createTextNode(shared_folder.Get_Folder());
 
   Sec_Element.appendChild(Dom_Text);
 }
@@ -5648,30 +5233,23 @@ QStringList Virtual_Machine::Build_QEMU_Args()
 #ifdef Q_OS_WIN32
   Args << "-monitor"
        << QString("tcp:%1:%2,server,nowait")
-              .arg(Settings.value("Emulator_Monitor_Hostname", "localhost")
-                       .toString())
-              .arg(Settings.value("Emulator_MonGitor_Port", 6000).toInt() +
-                   Embedded_Display_Port);
+              .arg(Settings.value("Emulator_Monitor_Hostname", "localhost").toString())
+              .arg(Settings.value("Emulator_MonGitor_Port", 6000).toInt() + Embedded_Display_Port);
 
-  Monitor_Hostname =
-      Settings.value("Emulator_Monitor_Hostname", "localhost").toString();
+  Monitor_Hostname = Settings.value("Emulator_Monitor_Hostname", "localhost").toString();
   Monitor_Port =
-      (unsigned int)Settings.value("Emulator_MonGitor_Port", 6000).toInt() +
-      Embedded_Display_Port;
+      (unsigned int)Settings.value("Emulator_MonGitor_Port", 6000).toInt() + Embedded_Display_Port;
 #else
   if (Settings.value("Emulator_Monitor_Type", "stdio").toString() == "tcp") {
     Args << "-monitor"
          << QString("tcp:%1:%2,server,nowait")
-                .arg(Settings.value("Emulator_Monitor_Hostname", "localhost")
-                         .toString())
+                .arg(Settings.value("Emulator_Monitor_Hostname", "localhost").toString())
                 .arg(Settings.value("Emulator_MonGitor_Port", 6000).toInt() +
                      Embedded_Display_Port);
 
-    Monitor_Hostname =
-        Settings.value("Emulator_Monitor_Hostname", "localhost").toString();
-    Monitor_Port =
-        (unsigned int)Settings.value("Emulator_MonGitor_Port", 6000).toInt() +
-        Embedded_Display_Port;
+    Monitor_Hostname = Settings.value("Emulator_Monitor_Hostname", "localhost").toString();
+    Monitor_Port = (unsigned int)Settings.value("Emulator_MonGitor_Port", 6000).toInt() +
+                   Embedded_Display_Port;
   }
   else {
     Args << "-monitor"
@@ -5694,8 +5272,7 @@ QStringList Virtual_Machine::Build_QEMU_Args()
   }
 
   if (Current_Emulator_Devices.System.QEMU_Name.isEmpty()) {
-    AQError("QStringList Virtual_Machine::Build_QEMU_Args()",
-            "Current_Emulator_Devices is empty!");
+    AQError("QStringList Virtual_Machine::Build_QEMU_Args()", "Current_Emulator_Devices is empty!");
     Update_Current_Emulator_Devices();
 
     if (Current_Emulator_Devices.System.QEMU_Name.isEmpty()) {
@@ -5707,12 +5284,10 @@ QStringList Virtual_Machine::Build_QEMU_Args()
 
   // SMP Mode
   if (SMP.SMP_Count <= Current_Emulator_Devices.PSO_SMP_Count) {
-    if (Current_Emulator_Devices.PSO_SMP_Cores ||
-        Current_Emulator_Devices.PSO_SMP_Threads ||
-        Current_Emulator_Devices.PSO_SMP_Sockets ||
-        Current_Emulator_Devices.PSO_SMP_MaxCPUs) {
-      if (SMP.SMP_Count > 1 || SMP.SMP_Cores > 0 || SMP.SMP_Threads > 0 ||
-          SMP.SMP_Sockets > 0 || SMP.SMP_MaxCPUs > 0) {
+    if (Current_Emulator_Devices.PSO_SMP_Cores || Current_Emulator_Devices.PSO_SMP_Threads ||
+        Current_Emulator_Devices.PSO_SMP_Sockets || Current_Emulator_Devices.PSO_SMP_MaxCPUs) {
+      if (SMP.SMP_Count > 1 || SMP.SMP_Cores > 0 || SMP.SMP_Threads > 0 || SMP.SMP_Sockets > 0 ||
+          SMP.SMP_MaxCPUs > 0) {
         QString smp_args = QString::number(SMP.SMP_Count);
 
         if (Current_Emulator_Devices.PSO_SMP_Cores && SMP.SMP_Cores > 0)
@@ -5737,37 +5312,28 @@ QStringList Virtual_Machine::Build_QEMU_Args()
   }
 
   // CPU Model
-  if (Current_Emulator_Devices.CPU_List.count() > 1 &&
-      CPU_Type.isEmpty() == false) {
+  if (Current_Emulator_Devices.CPU_List.count() > 1 && CPU_Type.isEmpty() == false) {
     Args << "-cpu" << CPU_Type;
   }
 
   // Audio
   QStringList audio_list;
 
-  if (Audio_Card.Audio_sb16 &&
-      Current_Emulator_Devices.Audio_Card_List.Audio_sb16)
+  if (Audio_Card.Audio_sb16 && Current_Emulator_Devices.Audio_Card_List.Audio_sb16)
     audio_list << "sb16";
-  if (Audio_Card.Audio_es1370 &&
-      Current_Emulator_Devices.Audio_Card_List.Audio_es1370)
+  if (Audio_Card.Audio_es1370 && Current_Emulator_Devices.Audio_Card_List.Audio_es1370)
     audio_list << "es1370";
-  if (Audio_Card.Audio_Adlib &&
-      Current_Emulator_Devices.Audio_Card_List.Audio_Adlib)
+  if (Audio_Card.Audio_Adlib && Current_Emulator_Devices.Audio_Card_List.Audio_Adlib)
     audio_list << "adlib";
-  if (Audio_Card.Audio_PC_Speaker &&
-      Current_Emulator_Devices.Audio_Card_List.Audio_PC_Speaker)
+  if (Audio_Card.Audio_PC_Speaker && Current_Emulator_Devices.Audio_Card_List.Audio_PC_Speaker)
     audio_list << "pcspk";
-  if (Audio_Card.Audio_GUS &&
-      Current_Emulator_Devices.Audio_Card_List.Audio_GUS)
+  if (Audio_Card.Audio_GUS && Current_Emulator_Devices.Audio_Card_List.Audio_GUS)
     audio_list << "gus";
-  if (Audio_Card.Audio_AC97 &&
-      Current_Emulator_Devices.Audio_Card_List.Audio_AC97)
+  if (Audio_Card.Audio_AC97 && Current_Emulator_Devices.Audio_Card_List.Audio_AC97)
     audio_list << "ac97";
-  if (Audio_Card.Audio_HDA &&
-      Current_Emulator_Devices.Audio_Card_List.Audio_HDA)
+  if (Audio_Card.Audio_HDA && Current_Emulator_Devices.Audio_Card_List.Audio_HDA)
     audio_list << "hda";
-  if (Audio_Card.Audio_cs4231a &&
-      Current_Emulator_Devices.Audio_Card_List.Audio_cs4231a)
+  if (Audio_Card.Audio_cs4231a && Current_Emulator_Devices.Audio_Card_List.Audio_cs4231a)
     audio_list << "cs4231a";
 
   if (audio_list.count() > 0) {
@@ -5821,8 +5387,7 @@ QStringList Virtual_Machine::Build_QEMU_Args()
   if (Current_Emulator_Devices.PSO_No_KVM_Pit && No_KVM_Pit)
     Args << "-no-kvm-pit";
 
-  if (Current_Emulator_Devices.PSO_No_KVM_Pit_Reinjection &&
-      KVM_No_Pit_Reinjection)
+  if (Current_Emulator_Devices.PSO_No_KVM_Pit_Reinjection && KVM_No_Pit_Reinjection)
     Args << "-no-kvm-pit-reinjection";
 
   if (Current_Emulator_Devices.PSO_Enable_Nesting && KVM_Nesting)
@@ -5840,8 +5405,7 @@ QStringList Virtual_Machine::Build_QEMU_Args()
     Args << "-win2k-hack";
 
   // No Check FDD boot sector
-  if (Current_Emulator_Devices.PSO_No_FB_Boot_Check &&
-      Check_FDD_Boot_Sector == false)
+  if (Current_Emulator_Devices.PSO_No_FB_Boot_Check && Check_FDD_Boot_Sector == false)
     Args << "-no-fd-bootchk";
 
   // No ACPI
@@ -5896,9 +5460,8 @@ QStringList Virtual_Machine::Build_QEMU_Args()
           StorageArgs << "-fda" << FD0.Get_File_Name();
       }
       else {
-        AQError(
-            "QStringList Virtual_Machine::Build_QEMU_Args()",
-            QString("Image \"%1\" doesn't exists!").arg(FD0.Get_File_Name()));
+        AQError("QStringList Virtual_Machine::Build_QEMU_Args()",
+                QString("Image \"%1\" doesn't exists!").arg(FD0.Get_File_Name()));
       }
     }
   }
@@ -5923,9 +5486,8 @@ QStringList Virtual_Machine::Build_QEMU_Args()
           StorageArgs << "-fdb" << FD1.Get_File_Name();
       }
       else {
-        AQError(
-            "QStringList Virtual_Machine::Build_QEMU_Args()",
-            QString("Image \"%1\" doesn't exist!").arg(FD1.Get_File_Name()));
+        AQError("QStringList Virtual_Machine::Build_QEMU_Args()",
+                QString("Image \"%1\" doesn't exist!").arg(FD1.Get_File_Name()));
       }
     }
   }
@@ -5942,8 +5504,7 @@ QStringList Virtual_Machine::Build_QEMU_Args()
                                               Build_QEMU_Args_for_Tab_Info);
     }
     else {
-      if (QFile::exists(CD_ROM.Get_File_Name()) ||
-          Build_QEMU_Args_for_Tab_Info) {
+      if (QFile::exists(CD_ROM.Get_File_Name()) || Build_QEMU_Args_for_Tab_Info) {
         if (Build_QEMU_Args_for_Script_Mode)
           StorageArgs << "-cdrom"
                       << "\"" + CD_ROM.Get_File_Name() + "\"";
@@ -5951,9 +5512,8 @@ QStringList Virtual_Machine::Build_QEMU_Args()
           StorageArgs << "-cdrom" << CD_ROM.Get_File_Name();
       }
       else {
-        AQError(
-            "QStringList Virtual_Machine::Build_QEMU_Args()",
-            QString("Image \"%1\" doesn't exist!").arg(CD_ROM.Get_File_Name()));
+        AQError("QStringList Virtual_Machine::Build_QEMU_Args()",
+                QString("Image \"%1\" doesn't exist!").arg(CD_ROM.Get_File_Name()));
       }
     }
   }
@@ -5978,9 +5538,8 @@ QStringList Virtual_Machine::Build_QEMU_Args()
           StorageArgs << "-hda" << HDA.Get_File_Name();
       }
       else {
-        AQError(
-            "QStringList Virtual_Machine::Build_QEMU_Args()",
-            QString("Image \"%1\" doesn't exist!").arg(HDA.Get_File_Name()));
+        AQError("QStringList Virtual_Machine::Build_QEMU_Args()",
+                QString("Image \"%1\" doesn't exist!").arg(HDA.Get_File_Name()));
       }
     }
   }
@@ -6005,9 +5564,8 @@ QStringList Virtual_Machine::Build_QEMU_Args()
           StorageArgs << "-hdb" << HDB.Get_File_Name();
       }
       else {
-        AQError(
-            "QStringList Virtual_Machine::Build_QEMU_Args()",
-            QString("Image \"%1\" doesn't exist!").arg(HDB.Get_File_Name()));
+        AQError("QStringList Virtual_Machine::Build_QEMU_Args()",
+                QString("Image \"%1\" doesn't exist!").arg(HDB.Get_File_Name()));
       }
     }
   }
@@ -6032,9 +5590,8 @@ QStringList Virtual_Machine::Build_QEMU_Args()
           StorageArgs << "-hdc" << HDC.Get_File_Name();
       }
       else {
-        AQError(
-            "QStringList Virtual_Machine::Build_QEMU_Args()",
-            QString("Image \"%1\" doesn't exist!").arg(HDC.Get_File_Name()));
+        AQError("QStringList Virtual_Machine::Build_QEMU_Args()",
+                QString("Image \"%1\" doesn't exist!").arg(HDC.Get_File_Name()));
       }
     }
   }
@@ -6059,9 +5616,8 @@ QStringList Virtual_Machine::Build_QEMU_Args()
           StorageArgs << "-hdd" << HDD.Get_File_Name();
       }
       else {
-        AQError(
-            "QStringList Virtual_Machine::Build_QEMU_Args()",
-            QString("Image \"%1\" doesn't exist!").arg(HDD.Get_File_Name()));
+        AQError("QStringList Virtual_Machine::Build_QEMU_Args()",
+                QString("Image \"%1\" doesn't exist!").arg(HDD.Get_File_Name()));
       }
     }
   }
@@ -6074,16 +5630,14 @@ QStringList Virtual_Machine::Build_QEMU_Args()
       if (iftype == VM::DI_Virtio_SCSI) {
         has_virt_scsi = true;
       }
-      StorageArgs << Build_Native_Device_Args(Storage_Devices[ix],
-                                              Build_QEMU_Args_for_Tab_Info);
+      StorageArgs << Build_Native_Device_Args(Storage_Devices[ix], Build_QEMU_Args_for_Tab_Info);
     }
   }
 
   // Shared Folders //TODO
   if (Shared_Folders.count() > 0) {
     for (int ix = 0; ix < Shared_Folders.count(); ++ix) {
-      Args << Build_Shared_Folder_Args(Shared_Folders[ix], ix,
-                                       Build_QEMU_Args_for_Tab_Info);
+      Args << Build_Shared_Folder_Args(Shared_Folders[ix], ix, Build_QEMU_Args_for_Tab_Info);
     }
   }
 
@@ -6138,8 +5692,8 @@ QStringList Virtual_Machine::Build_QEMU_Args()
       }
 
       bootStr.prepend((bootStr.isEmpty() ? "" : "order="));
-      bootStr += QString(bootStr.isEmpty() ? "" : ",") +
-                 "menu=" + QString(Show_Boot_Menu ? "on" : "off");
+      bootStr +=
+          QString(bootStr.isEmpty() ? "" : ",") + "menu=" + QString(Show_Boot_Menu ? "on" : "off");
 
       Args << "-boot" << bootStr;
     }
@@ -6154,22 +5708,18 @@ QStringList Virtual_Machine::Build_QEMU_Args()
         bootStr = "c";
       else if (Boot_Order_List[onceBootDeviceIndex].Type == VM::Boot_From_CDROM)
         bootStr = "d";
-      else if (Boot_Order_List[onceBootDeviceIndex].Type ==
-               VM::Boot_From_Network1)
+      else if (Boot_Order_List[onceBootDeviceIndex].Type == VM::Boot_From_Network1)
         bootStr = "n-1";
-      else if (Boot_Order_List[onceBootDeviceIndex].Type ==
-               VM::Boot_From_Network2)
+      else if (Boot_Order_List[onceBootDeviceIndex].Type == VM::Boot_From_Network2)
         bootStr = "n-2";
-      else if (Boot_Order_List[onceBootDeviceIndex].Type ==
-               VM::Boot_From_Network3)
+      else if (Boot_Order_List[onceBootDeviceIndex].Type == VM::Boot_From_Network3)
         bootStr = "n-3";
-      else if (Boot_Order_List[onceBootDeviceIndex].Type ==
-               VM::Boot_From_Network4)
+      else if (Boot_Order_List[onceBootDeviceIndex].Type == VM::Boot_From_Network4)
         bootStr = "n-4";
 
       bootStr.prepend((bootStr.isEmpty() ? "" : "once="));
-      bootStr += QString(bootStr.isEmpty() ? "" : ",") +
-                 "menu=" + QString(Show_Boot_Menu ? "on" : "off");
+      bootStr +=
+          QString(bootStr.isEmpty() ? "" : ",") + "menu=" + QString(Show_Boot_Menu ? "on" : "off");
 
       Args << "-boot" << bootStr;
     }
@@ -6181,8 +5731,7 @@ QStringList Virtual_Machine::Build_QEMU_Args()
 
   // Network Cards
   if ((Use_Native_Network() == false && Network_Cards.count() < 1) ||
-      (Use_Native_Network() == true && Network_Cards_Native.count() < 1) ||
-      Use_Network == false) {
+      (Use_Native_Network() == true && Network_Cards_Native.count() < 1) || Use_Network == false) {
     Args << "-net"
          << "none";
   }
@@ -6190,21 +5739,18 @@ QStringList Virtual_Machine::Build_QEMU_Args()
     if (Use_Native_Network()) {
       for (int nc = 0; nc < Network_Cards_Native.count(); nc++) {
         QString nic_str = "";
-        bool u_vlan, u_macaddr, u_model, u_name, u_hostname, u_port_dev, u_fd,
-            u_ifname, u_script, u_downscript, u_bridge, u_helper, u_listen,
-            u_connect, u_mcast, u_sock, u_port, u_group, u_mode, u_file, u_len,
-            u_addr, u_vectors, u_net, u_host, u_restrict, u_dhcpstart, u_dns,
-            u_tftp, u_bootfile, u_hostfwd, u_guestfwd, u_smb, u_smbserver,
-            u_sndbuf, u_vnet_hdr, u_vhost, u_vhostfd;
+        bool u_vlan, u_macaddr, u_model, u_name, u_hostname, u_port_dev, u_fd, u_ifname, u_script,
+            u_downscript, u_bridge, u_helper, u_listen, u_connect, u_mcast, u_sock, u_port, u_group,
+            u_mode, u_file, u_len, u_addr, u_vectors, u_net, u_host, u_restrict, u_dhcpstart, u_dns,
+            u_tftp, u_bootfile, u_hostfwd, u_guestfwd, u_smb, u_smbserver, u_sndbuf, u_vnet_hdr,
+            u_vhost, u_vhostfd;
 
-        u_vlan = u_macaddr = u_model = u_name = u_hostname = u_port_dev = u_fd =
-            u_ifname = u_script = u_downscript = u_bridge = u_helper =
-                u_listen = u_connect = u_mcast = u_sock = u_port = u_group =
-                    u_mode = u_file = u_len = u_addr = u_vectors = u_net =
-                        u_host = u_restrict = u_dhcpstart = u_dns = u_tftp =
-                            u_bootfile = u_hostfwd = u_guestfwd = u_smb =
-                                u_smbserver = u_sndbuf = u_vnet_hdr = u_vhost =
-                                    u_vhostfd = false;
+        u_vlan = u_macaddr = u_model = u_name = u_hostname = u_port_dev = u_fd = u_ifname =
+            u_script = u_downscript = u_bridge = u_helper = u_listen = u_connect = u_mcast =
+                u_sock = u_port = u_group = u_mode = u_file = u_len = u_addr = u_vectors = u_net =
+                    u_host = u_restrict = u_dhcpstart = u_dns = u_tftp = u_bootfile = u_hostfwd =
+                        u_guestfwd = u_smb = u_smbserver = u_sndbuf = u_vnet_hdr = u_vhost =
+                            u_vhostfd = false;
 
         switch (Network_Cards_Native[nc].Get_Network_Type()) {
           // -net nic[,vlan=n][,macaddr=mac][,model=type][,name=str][,addr=str][,vectors=v]
@@ -6218,9 +5764,8 @@ QStringList Virtual_Machine::Build_QEMU_Args()
           //			[,hostfwd=rule][,guestfwd=rule][,smb=dir[,smbserver=addr]]
           case VM::Net_Mode_Native_User:
             nic_str += "user";
-            u_vlan = u_name = u_net = u_host = u_restrict = u_hostname =
-                u_dhcpstart = u_dns = u_tftp = u_bootfile = u_hostfwd =
-                    u_guestfwd = u_smb = u_smbserver = true;
+            u_vlan = u_name = u_net = u_host = u_restrict = u_hostname = u_dhcpstart = u_dns =
+                u_tftp = u_bootfile = u_hostfwd = u_guestfwd = u_smb = u_smbserver = true;
             break;
 
           // -net channel,port:dev
@@ -6233,8 +5778,8 @@ QStringList Virtual_Machine::Build_QEMU_Args()
           //                 [,helper=helper][,sndbuf=nbytes][,vnet_hdr=on|off][,vhost=on|off][,vhostfd=h]
           case VM::Net_Mode_Native_TAP:
             nic_str += "tap";
-            u_vlan = u_name = u_fd = u_ifname = u_script = u_downscript =
-                u_helper = u_sndbuf = u_vnet_hdr = u_vhost = u_vhostfd = true;
+            u_vlan = u_name = u_fd = u_ifname = u_script = u_downscript = u_helper = u_sndbuf =
+                u_vnet_hdr = u_vhost = u_vhostfd = true;
             break;
 
           // -net socket[,vlan=n][,name=str][,fd=h][,listen=[host]:port][,connect=host:port]
@@ -6271,18 +5816,15 @@ QStringList Virtual_Machine::Build_QEMU_Args()
 
         // Create String
         if (Network_Cards_Native[nc].Use_VLAN() && u_vlan)
-          nic_str +=
-              ",vlan=" + QString::number(Network_Cards_Native[nc].Get_VLAN());
+          nic_str += ",vlan=" + QString::number(Network_Cards_Native[nc].Get_VLAN());
 
         if (Network_Cards_Native[nc].Use_MAC_Address() && u_macaddr)
           nic_str += ",macaddr=" + Network_Cards_Native[nc].Get_MAC_Address();
 
-        if (Network_Cards_Native[nc].Get_Card_Model().isEmpty() == false &&
-            u_model)
+        if (Network_Cards_Native[nc].Get_Card_Model().isEmpty() == false && u_model)
           nic_str += ",model=" + Network_Cards_Native[nc].Get_Card_Model();
 
-        if (Network_Cards_Native[nc].Use_Name() && u_name &&
-            Current_Emulator_Devices.PSO_Net_name)
+        if (Network_Cards_Native[nc].Use_Name() && u_name && Current_Emulator_Devices.PSO_Net_name)
           nic_str += ",name=\"" + Network_Cards_Native[nc].Get_Name() + "\"";
 
         if (Network_Cards_Native[nc].Use_Hostname() && u_hostname)
@@ -6292,9 +5834,7 @@ QStringList Virtual_Machine::Build_QEMU_Args()
           nic_str += ",port:" + Network_Cards_Native[nc].Get_PortDev();
 
         if (Network_Cards_Native[nc].Use_File_Descriptor() && u_fd)
-          nic_str +=
-              ",fd=" +
-              QString::number(Network_Cards_Native[nc].Get_File_Descriptor());
+          nic_str += ",fd=" + QString::number(Network_Cards_Native[nc].Get_File_Descriptor());
 
         if (Network_Cards_Native[nc].Use_Interface_Name() && u_ifname &&
             Current_Emulator_Devices.PSO_Net_ifname)
@@ -6357,21 +5897,17 @@ QStringList Virtual_Machine::Build_QEMU_Args()
             Current_Emulator_Devices.PSO_Net_mcast)
           nic_str += ",mcast=" + Network_Cards_Native[nc].Get_MCast();
 
-        if (Network_Cards_Native[nc].Use_Sock() && u_sock &&
-            Current_Emulator_Devices.PSO_Net_sock)
+        if (Network_Cards_Native[nc].Use_Sock() && u_sock && Current_Emulator_Devices.PSO_Net_sock)
           nic_str += ",sock=" + Network_Cards_Native[nc].Get_Sock();
 
-        if (Network_Cards_Native[nc].Use_Port() && u_port &&
-            Current_Emulator_Devices.PSO_Net_port)
-          nic_str +=
-              ",port=" + QString::number(Network_Cards_Native[nc].Get_Port());
+        if (Network_Cards_Native[nc].Use_Port() && u_port && Current_Emulator_Devices.PSO_Net_port)
+          nic_str += ",port=" + QString::number(Network_Cards_Native[nc].Get_Port());
 
         if (Network_Cards_Native[nc].Use_Group() && u_group &&
             Current_Emulator_Devices.PSO_Net_group)
           nic_str += ",group=" + Network_Cards_Native[nc].Get_Group();
 
-        if (Network_Cards_Native[nc].Use_Mode() && u_mode &&
-            Current_Emulator_Devices.PSO_Net_mode)
+        if (Network_Cards_Native[nc].Use_Mode() && u_mode && Current_Emulator_Devices.PSO_Net_mode)
           nic_str += ",mode=" + Network_Cards_Native[nc].Get_Mode();
 
         if (Network_Cards_Native[nc].Use_File() && u_file &&
@@ -6382,40 +5918,31 @@ QStringList Virtual_Machine::Build_QEMU_Args()
             nic_str += ",file=" + Network_Cards_Native[nc].Get_File();
         }
 
-        if (Network_Cards_Native[nc].Use_Len() && u_len &&
-            Current_Emulator_Devices.PSO_Net_len)
-          nic_str +=
-              ",len=" + QString::number(Network_Cards_Native[nc].Get_Len());
+        if (Network_Cards_Native[nc].Use_Len() && u_len && Current_Emulator_Devices.PSO_Net_len)
+          nic_str += ",len=" + QString::number(Network_Cards_Native[nc].Get_Len());
 
-        if (Network_Cards_Native[nc].Use_Addr() && u_addr &&
-            Current_Emulator_Devices.PSO_Net_addr)
+        if (Network_Cards_Native[nc].Use_Addr() && u_addr && Current_Emulator_Devices.PSO_Net_addr)
           nic_str += ",addr=" + Network_Cards_Native[nc].Get_Addr();
 
         if (Network_Cards_Native[nc].Use_Vectors() && u_vectors &&
             Current_Emulator_Devices.PSO_Net_vectors)
-          nic_str += ",vectors=" +
-                     QString::number(Network_Cards_Native[nc].Get_Vectors());
+          nic_str += ",vectors=" + QString::number(Network_Cards_Native[nc].Get_Vectors());
 
-        if (Network_Cards_Native[nc].Use_Net() && u_net &&
-            Current_Emulator_Devices.PSO_Net_net)
+        if (Network_Cards_Native[nc].Use_Net() && u_net && Current_Emulator_Devices.PSO_Net_net)
           nic_str += ",net=" + Network_Cards_Native[nc].Get_Net();
 
-        if (Network_Cards_Native[nc].Use_Host() && u_host &&
-            Current_Emulator_Devices.PSO_Net_host)
+        if (Network_Cards_Native[nc].Use_Host() && u_host && Current_Emulator_Devices.PSO_Net_host)
           nic_str += ",host=" + Network_Cards_Native[nc].Get_Host();
 
         if (Network_Cards_Native[nc].Use_Restrict() && u_restrict &&
             Current_Emulator_Devices.PSO_Net_restrict)
-          nic_str +=
-              ",restrict=" +
-              QString(Network_Cards_Native[nc].Get_Restrict() ? "y" : "n");
+          nic_str += ",restrict=" + QString(Network_Cards_Native[nc].Get_Restrict() ? "y" : "n");
 
         if (Network_Cards_Native[nc].Use_DHCPstart() && u_dhcpstart &&
             Current_Emulator_Devices.PSO_Net_dhcpstart)
           nic_str += ",dhcpstart=" + Network_Cards_Native[nc].Get_DHCPstart();
 
-        if (Network_Cards_Native[nc].Use_DNS() && u_dns &&
-            Current_Emulator_Devices.PSO_Net_dns)
+        if (Network_Cards_Native[nc].Use_DNS() && u_dns && Current_Emulator_Devices.PSO_Net_dns)
           nic_str += ",dns=" + Network_Cards_Native[nc].Get_DNS();
 
         if (Network_Cards_Native[nc].Use_Tftp() && u_tftp &&
@@ -6429,8 +5956,7 @@ QStringList Virtual_Machine::Build_QEMU_Args()
         if (Network_Cards_Native[nc].Use_Bootfile() && u_bootfile &&
             Current_Emulator_Devices.PSO_Net_bootfile) {
           if (Build_QEMU_Args_for_Script_Mode)
-            nic_str +=
-                ",bootfile=\"" + Network_Cards_Native[nc].Get_Bootfile() + "\"";
+            nic_str += ",bootfile=\"" + Network_Cards_Native[nc].Get_Bootfile() + "\"";
           else
             nic_str += ",bootfile=" + Network_Cards_Native[nc].Get_Bootfile();
         }
@@ -6443,8 +5969,7 @@ QStringList Virtual_Machine::Build_QEMU_Args()
             Current_Emulator_Devices.PSO_Net_guestfwd)
           nic_str += ",guestfwd=" + Network_Cards_Native[nc].Get_GuestFwd();
 
-        if (Network_Cards_Native[nc].Use_SMB() && u_smb &&
-            Current_Emulator_Devices.PSO_Net_smb) {
+        if (Network_Cards_Native[nc].Use_SMB() && u_smb && Current_Emulator_Devices.PSO_Net_smb) {
           if (Build_QEMU_Args_for_Script_Mode)
             nic_str += ",smb=\"" + Network_Cards_Native[nc].Get_SMB() + "\"";
           else
@@ -6456,25 +5981,19 @@ QStringList Virtual_Machine::Build_QEMU_Args()
 
         if (Network_Cards_Native[nc].Use_Sndbuf() && u_sndbuf &&
             Current_Emulator_Devices.PSO_Net_sndbuf)
-          nic_str += ",sndbuf=" +
-                     QString::number(Network_Cards_Native[nc].Get_Sndbuf());
+          nic_str += ",sndbuf=" + QString::number(Network_Cards_Native[nc].Get_Sndbuf());
 
         if (Network_Cards_Native[nc].Use_VNet_hdr() && u_vnet_hdr &&
             Current_Emulator_Devices.PSO_Net_vnet_hdr)
-          nic_str +=
-              ",vnet_hdr=" +
-              QString(Network_Cards_Native[nc].Get_VNet_hdr() ? "on" : "off");
+          nic_str += ",vnet_hdr=" + QString(Network_Cards_Native[nc].Get_VNet_hdr() ? "on" : "off");
 
         if (Network_Cards_Native[nc].Get_VHost() && u_vhost &&
             Current_Emulator_Devices.PSO_Net_vhost)
-          nic_str +=
-              ",vhost=" +
-              QString(Network_Cards_Native[nc].Get_VHost() ? "on" : "off");
+          nic_str += ",vhost=" + QString(Network_Cards_Native[nc].Get_VHost() ? "on" : "off");
 
         if (Network_Cards_Native[nc].Use_VHostFd() && u_vhostfd &&
             Current_Emulator_Devices.PSO_Net_vhostfd)
-          nic_str += ",vhostfd=" +
-                     QString::number(Network_Cards_Native[nc].Get_VHostFd());
+          nic_str += ",vhostfd=" + QString::number(Network_Cards_Native[nc].Get_VHostFd());
 
         // Add to Args
         Args << "-net";
@@ -6484,8 +6003,7 @@ QStringList Virtual_Machine::Build_QEMU_Args()
     else {
       for (int nc = 0; nc < Network_Cards.count(); nc++) {
         Args << "-net";
-        QString nic_str =
-            "nic,vlan=" + QString::number(Network_Cards[nc].Get_VLAN());
+        QString nic_str = "nic,vlan=" + QString::number(Network_Cards[nc].Get_VLAN());
 
         if (!Network_Cards[nc].Get_MAC_Address().isEmpty())  // Use MAC?
           nic_str += ",macaddr=" + Network_Cards[nc].Get_MAC_Address();
@@ -6505,24 +6023,20 @@ QStringList Virtual_Machine::Build_QEMU_Args()
           case VM::Net_Mode_Usermode:
             if (Network_Cards[nc].Get_Hostname().isEmpty())
               Args << "-net"
-                   << QString("user,vlan=" +
-                              QString::number(Network_Cards[nc].Get_VLAN()));
+                   << QString("user,vlan=" + QString::number(Network_Cards[nc].Get_VLAN()));
             else
               Args << "-net"
-                   << QString("user,vlan=" +
-                              QString::number(Network_Cards[nc].Get_VLAN()) +
+                   << QString("user,vlan=" + QString::number(Network_Cards[nc].Get_VLAN()) +
                               ",hostname=" + Network_Cards[nc].Get_Hostname());
             break;
 
           case VM::Net_Mode_Tuntap:
             Args << "-net";
 
-            tap_tmp = QString("tap,vlan=" +
-                              QString::number(Network_Cards[nc].Get_VLAN()));
+            tap_tmp = QString("tap,vlan=" + QString::number(Network_Cards[nc].Get_VLAN()));
 
             if (!Network_Cards[nc].Get_Interface_Name().isEmpty())
-              tap_tmp +=
-                  QString(",ifname=" + Network_Cards[nc].Get_Interface_Name());
+              tap_tmp += QString(",ifname=" + Network_Cards[nc].Get_Interface_Name());
 
             if (!Network_Cards[nc].Get_Use_TUN_TAP_Script()) {
               tap_tmp += QString(",script=no");
@@ -6530,11 +6044,9 @@ QStringList Virtual_Machine::Build_QEMU_Args()
             else {
               if (!Network_Cards[nc].Get_TUN_TAP_Script().isEmpty()) {
                 if (Build_QEMU_Args_for_Script_Mode)
-                  tap_tmp += QString(",script=\"%1\"")
-                                 .arg(Network_Cards[nc].Get_TUN_TAP_Script());
+                  tap_tmp += QString(",script=\"%1\"").arg(Network_Cards[nc].Get_TUN_TAP_Script());
                 else
-                  tap_tmp +=
-                      ",script=" + Network_Cards[nc].Get_TUN_TAP_Script();
+                  tap_tmp += ",script=" + Network_Cards[nc].Get_TUN_TAP_Script();
               }
             }
 
@@ -6543,62 +6055,45 @@ QStringList Virtual_Machine::Build_QEMU_Args()
 
           case VM::Net_Mode_Tuntapfd:
             Args << "-net"
-                 << QString(
-                        "tap,vlan=" +
-                        QString::number(Network_Cards[nc].Get_VLAN()) +
-                        ((Network_Cards[nc].Get_File_Descriptor() > 0)
-                             ? ",fd=" +
-                                   QString::number(
-                                       Network_Cards[nc].Get_File_Descriptor())
-                             : "") +
-                        ((Network_Cards[nc].Get_Interface_Name().isEmpty() ==
-                          false)
-                             ? ",ifname=" +
-                                   Network_Cards[nc].Get_Interface_Name()
-                             : ""));
+                 << QString("tap,vlan=" + QString::number(Network_Cards[nc].Get_VLAN()) +
+                            ((Network_Cards[nc].Get_File_Descriptor() > 0)
+                                 ? ",fd=" + QString::number(Network_Cards[nc].Get_File_Descriptor())
+                                 : "") +
+                            ((Network_Cards[nc].Get_Interface_Name().isEmpty() == false)
+                                 ? ",ifname=" + Network_Cards[nc].Get_Interface_Name()
+                                 : ""));
             break;
 
           case VM::Net_Mode_Tcplisten:
             if (Network_Cards[nc].Get_IP_Address().isEmpty()) {
               Args << "-net"
-                   << QString("socket,vlan=" +
-                              QString::number(Network_Cards[nc].Get_VLAN()) +
-                              ",listen=:" +
-                              QString::number(Network_Cards[nc].Get_Port()));
+                   << QString("socket,vlan=" + QString::number(Network_Cards[nc].Get_VLAN()) +
+                              ",listen=:" + QString::number(Network_Cards[nc].Get_Port()));
             }
             else {
               Args << "-net"
-                   << QString("socket,vlan=" +
-                              QString::number(Network_Cards[nc].Get_VLAN()) +
-                              ",listen=" + Network_Cards[nc].Get_IP_Address() +
-                              ":" +
+                   << QString("socket,vlan=" + QString::number(Network_Cards[nc].Get_VLAN()) +
+                              ",listen=" + Network_Cards[nc].Get_IP_Address() + ":" +
                               QString::number(Network_Cards[nc].Get_Port()));
             }
             break;
 
           case VM::Net_Mode_Tcpfd:
             Args << "-net"
-                 << QString("socket,vlan=" +
-                            QString::number(Network_Cards[nc].Get_VLAN()) +
-                            ",fd=" +
-                            QString::number(
-                                Network_Cards[nc].Get_File_Descriptor()));
+                 << QString("socket,vlan=" + QString::number(Network_Cards[nc].Get_VLAN()) +
+                            ",fd=" + QString::number(Network_Cards[nc].Get_File_Descriptor()));
             break;
 
           case VM::Net_Mode_Tcpconnect:
             if (Network_Cards[nc].Get_IP_Address().isEmpty()) {
               Args << "-net"
-                   << QString("socket,vlan=" +
-                              QString::number(Network_Cards[nc].Get_VLAN()) +
-                              ",connect=:" +
-                              QString::number(Network_Cards[nc].Get_Port()));
+                   << QString("socket,vlan=" + QString::number(Network_Cards[nc].Get_VLAN()) +
+                              ",connect=:" + QString::number(Network_Cards[nc].Get_Port()));
             }
             else {
               Args << "-net"
-                   << QString("socket,vlan=" +
-                              QString::number(Network_Cards[nc].Get_VLAN()) +
-                              ",connect=" + Network_Cards[nc].Get_IP_Address() +
-                              ":" +
+                   << QString("socket,vlan=" + QString::number(Network_Cards[nc].Get_VLAN()) +
+                              ",connect=" + Network_Cards[nc].Get_IP_Address() + ":" +
                               QString::number(Network_Cards[nc].Get_Port()));
             }
             break;
@@ -6606,28 +6101,21 @@ QStringList Virtual_Machine::Build_QEMU_Args()
           case VM::Net_Mode_Multicast:
             if (Network_Cards[nc].Get_IP_Address().isEmpty()) {
               Args << "-net"
-                   << QString("socket,vlan=" +
-                              QString::number(Network_Cards[nc].Get_VLAN()) +
-                              ",mcast=:" +
-                              QString::number(Network_Cards[nc].Get_Port()));
+                   << QString("socket,vlan=" + QString::number(Network_Cards[nc].Get_VLAN()) +
+                              ",mcast=:" + QString::number(Network_Cards[nc].Get_Port()));
             }
             else {
               Args << "-net"
-                   << QString("socket,vlan=" +
-                              QString::number(Network_Cards[nc].Get_VLAN()) +
-                              ",mcast=" + Network_Cards[nc].Get_IP_Address() +
-                              ":" +
+                   << QString("socket,vlan=" + QString::number(Network_Cards[nc].Get_VLAN()) +
+                              ",mcast=" + Network_Cards[nc].Get_IP_Address() + ":" +
                               QString::number(Network_Cards[nc].Get_Port()));
             }
             break;
 
           case VM::Net_Mode_Multicastfd:
             Args << "-net"
-                 << QString("socket,vlan=" +
-                            QString::number(Network_Cards[nc].Get_VLAN()) +
-                            ",fd=" +
-                            QString::number(
-                                Network_Cards[nc].Get_File_Descriptor()));
+                 << QString("socket,vlan=" + QString::number(Network_Cards[nc].Get_VLAN()) +
+                            ",fd=" + QString::number(Network_Cards[nc].Get_File_Descriptor()));
             break;
 
           default:
@@ -6657,12 +6145,9 @@ QStringList Virtual_Machine::Build_QEMU_Args()
 
         //FIXME/TODO: host_address doesn't get taken into account
 
-        redir_str +=
-            ":" + QString::number(Get_Network_Redirection(rx).Get_Host_Port()) +
-            "-";
+        redir_str += ":" + QString::number(Get_Network_Redirection(rx).Get_Host_Port()) + "-";
         redir_str += Get_Network_Redirection(rx).Get_Guest_IP() + ":";
-        redir_str +=
-            QString::number(Get_Network_Redirection(rx).Get_Guest_Port());
+        redir_str += QString::number(Get_Network_Redirection(rx).Get_Guest_Port());
 
         hostfwds << redir_str;
       }
@@ -6848,8 +6333,7 @@ QStringList Virtual_Machine::Build_QEMU_Args()
   // USB
   if (!System_Info::Update_Host_USB())  // check USB support
   {
-    AQDebug("QStringList Virtual_Machine::Build_QEMU_Args()",
-            "No USB Support in This System!");
+    AQDebug("QStringList Virtual_Machine::Build_QEMU_Args()", "No USB Support in This System!");
   }
   else {
     if (USB_Ports.count() > 0) {
@@ -6872,10 +6356,8 @@ QStringList Virtual_Machine::Build_QEMU_Args()
 
           for (int ix = 0; ix < all_usb.count(); ix++) {
             if (all_usb[ix].Get_Vendor_ID() == USB_Ports[ux].Get_Vendor_ID() &&
-                all_usb[ix].Get_Product_ID() ==
-                    USB_Ports[ux].Get_Product_ID() &&
-                all_usb[ix].Get_Serial_Number() ==
-                    USB_Ports[ux].Get_Serial_Number()) {
+                all_usb[ix].Get_Product_ID() == USB_Ports[ux].Get_Product_ID() &&
+                all_usb[ix].Get_Serial_Number() == USB_Ports[ux].Get_Serial_Number()) {
               usb_cmpr = true;
               current_USB_Device = all_usb[ix];
               all_usb.removeAt(ix);
@@ -6885,12 +6367,11 @@ QStringList Virtual_Machine::Build_QEMU_Args()
 
           // Error! Not Found
           if (Build_QEMU_Args_for_Tab_Info == false && usb_cmpr == false) {
-            AQGraphic_Warning(tr("Warning!"),
-                              tr("USB Device %1 %2 (%3 %4) Not Found!")
-                                  .arg(USB_Ports[ux].Get_Manufacturer_Name())
-                                  .arg(USB_Ports[ux].Get_Product_Name())
-                                  .arg(USB_Ports[ux].Get_Vendor_ID())
-                                  .arg(USB_Ports[ux].Get_Product_ID()));
+            AQGraphic_Warning(tr("Warning!"), tr("USB Device %1 %2 (%3 %4) Not Found!")
+                                                  .arg(USB_Ports[ux].Get_Manufacturer_Name())
+                                                  .arg(USB_Ports[ux].Get_Product_Name())
+                                                  .arg(USB_Ports[ux].Get_Vendor_ID())
+                                                  .arg(USB_Ports[ux].Get_Product_ID()));
 
             continue;
           }
@@ -6916,8 +6397,7 @@ QStringList Virtual_Machine::Build_QEMU_Args()
                    << QString("host:%1.%2")
                           .arg(current_USB_Device.Get_Bus())
                           .arg(current_USB_Device.Get_Addr());
-            else if (Settings.value("USB_ID_Style", "").toString() ==
-                     "VendorProduct")
+            else if (Settings.value("USB_ID_Style", "").toString() == "VendorProduct")
               Args << "-usbdevice"
                    << QString("host:%1:%2")
                           .arg(current_USB_Device.Get_Vendor_ID())
@@ -6968,8 +6448,7 @@ QStringList Virtual_Machine::Build_QEMU_Args()
                           .arg(current_USB_Device.Get_Bus())
                           .arg(current_USB_Device.Get_Addr());
             }
-            else if (Settings.value("USB_ID_Style", "").toString() ==
-                     "VendorProduct") {
+            else if (Settings.value("USB_ID_Style", "").toString() == "VendorProduct") {
               Args << "-device"
                    << QString("usb-host,bus=%1,vendorid=%2,productid=%3")
                           .arg(usbControllerID)
@@ -6990,8 +6469,7 @@ QStringList Virtual_Machine::Build_QEMU_Args()
           // QEMU USB Devices
           bool usb_k, usb_m, usb_t, usb_wt, usb_b;
           usb_k = usb_m = usb_t = usb_wt = usb_b = false;
-          USB_Ports[ux].Get_USB_QEMU_Devices(usb_k, usb_m, usb_t, usb_wt,
-                                             usb_b);
+          USB_Ports[ux].Get_USB_QEMU_Devices(usb_k, usb_m, usb_t, usb_wt, usb_b);
 
           if (usb_k)
             Args << "-usbdevice"
@@ -7009,8 +6487,7 @@ QStringList Virtual_Machine::Build_QEMU_Args()
             Args << "-usbdevice"
                  << "braille";
           else {
-            AQError("QStringList Virtual_Machine::Build_QEMU_Args()",
-                    "Incorrcect USB Device!");
+            AQError("QStringList Virtual_Machine::Build_QEMU_Args()", "Incorrcect USB Device!");
           }
         }
       }
@@ -7044,10 +6521,8 @@ QStringList Virtual_Machine::Build_QEMU_Args()
 
   // Use ROM File
   if (Use_ROM_File) {
-    if (QFile::exists(ROM_File) == false &&
-        Build_QEMU_Args_for_Tab_Info == false) {
-      AQGraphic_Warning(tr("Error!"),
-                        tr("ROM File doesn't Exists! Can't run emulator!"));
+    if (QFile::exists(ROM_File) == false && Build_QEMU_Args_for_Tab_Info == false) {
+      AQGraphic_Warning(tr("Error!"), tr("ROM File doesn't Exists! Can't run emulator!"));
     }
     else {
       if (Build_QEMU_Args_for_Script_Mode)
@@ -7066,8 +6541,7 @@ QStringList Virtual_Machine::Build_QEMU_Args()
   if (Local_Time)
     rtc_list << "base=localtime";
   else if (Start_Date)
-    rtc_list << "base=" + Start_DateTime.toString(
-                              "yyyy-MM-ddTHH:mm:ss");  // QEMU Format
+    rtc_list << "base=" + Start_DateTime.toString("yyyy-MM-ddTHH:mm:ss");  // QEMU Format
   else
     rtc_list << "base=utc";
   if (Current_Emulator_Devices.PSO_RTC_TD_Hack && RTC_TD_Hack)
@@ -7104,8 +6578,7 @@ QStringList Virtual_Machine::Build_QEMU_Args()
   }
 
   // Set the initial graphical resolution and depth
-  if (Current_Emulator_Devices.PSO_Initial_Graphic_Mode &&
-      Init_Graphic_Mode.Get_Enabled()) {
+  if (Current_Emulator_Devices.PSO_Initial_Graphic_Mode && Init_Graphic_Mode.Get_Enabled()) {
     Args << "-g"
          << QString::number(Init_Graphic_Mode.Get_Width()) + "x" +
                 QString::number(Init_Graphic_Mode.Get_Height()) + "x" +
@@ -7139,9 +6612,7 @@ QStringList Virtual_Machine::Build_QEMU_Args()
     // QLX devices count and RAM size
     if (Current_Emulator_Devices.PSO_QXL)
       Args << "-qxl"
-           << QString("%1,ram=%2")
-                  .arg(SPICE.Get_GXL_Devices_Count())
-                  .arg(SPICE.Get_RAM_Size());
+           << QString("%1,ram=%2").arg(SPICE.Get_GXL_Devices_Count()).arg(SPICE.Get_RAM_Size());
 
     // Basic SPICE options
     QStringList spiceArgs;
@@ -7214,13 +6685,11 @@ QStringList Virtual_Machine::Build_QEMU_Args()
             break;
 
           default:
-            AQError("QStringList Virtual_Machine::Build_QEMU_Args()",
-                    "SPICE render type invalid!");
+            AQError("QStringList Virtual_Machine::Build_QEMU_Args()", "SPICE render type invalid!");
             break;
         }
 
-        if (!spiceRendersStr.isEmpty() &&
-            ix != SPICE.Get_Renderer_List().count() - 1) {
+        if (!spiceRendersStr.isEmpty() && ix != SPICE.Get_Renderer_List().count() - 1) {
           spiceRendersStr += "+";
         }
       }
@@ -7276,8 +6745,7 @@ QStringList Virtual_Machine::Build_QEMU_Args()
 
       if (VNC_x509verify) {
         if (Build_QEMU_Args_for_Script_Mode)
-          vnc_args +=
-              QString(",x509verify=\"%1\"").arg(VNC_x509verify_Folder_Path);
+          vnc_args += QString(",x509verify=\"%1\"").arg(VNC_x509verify_Folder_Path);
         else
           vnc_args += ",x509verify=" + VNC_x509verify_Folder_Path;
       }
@@ -7289,10 +6757,8 @@ QStringList Virtual_Machine::Build_QEMU_Args()
 #ifdef VNC_DISPLAY
     if (Settings.value("Use_VNC_Display", "no").toString() == "yes") {
       if (Embedded_Display_Port >= 0) {
-        int port =
-            (Settings.value("First_VNC_Port", "5910").toString().toInt() -
-             5900) +
-            Embedded_Display_Port;
+        int port = (Settings.value("First_VNC_Port", "5910").toString().toInt() - 5900) +
+                   Embedded_Display_Port;
 
         if (port >= 1 && port < 59636)
           Args << "-vnc"
@@ -7302,8 +6768,7 @@ QStringList Virtual_Machine::Build_QEMU_Args()
                   "Port for Embedded Display > 1 or < 59636");
       }
       else {
-        AQError("QStringList Virtual_Machine::Build_QEMU_Args()",
-                "Embedded_Display_Port < 0");
+        AQError("QStringList Virtual_Machine::Build_QEMU_Args()", "Embedded_Display_Port < 0");
       }
     }
 #endif
@@ -7314,9 +6779,8 @@ QStringList Virtual_Machine::Build_QEMU_Args()
     Args.clear();
 
     if (Additional_Args.isEmpty() && Build_QEMU_Args_for_Tab_Info == false)
-      AQGraphic_Warning(
-          tr("Error!"),
-          tr("Additional Arguments is Empty! Cannot Use User Arguments!"));
+      AQGraphic_Warning(tr("Error!"),
+                        tr("Additional Arguments is Empty! Cannot Use User Arguments!"));
   }
 
   if (!Additional_Args.isEmpty()) {
@@ -7357,8 +6821,8 @@ QStringList Virtual_Machine::Build_QEMU_Args_For_Script()
 //      with
 //         -drive file=/path/to/image,if=none,id=aqhd3
 // ...
-QStringList Virtual_Machine::Build_Native_Device_Args(
-    VM_Native_Storage_Device device, bool Build_QEMU_Args_for_Script_Mode)
+QStringList Virtual_Machine::Build_Native_Device_Args(VM_Native_Storage_Device device,
+                                                      bool Build_QEMU_Args_for_Script_Mode)
 {
   QStringList opt;
 
@@ -7498,16 +6962,15 @@ QStringList Virtual_Machine::Build_Native_Device_Args(
   // return
   QStringList args;
   if (device.Get_Interface() == VM::DI_Virtio_SCSI) {
-    QString devtype =
-        (device.Get_Media() == VM::DM_CD_ROM ? "scsi-cd" : "scsi-hd");
+    QString devtype = (device.Get_Media() == VM::DM_CD_ROM ? "scsi-cd" : "scsi-hd");
     args << "-device" << devtype + ",drive=" + vsname;
   }
   args << "-drive" << driveStr;
   return args;
 }
 
-QStringList Virtual_Machine::Build_Shared_Folder_Args(
-    VM_Shared_Folder folder, int id, bool Build_QEMU_Args_for_Script_Mode)
+QStringList Virtual_Machine::Build_Shared_Folder_Args(VM_Shared_Folder folder, int id,
+                                                      bool Build_QEMU_Args_for_Script_Mode)
 {
   QStringList opt;
 
@@ -7522,8 +6985,7 @@ QStringList Virtual_Machine::Build_Shared_Folder_Args(
 
   QString driver = "local";
 
-  virtfs << driver + ",id=" + QString("shared_folder_dev_") +
-                QString::number(id);
+  virtfs << driver + ",id=" + QString("shared_folder_dev_") + QString::number(id);
 
   virtfs << "path=" + path;
 
@@ -7543,8 +7005,7 @@ bool Virtual_Machine::Start_impl()
   QEMU_Error_Win = new Error_Log_Window();
 
   // Check KVM
-  if ((Current_Emulator_Devices.PSO_KVM ||
-       Current_Emulator_Devices.PSO_Enable_KVM) &&
+  if ((Current_Emulator_Devices.PSO_KVM || Current_Emulator_Devices.PSO_Enable_KVM) &&
       Settings.value("Disable_KVM_Module_Check", "no").toString() != "yes") {
     QProcess lsmod;
 
@@ -7563,15 +7024,11 @@ bool Virtual_Machine::Start_impl()
         bool kvm_ok = false;
 
         // Version Using -
-        QString wildcardExp =
-            QRegularExpression::wildcardToRegularExpression("*kvm-intel*");
-        QRegularExpression kvm_intel_mod(
-            QRegularExpression::anchoredPattern(wildcardExp));
+        QString wildcardExp = QRegularExpression::wildcardToRegularExpression("*kvm-intel*");
+        QRegularExpression kvm_intel_mod(QRegularExpression::anchoredPattern(wildcardExp));
 
-        wildcardExp =
-            QRegularExpression::wildcardToRegularExpression("*kvm-amd*");
-        QRegularExpression kvm_amd_mod(
-            QRegularExpression::anchoredPattern(wildcardExp));
+        wildcardExp = QRegularExpression::wildcardToRegularExpression("*kvm-amd*");
+        QRegularExpression kvm_amd_mod(QRegularExpression::anchoredPattern(wildcardExp));
 
         if (kvm_intel_mod.match(all_mod).hasMatch())
           kvm_ok = true;
@@ -7579,15 +7036,11 @@ bool Virtual_Machine::Start_impl()
           kvm_ok = true;
 
         // Version Using _
-        wildcardExp =
-            QRegularExpression::wildcardToRegularExpression("*kvm_intel*");
-        kvm_intel_mod.setPattern(
-            QRegularExpression::anchoredPattern(wildcardExp));
+        wildcardExp = QRegularExpression::wildcardToRegularExpression("*kvm_intel*");
+        kvm_intel_mod.setPattern(QRegularExpression::anchoredPattern(wildcardExp));
 
-        wildcardExp =
-            QRegularExpression::wildcardToRegularExpression("*kvm_amd*");
-        kvm_amd_mod.setPattern(
-            QRegularExpression::anchoredPattern(wildcardExp));
+        wildcardExp = QRegularExpression::wildcardToRegularExpression("*kvm_amd*");
+        kvm_amd_mod.setPattern(QRegularExpression::anchoredPattern(wildcardExp));
 
         if (kvm_intel_mod.match(all_mod).hasMatch())
           kvm_ok = true;
@@ -7610,17 +7063,13 @@ bool Virtual_Machine::Start_impl()
               AQError("bool Virtual_Machine::Start()", "all_config is empty!");
             }
             else {
-              wildcardExp = QRegularExpression::wildcardToRegularExpression(
-                  "*CONFIG_KVM_INTEL=y*");
-              QRegularExpression kvm_intel_conf(
-                  QRegularExpression::anchoredPattern(wildcardExp));
+              wildcardExp = QRegularExpression::wildcardToRegularExpression("*CONFIG_KVM_INTEL=y*");
+              QRegularExpression kvm_intel_conf(QRegularExpression::anchoredPattern(wildcardExp));
               if (kvm_intel_conf.match(all_config).hasMatch())
                 kvm_ok = true;
               else {
-                wildcardExp = QRegularExpression::wildcardToRegularExpression(
-                    "*CONFIG_KVM_AMD=y*");
-                QRegularExpression kvm_amd_conf(
-                    QRegularExpression::anchoredPattern(wildcardExp));
+                wildcardExp = QRegularExpression::wildcardToRegularExpression("*CONFIG_KVM_AMD=y*");
+                QRegularExpression kvm_amd_conf(QRegularExpression::anchoredPattern(wildcardExp));
                 if (kvm_amd_conf.match(all_config).hasMatch())
                   kvm_ok = true;
               }
@@ -7636,8 +7085,7 @@ bool Virtual_Machine::Start_impl()
                  "\"modprobe kvm-intel\". "
                  "Or If Use AMD Processor: \"modprobe kvm-amd\".\nIgnore This "
                  "Error?"),
-              QMessageBox::Yes | QMessageBox::No | QMessageBox::YesToAll,
-              QMessageBox::No);
+              QMessageBox::Yes | QMessageBox::No | QMessageBox::YesToAll, QMessageBox::No);
 
           if (retVal == QMessageBox::No) {
             Start_Snapshot_Tag = "";
@@ -7648,20 +7096,16 @@ bool Virtual_Machine::Start_impl()
           }
         }
         else {
-          AQDebug("bool Virtual_Machine::Start()",
-                  "OK. KVM Kernel Module Loaded");
+          AQDebug("bool Virtual_Machine::Start()", "OK. KVM Kernel Module Loaded");
         }
       }
     }
   }
 
   // QEMU Audio Environment
-  if (Settings.value("QEMU_AUDIO/Use_Default_Driver", "yes").toString() ==
-      "no") {
+  if (Settings.value("QEMU_AUDIO/Use_Default_Driver", "yes").toString() == "no") {
     QStringList tmp_env = QProcess::systemEnvironment();
-    tmp_env
-        << "QEMU_AUDIO_DRV=" +
-               Settings.value("QEMU_AUDIO/QEMU_AUDIO_DRV", "alsa").toString();
+    tmp_env << "QEMU_AUDIO_DRV=" + Settings.value("QEMU_AUDIO/QEMU_AUDIO_DRV", "alsa").toString();
     QEMU_Process->setEnvironment(tmp_env);
   }
 
@@ -7696,17 +7140,14 @@ bool Virtual_Machine::Start_impl()
     // Check path
     if (bin_path.isEmpty()) {
       AQGraphic_Error("bool Virtual_Machine::Start()", tr("Error!"),
-                      tr("Cannot start emulator! Binary path is empty!"),
-                      false);
+                      tr("Cannot start emulator! Binary path is empty!"), false);
       Start_Snapshot_Tag = "";
       return false;
     }
 
     if (!QFile::exists(bin_path)) {
-      AQGraphic_Error(
-          "bool Virtual_Machine::Start()", tr("Error!"),
-          tr("Emulator binary not exists! Check path: %1").arg(bin_path),
-          false);
+      AQGraphic_Error("bool Virtual_Machine::Start()", tr("Error!"),
+                      tr("Emulator binary not exists! Check path: %1").arg(bin_path), false);
       Start_Snapshot_Tag = "";
       return false;
     }
@@ -7832,24 +7273,22 @@ void Virtual_Machine::Save_VM_State(const QString& tag, bool quit)
   Quit_Before_Save = quit;
 
   if (Settings.value("Use_Screenshot_for_OS_Logo", "yes").toString() == "yes") {
-    QString scrn_file = Settings.value("VM_Directory", "~").toString() +
-                        Get_FS_Compatible_VM_Name(Machine_Name);
+    QString scrn_file =
+        Settings.value("VM_Directory", "~").toString() + Get_FS_Compatible_VM_Name(Machine_Name);
     if (Take_Screenshot(scrn_file, 64, 64))
       Screenshot_Path = scrn_file;
   }
 
   Send_Emulator_Command(qPrintable("savevm " + tag + "\n"));
 
-  connect(this, SIGNAL(Ready_StdOut(const QString&)), this,
-          SLOT(Suspend_Finished(const QString&)));
+  connect(this, SIGNAL(Ready_StdOut(const QString&)), this, SLOT(Suspend_Finished(const QString&)));
 }
 
 void Virtual_Machine::Load_VM_State(const QString& tag)
 {
   Show_VM_Load_Window();
 
-  connect(this, SIGNAL(Ready_StdOut(const QString&)), this,
-          SLOT(Resume_Finished(const QString&)));
+  connect(this, SIGNAL(Ready_StdOut(const QString&)), this, SLOT(Resume_Finished(const QString&)));
 
   Send_Emulator_Command(qPrintable("loadvm " + tag + "\n"));
 }
@@ -7912,8 +7351,7 @@ void Virtual_Machine::Show_Error_Log_Window()
   if (!QEMU_Error_Win)
     QEMU_Error_Win = new Error_Log_Window();
 
-  QEMU_Error_Win->setWindowTitle(tr("QEMU Error Log") + " (" + Machine_Name +
-                                 ")");
+  QEMU_Error_Win->setWindowTitle(tr("QEMU Error Log") + " (" + Machine_Name + ")");
   QEMU_Error_Win->show();
 }
 
@@ -7969,8 +7407,7 @@ void Virtual_Machine::Show_VM_Load_Window()
 void Virtual_Machine::Hide_VM_Load_Window()
 {
   if (!Dont_Reinit) {
-    AQDebug("void Virtual_Machine::Hide_VM_Load_Window()",
-            "emit Loading_Complete()");
+    AQDebug("void Virtual_Machine::Hide_VM_Load_Window()", "emit Loading_Complete()");
     //emit Loading_Complete();
   }
 
@@ -8008,8 +7445,7 @@ void Virtual_Machine::Hide_VM_Save_Window()
   }
 }
 
-bool Virtual_Machine::Take_Screenshot(const QString& file_name, int width,
-                                      int height)
+bool Virtual_Machine::Take_Screenshot(const QString& file_name, int width, int height)
 {
   if (!(State == VM::VMS_Running || State == VM::VMS_Pause)) {
     AQError(
@@ -8068,8 +7504,7 @@ bool Virtual_Machine::Take_Screenshot(const QString& file_name, int width,
 
   // OS Icon Mode?
   if (width > 0 && height > 0) {
-    im =
-        im.scaled(width, height, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    im = im.scaled(width, height, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     fmt = "PNG";
 
     // 64x64 Mode
@@ -8092,8 +7527,7 @@ bool Virtual_Machine::Take_Screenshot(const QString& file_name, int width,
   bool save_ok = false;
 
   if (fmt == "JPEG")
-    save_ok = im.save(file_name, fmt.toLatin1(),
-                      Settings.value("Jpeg_Quality", 75).toInt());
+    save_ok = im.save(file_name, fmt.toLatin1(), Settings.value("Jpeg_Quality", 75).toInt());
   else
     save_ok = im.save(file_name, fmt.toLatin1());
 
@@ -8133,12 +7567,10 @@ void Virtual_Machine::Set_Emulator(const Emulator& emul)
 void Virtual_Machine::Update_Current_Emulator_Devices()
 {
   // Apply Emulator Devices List
-  if (Current_Emulator.Get_Force_Version() ||
-      Current_Emulator.Get_Check_Version()) {
+  if (Current_Emulator.Get_Force_Version() || Current_Emulator.Get_Check_Version()) {
     switch (Current_Emulator.Get_Version()) {
       case VM::QEMU_2_0:
-        Current_Emulator_Devices =
-            System_Info::Emulator_QEMU_2_0[Computer_Type];
+        Current_Emulator_Devices = System_Info::Emulator_QEMU_2_0[Computer_Type];
         break;
 
         /*
@@ -8147,8 +7579,7 @@ void Virtual_Machine::Update_Current_Emulator_Devices()
 				break; */ //tobgle //FIXME?
 
       default:
-        AQError("void Update_Current_Emulator_Devices()",
-                "Emulator Version Invalid!");
+        AQError("void Update_Current_Emulator_Devices()", "Emulator Version Invalid!");
         break;
     }
   }
@@ -8176,8 +7607,7 @@ const Available_Devices* Virtual_Machine::Get_Current_Emulator_Devices() const
   return &Current_Emulator_Devices;
 }
 
-QString Virtual_Machine::Get_Current_Emulator_Binary_Path(
-    const QString& names) const
+QString Virtual_Machine::Get_Current_Emulator_Binary_Path(const QString& names) const
 {
   QMap<QString, QString> bin_list = Current_Emulator.Get_Binary_Files();
   QStringList nl = names.split(" ", Qt::SkipEmptyParts);
@@ -8247,8 +7677,7 @@ const QString& Virtual_Machine::Get_Machine_Name() const
 void Virtual_Machine::Set_Machine_Name(const QString& name)
 {
   if (name.isEmpty())
-    AQError("void Virtual_Machine::Set_Machine_Name( const QString &name )",
-            "File name is empty!");
+    AQError("void Virtual_Machine::Set_Machine_Name( const QString &name )", "File name is empty!");
   else
     Machine_Name = name;
 }
@@ -8607,8 +8036,7 @@ void Virtual_Machine::Set_Snapshots(const QList<VM_Snapshot>& list)
   }
 }
 
-void Virtual_Machine::Add_Snapshot(const QString& tag, const QString& name,
-                                   const QString& desc)
+void Virtual_Machine::Add_Snapshot(const QString& tag, const QString& name, const QString& desc)
 {
   VM_Snapshot tmp;
 
@@ -8630,14 +8058,12 @@ void Virtual_Machine::Set_Snapshot(int index, const VM_Snapshot& s)
     Snapshots[index] = VM_Snapshot(s);
   }
   else {
-    AQError(
-        "void Virtual_Machine::Set_Snapshot( int index, const VM_Snapshot &s )",
-        "Index == " + QString::number(index));
+    AQError("void Virtual_Machine::Set_Snapshot( int index, const VM_Snapshot &s )",
+            "Index == " + QString::number(index));
   }
 }
 
-const QList<VM_Native_Storage_Device>&
-Virtual_Machine::Get_Storage_Devices_List() const
+const QList<VM_Native_Storage_Device>& Virtual_Machine::Get_Storage_Devices_List() const
 {
   return Storage_Devices;
 }
@@ -8647,8 +8073,7 @@ const QList<VM_Shared_Folder>& Virtual_Machine::Get_Shared_Folders_List() const
   return Shared_Folders;
 }
 
-void Virtual_Machine::Set_Storage_Devices_List(
-    const QList<VM_Native_Storage_Device>& list)
+void Virtual_Machine::Set_Storage_Devices_List(const QList<VM_Native_Storage_Device>& list)
 {
   Storage_Devices.clear();
 
@@ -8658,8 +8083,7 @@ void Virtual_Machine::Set_Storage_Devices_List(
   }
 }
 
-void Virtual_Machine::Set_Shared_Folders_List(
-    const QList<VM_Shared_Folder>& list)
+void Virtual_Machine::Set_Shared_Folders_List(const QList<VM_Shared_Folder>& list)
 {
   Shared_Folders.clear();
 
@@ -8669,8 +8093,7 @@ void Virtual_Machine::Set_Shared_Folders_List(
   }
 }
 
-const VM_Native_Storage_Device& Virtual_Machine::Get_Storage_Device(
-    int index) const
+const VM_Native_Storage_Device& Virtual_Machine::Get_Storage_Device(int index) const
 {
   if (index < 0 || index > Storage_Devices.count()) {
     // FIXME message
@@ -8681,8 +8104,7 @@ const VM_Native_Storage_Device& Virtual_Machine::Get_Storage_Device(
   return Storage_Devices[index];
 }
 
-void Virtual_Machine::Set_Storage_Device(int index,
-                                         const VM_Native_Storage_Device& device)
+void Virtual_Machine::Set_Storage_Device(int index, const VM_Native_Storage_Device& device)
 {
   if (index < 0 || index > Storage_Devices.count()) {
     // FIXME message
@@ -8722,14 +8144,12 @@ void Virtual_Machine::Set_Network_Cards(const QList<VM_Net_Card>& cards)
   Network_Cards = cards;
 }
 
-const QList<VM_Net_Card_Native>& Virtual_Machine::Get_Network_Cards_Native()
-    const
+const QList<VM_Net_Card_Native>& Virtual_Machine::Get_Network_Cards_Native() const
 {
   return Network_Cards_Native;
 }
 
-void Virtual_Machine::Set_Network_Cards_Native(
-    const QList<VM_Net_Card_Native>& cards)
+void Virtual_Machine::Set_Network_Cards_Native(const QList<VM_Net_Card_Native>& cards)
 {
   Network_Cards_Native = cards;
 }
@@ -8740,8 +8160,7 @@ const VM_Net_Card& Virtual_Machine::Get_Network_Card(int index) const
     return Network_Cards[index];
   }
   else {
-    AQError("VM_Net_Card *Virtual_Machine::Get_Network_Card( int index ) const",
-            "Invalid Index!");
+    AQError("VM_Net_Card *Virtual_Machine::Get_Network_Card( int index ) const", "Invalid Index!");
     return *(new VM_Net_Card());
   }
 }
@@ -8805,8 +8224,7 @@ const VM_Redirection& Virtual_Machine::Get_Network_Redirection(int index) const
   }
 }
 
-void Virtual_Machine::Set_Network_Redirection(int index,
-                                              const VM_Redirection& r)
+void Virtual_Machine::Set_Network_Redirection(int index, const VM_Redirection& r)
 {
   if (index >= 0 && index < Network_Redirections.count()) {
     Network_Redirections[index] = r;
@@ -9512,15 +8930,13 @@ void Virtual_Machine::Parse_StdOut()
   // For whatever reason qemu doesn't write all errors to stderr,
   // which means we unfortunately need to filter output to stdout
   // for errors. This is extremely bad design by qemu.
-  QRegularExpression re("Option .* not supported",
-                        QRegularExpression::CaseInsensitiveOption);
+  QRegularExpression re("Option .* not supported", QRegularExpression::CaseInsensitiveOption);
   if (re.match(convOutput).hasMatch()) {
     Show_QEMU_Error(convOutput);
   }
 
   QStringList splitOutput = convOutput.split("[K");
-  QString cleanOutput =
-      splitOutput.last().remove(QRegularExpression("\[[KD]."));
+  QString cleanOutput = splitOutput.last().remove(QRegularExpression("\[[KD]."));
 
   emit Clean_Console(cleanOutput);
   emit Ready_StdOut(cleanOutput);
@@ -9583,9 +8999,8 @@ void Virtual_Machine::Send_Emulator_Command(const QString& text)
 #endif
   {
     if (Monitor_Socket->state() != QAbstractSocket::ConnectedState) {
-      AQError(
-          "void Virtual_Machine::Send_Emulator_Command( const QString &text )",
-          "Monitor socket not connected!");
+      AQError("void Virtual_Machine::Send_Emulator_Command( const QString &text )",
+              "Monitor socket not connected!");
     }
     else {
       Monitor_Socket->write(qPrintable(text));
@@ -9616,15 +9031,13 @@ void Virtual_Machine::QEMU_Started()
   if (Use_Monitor_TCP == true)
 #endif
   {
-    Monitor_Socket->connectToHost(Monitor_Hostname, Monitor_Port,
-                                  QIODevice::ReadWrite);
+    Monitor_Socket->connectToHost(Monitor_Hostname, Monitor_Port, QIODevice::ReadWrite);
   }
 
   emit QEMU_Start();
 }
 
-void Virtual_Machine::QEMU_Finished(int exitCode,
-                                    QProcess::ExitStatus exitStatus)
+void Virtual_Machine::QEMU_Finished(int exitCode, QProcess::ExitStatus exitStatus)
 {
   AQDebug(
       "void Virtual_Machine::QEMU_Finished( int exitCode, QProcess::ExitStatus "
@@ -9666,9 +9079,8 @@ void Virtual_Machine::QEMU_Finished(int exitCode,
 
 void Virtual_Machine::Resume_Finished(const QString& returned_text)
 {
-  AQDebug(
-      "void Virtual_Machine::Resume_Finished( const QString &returned_text )",
-      QString("Data: \"%1\"").arg(returned_text));
+  AQDebug("void Virtual_Machine::Resume_Finished( const QString &returned_text )",
+          QString("Data: \"%1\"").arg(returned_text));
 
   if (returned_text.contains("(qemu)")) {
     disconnect(this, SIGNAL(Ready_StdOut(const QString&)), this,
@@ -9684,9 +9096,8 @@ void Virtual_Machine::Resume_Finished(const QString& returned_text)
 
 void Virtual_Machine::Suspend_Finished(const QString& returned_text)
 {
-  AQDebug(
-      "void Virtual_Machine::Suspend_Finished( const QString &returned_text )",
-      QString("Data: \"%1\"").arg(returned_text));
+  AQDebug("void Virtual_Machine::Suspend_Finished( const QString &returned_text )",
+          QString("Data: \"%1\"").arg(returned_text));
 
   if (returned_text.simplified() == "(qemu)") {
     disconnect(this, SIGNAL(Ready_StdOut(const QString&)), this,
@@ -9701,17 +9112,15 @@ void Virtual_Machine::Suspend_Finished(const QString& returned_text)
     }
 
     if (!Save_VM())
-      AQError("void Virtual_Machine::Save_VM_State( const QString &tag )",
-              "Saving Not Complete!");
+      AQError("void Virtual_Machine::Save_VM_State( const QString &tag )", "Saving Not Complete!");
   }
   else if (returned_text.contains("No block device can accept snapshots")) {
     disconnect(this, SIGNAL(Ready_StdOut(const QString&)), this,
                SLOT(Suspend_Finished(const QString&)));
 
     Hide_VM_Save_Window();
-    AQGraphic_Warning(
-        tr("Error!"),
-        tr("You must add HDD image in QCOW2 format to save virtual machine!"));
+    AQGraphic_Warning(tr("Error!"),
+                      tr("You must add HDD image in QCOW2 format to save virtual machine!"));
   }
 }
 
@@ -9732,8 +9141,7 @@ void Virtual_Machine::Execute_Emu_Ctl_Command(const QString& com)
 {
   Send_Emulator_Command(qPrintable(com + "\n"));
 
-  AQDebug("void Virtual_Machine::Execute_Emu_Ctl_Command( const QString &com )",
-          "Run: " + com);
+  AQDebug("void Virtual_Machine::Execute_Emu_Ctl_Command( const QString &com )", "Run: " + com);
 }
 
 class Setting_Or_Preview_Helper {
@@ -9807,14 +9215,12 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
     table_format.setColumnWidthConstraints(constraints);
 
     if (info_mode == 1)
-      cursor.insertText(tr("You must create a new virtual machine"),
-                        bold_format);
+      cursor.insertText(tr("You must create a new virtual machine"), bold_format);
     else if (info_mode == 2)
-      cursor.insertText(
-          tr("This VM uses the emulator \"%1\" that is not installed.\n"
-             "The VM cannot work!")
-              .arg((Get_Machine_Accelerator() == VM::TCG) ? "TCG" : "KVM"),
-          bold_format);
+      cursor.insertText(tr("This VM uses the emulator \"%1\" that is not installed.\n"
+                           "The VM cannot work!")
+                            .arg((Get_Machine_Accelerator() == VM::TCG) ? "TCG" : "KVM"),
+                        bold_format);
 
     cursor.insertBlock();
 
@@ -9839,16 +9245,14 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
   QTextFrame* topFrame = cursor.currentFrame();
 
   // Use Scrennshot in Save Mode
-  if (Settings.value("Info/Show_Screenshot_in_Save_Mode", "no").toString() ==
-      "yes") {
+  if (Settings.value("Info/Show_Screenshot_in_Save_Mode", "no").toString() == "yes") {
     // Find Full Size Screenshot
-    QString img_path = QDir::toNativeSeparators(
-        Settings.value("VM_Directory", "~").toString() +
-        Get_FS_Compatible_VM_Name(Get_Machine_Name()) + "_screenshot");
+    QString img_path =
+        QDir::toNativeSeparators(Settings.value("VM_Directory", "~").toString() +
+                                 Get_FS_Compatible_VM_Name(Get_Machine_Name()) + "_screenshot");
 
     if (!QFile::exists(img_path)) {
-      AQDebug("void Main_Window::Update_Info_Text( int info_mode )",
-              "Screenshot Path is Empty!");
+      AQDebug("void Main_Window::Update_Info_Text( int info_mode )", "Screenshot Path is Empty!");
     }
     else {
       /*cursor.insertHtml( "<img width=\"" +
@@ -9888,8 +9292,7 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
   QTextCursor cell_cursor;
 
   // Machine State
-  if (soph.either(Settings.value("Info/Machine_Details", "yes").toString() ==
-                  "yes")) {
+  if (soph.either(Settings.value("Info/Machine_Details", "yes").toString() == "yes")) {
 
     cursor.insertText(tr("Machine"), bold_format);
     cursor.insertBlock();
@@ -9901,8 +9304,7 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
     frame_format.setBorder(0);
     frame->setFrameFormat(frame_format);
 
-    if (soph.either(Settings.value("Info/Machine_Name", "yes").toString() ==
-                    "yes")) {
+    if (soph.either(Settings.value("Info/Machine_Name", "yes").toString() == "yes")) {
       cell = table->cellAt(table->rows() - 1, 1);
       cell_cursor = cell.firstCursorPosition();
       cell_cursor.insertText(tr("Name:"), format);
@@ -9953,8 +9355,7 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
       Settings.value("Info/Use_Sound", "yes").toString() == "yes" ||
       Settings.value("Info/Fullscreen", "yes").toString() == "yes" ||
       Settings.value("Info/Snapshot", "yes").toString() == "yes" ||
-      Settings.value("Info/Localtime", "yes").toString() == "yes" ||
-      soph.preview) {
+      Settings.value("Info/Localtime", "yes").toString() == "yes" || soph.preview) {
     cursor.setPosition(topFrame->lastPosition());
     cursor.insertText(tr("General"), bold_format);
     cursor.insertBlock();
@@ -9964,22 +9365,18 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
     frame = cursor.currentFrame();
     frame->setFrameFormat(frame_format);
 
-    if (soph.either(
-            Settings.value("Info/Machine_Accelerator", "yes").toString() ==
-            "yes")) {
+    if (soph.either(Settings.value("Info/Machine_Accelerator", "yes").toString() == "yes")) {
       cell = table->cellAt(table->rows() - 1, 1);
       cell_cursor = cell.firstCursorPosition();
       cell_cursor.insertText(tr("Accelerator:"), format);
 
       cell = table->cellAt(table->rows() - 1, 2);
       cell_cursor = cell.firstCursorPosition();
-      cell_cursor.insertText(
-          VM::Accel_To_String(Get_Machine_Accelerator()).toUpper(), format);
+      cell_cursor.insertText(VM::Accel_To_String(Get_Machine_Accelerator()).toUpper(), format);
       table->insertRows(table->rows(), 1);
     }
 
-    if (soph.either(Settings.value("Info/Computer_Type", "yes").toString() ==
-                    "yes")) {
+    if (soph.either(Settings.value("Info/Computer_Type", "yes").toString() == "yes")) {
       cell = table->cellAt(table->rows() - 1, 1);
       cell_cursor = cell.firstCursorPosition();
       cell_cursor.insertText(tr("Architecture:"), format);
@@ -9988,8 +9385,7 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
       cell_cursor = cell.firstCursorPosition();
 
       QString name;
-      if (Get_Current_Emulator_Devices()->System.QEMU_Name ==
-              Get_Computer_Type() &&
+      if (Get_Current_Emulator_Devices()->System.QEMU_Name == Get_Computer_Type() &&
           !Get_Current_Emulator_Devices()->System.Caption.isEmpty()) {
         name = Get_Current_Emulator_Devices()->System.Caption;
       }
@@ -10000,8 +9396,7 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
       table->insertRows(table->rows(), 1);
     }
 
-    if (soph.either(Settings.value("Info/Machine_Type", "no").toString() ==
-                    "yes")) {
+    if (soph.either(Settings.value("Info/Machine_Type", "no").toString() == "yes")) {
       cell = table->cellAt(table->rows() - 1, 1);
       cell_cursor = cell.firstCursorPosition();
       cell_cursor.insertText(tr("Machine Type:"), format);
@@ -10010,13 +9405,9 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
       cell_cursor = cell.firstCursorPosition();
 
       QString name;
-      for (int i = 0; i < Get_Current_Emulator_Devices()->Machine_List.count();
-           i++) {
-        if (Get_Current_Emulator_Devices()->Machine_List.at(i).QEMU_Name ==
-                Get_Machine_Type() &&
-            !Get_Current_Emulator_Devices()
-                 ->Machine_List.at(i)
-                 .Caption.isEmpty()) {
+      for (int i = 0; i < Get_Current_Emulator_Devices()->Machine_List.count(); i++) {
+        if (Get_Current_Emulator_Devices()->Machine_List.at(i).QEMU_Name == Get_Machine_Type() &&
+            !Get_Current_Emulator_Devices()->Machine_List.at(i).Caption.isEmpty()) {
           name = Get_Current_Emulator_Devices()->Machine_List.at(i).Caption;
         }
       }
@@ -10027,31 +9418,26 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
       table->insertRows(table->rows(), 1);
     }
 
-    if (soph.either(Settings.value("Info/Boot_Priority", "yes").toString() ==
-                    "yes")) {
+    if (soph.either(Settings.value("Info/Boot_Priority", "yes").toString() == "yes")) {
       cell = table->cellAt(table->rows() - 1, 1);
       cell_cursor = cell.firstCursorPosition();
       cell_cursor.insertText(tr("Boot Priority:"), format);
 
       cell = table->cellAt(table->rows() - 1, 2);
       cell_cursor = cell.firstCursorPosition();
-      cell_cursor.insertText(
-          VM::Boot_Order_To_String_List(Get_Boot_Order_List()).join("/"),
-          format);
+      cell_cursor.insertText(VM::Boot_Order_To_String_List(Get_Boot_Order_List()).join("/"),
+                             format);
       table->insertRows(table->rows(), 1);
     }
 
-    if (soph.either(Settings.value("Info/CPU_Type", "no").toString() ==
-                    "yes")) {
+    if (soph.either(Settings.value("Info/CPU_Type", "no").toString() == "yes")) {
       cell = table->cellAt(table->rows() - 1, 1);
       cell_cursor = cell.firstCursorPosition();
       cell_cursor.insertText(tr("CPU Type:"), format);
 
       QString name;
-      for (int i = 0; i < Get_Current_Emulator_Devices()->CPU_List.count();
-           i++) {
-        if (Get_Current_Emulator_Devices()->CPU_List.at(i).QEMU_Name ==
-                Get_CPU_Type() &&
+      for (int i = 0; i < Get_Current_Emulator_Devices()->CPU_List.count(); i++) {
+        if (Get_Current_Emulator_Devices()->CPU_List.at(i).QEMU_Name == Get_CPU_Type() &&
             !Get_Current_Emulator_Devices()->CPU_List.at(i).Caption.isEmpty()) {
           name = Get_Current_Emulator_Devices()->CPU_List.at(i).Caption;
         }
@@ -10065,8 +9451,7 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
       table->insertRows(table->rows(), 1);
     }
 
-    if (soph.either(Settings.value("Info/Number_of_CPU", "yes").toString() ==
-                    "yes")) {
+    if (soph.either(Settings.value("Info/Number_of_CPU", "yes").toString() == "yes")) {
       cell = table->cellAt(table->rows() - 1, 1);
       cell_cursor = cell.firstCursorPosition();
       cell_cursor.insertText(tr("Number of CPU:"), format);
@@ -10077,8 +9462,7 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
       table->insertRows(table->rows(), 1);
     }
 
-    if (soph.either(Settings.value("Info/Video_Card", "yes").toString() ==
-                    "yes")) {
+    if (soph.either(Settings.value("Info/Video_Card", "yes").toString() == "yes")) {
       cell = table->cellAt(table->rows() - 1, 1);
       cell_cursor = cell.firstCursorPosition();
       cell_cursor.insertText(tr("Video Card:"), format);
@@ -10087,13 +9471,9 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
       cell_cursor = cell.firstCursorPosition();
 
       QString name;
-      for (int i = 0;
-           i < Get_Current_Emulator_Devices()->Video_Card_List.count(); i++) {
-        if (Get_Current_Emulator_Devices()->Video_Card_List.at(i).QEMU_Name ==
-                Get_Video_Card() &&
-            !Get_Current_Emulator_Devices()
-                 ->Video_Card_List.at(i)
-                 .Caption.isEmpty()) {
+      for (int i = 0; i < Get_Current_Emulator_Devices()->Video_Card_List.count(); i++) {
+        if (Get_Current_Emulator_Devices()->Video_Card_List.at(i).QEMU_Name == Get_Video_Card() &&
+            !Get_Current_Emulator_Devices()->Video_Card_List.at(i).Caption.isEmpty()) {
           name = Get_Current_Emulator_Devices()->Video_Card_List.at(i).Caption;
         }
       }
@@ -10104,8 +9484,7 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
       table->insertRows(table->rows(), 1);
     }
 
-    if (soph.either(Settings.value("Info/Keyboard_Layout", "no").toString() ==
-                    "yes")) {
+    if (soph.either(Settings.value("Info/Keyboard_Layout", "no").toString() == "yes")) {
       cell = table->cellAt(table->rows() - 1, 1);
       cell_cursor = cell.firstCursorPosition();
       cell_cursor.insertText(tr("Keyboard Layout:"), format);
@@ -10116,8 +9495,7 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
       table->insertRows(table->rows(), 1);
     }
 
-    if (soph.either(Settings.value("Info/Memory_Size", "yes").toString() ==
-                    "yes")) {
+    if (soph.either(Settings.value("Info/Memory_Size", "yes").toString() == "yes")) {
       cell = table->cellAt(table->rows() - 1, 1);
       cell_cursor = cell.firstCursorPosition();
       cell_cursor.insertText(tr("Memory Size:"), format);
@@ -10128,8 +9506,7 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
       table->insertRows(table->rows(), 1);
     }
 
-    if (soph.either(Settings.value("Info/Use_Sound", "yes").toString() ==
-                    "yes")) {
+    if (soph.either(Settings.value("Info/Use_Sound", "yes").toString() == "yes")) {
       cell = table->cellAt(table->rows() - 1, 1);
       cell_cursor = cell.firstCursorPosition();
       cell_cursor.insertText(tr("Use Sound:"), format);
@@ -10147,34 +9524,29 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
       table->insertRows(table->rows(), 1);
     }
 
-    if (soph.setting(Settings.value("Info/Fullscreen", "yes").toString() ==
-                     "yes")) {
+    if (soph.setting(Settings.value("Info/Fullscreen", "yes").toString() == "yes")) {
       cell = table->cellAt(table->rows() - 1, 1);
       cell_cursor = cell.firstCursorPosition();
       cell_cursor.insertText(tr("Fullscreen Mode:"), format);
 
       cell = table->cellAt(table->rows() - 1, 2);
       cell_cursor = cell.firstCursorPosition();
-      cell_cursor.insertText(Use_Fullscreen_Mode() ? tr("Yes") : tr("No"),
-                             format);
+      cell_cursor.insertText(Use_Fullscreen_Mode() ? tr("Yes") : tr("No"), format);
       table->insertRows(table->rows(), 1);
     }
 
-    if (soph.setting(Settings.value("Info/Snapshot", "yes").toString() ==
-                     "yes")) {
+    if (soph.setting(Settings.value("Info/Snapshot", "yes").toString() == "yes")) {
       cell = table->cellAt(table->rows() - 1, 1);
       cell_cursor = cell.firstCursorPosition();
       cell_cursor.insertText(tr("Use Snapshot Mode:"), format);
 
       cell = table->cellAt(table->rows() - 1, 2);
       cell_cursor = cell.firstCursorPosition();
-      cell_cursor.insertText(Use_Snapshot_Mode() ? tr("Yes") : tr("No"),
-                             format);
+      cell_cursor.insertText(Use_Snapshot_Mode() ? tr("Yes") : tr("No"), format);
       table->insertRows(table->rows(), 1);
     }
 
-    if (soph.setting(Settings.value("Info/Localtime", "yes").toString() ==
-                     "yes")) {
+    if (soph.setting(Settings.value("Info/Localtime", "yes").toString() == "yes")) {
       cell = table->cellAt(table->rows() - 1, 1);
       cell_cursor = cell.firstCursorPosition();
       cell_cursor.insertText(tr("Use Local Time:"), format);
@@ -10187,20 +9559,16 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
   }
 
   // FDD/CD/HDD
-  if ((soph.either(Settings.value("Info/Show_FDD", "yes").toString() ==
-                   "yes") &&
+  if ((soph.either(Settings.value("Info/Show_FDD", "yes").toString() == "yes") &&
        (Get_FD0().Get_Enabled() || Get_FD1().Get_Enabled() ||
         Get_Storage_Devices_List().count() > 0)) ||
 
       (soph.either(Settings.value("Info/Show_CD", "yes").toString() == "yes") &&
-       (Get_CD_ROM().Get_Enabled() ||
-        Get_Storage_Devices_List().count() > 0)) ||
+       (Get_CD_ROM().Get_Enabled() || Get_Storage_Devices_List().count() > 0)) ||
 
-      (soph.either(Settings.value("Info/Show_HDD", "yes").toString() ==
-                   "yes") &&
-       (Get_HDA().Get_Enabled() || Get_HDB().Get_Enabled() ||
-        Get_HDC().Get_Enabled() || Get_HDD().Get_Enabled() ||
-        Get_Storage_Devices_List().count() > 0))) {
+      (soph.either(Settings.value("Info/Show_HDD", "yes").toString() == "yes") &&
+       (Get_HDA().Get_Enabled() || Get_HDB().Get_Enabled() || Get_HDC().Get_Enabled() ||
+        Get_HDD().Get_Enabled() || Get_Storage_Devices_List().count() > 0))) {
     cursor.setPosition(topFrame->lastPosition());
     cursor.insertText(tr("Devices"), bold_format);
     cursor.insertBlock();
@@ -10213,8 +9581,7 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
     if (true /*Settings.value("Use_Device_Manager", "no").toString() == "yes"*/) {
       QFileInfo fi;
 
-      if (soph.either(Settings.value("Info/Show_FDD", "yes").toString() ==
-                      "yes")) {
+      if (soph.either(Settings.value("Info/Show_FDD", "yes").toString() == "yes")) {
         if (Get_FD0().Get_Enabled()) {
           cell = table->cellAt(table->rows() - 1, 1);
           cell_cursor = cell.firstCursorPosition();
@@ -10243,8 +9610,7 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
         }
       }
 
-      if (soph.either(Settings.value("Info/Show_CD", "yes").toString() ==
-                      "yes")) {
+      if (soph.either(Settings.value("Info/Show_CD", "yes").toString() == "yes")) {
         if (Get_CD_ROM().Get_Enabled()) {
           cell = table->cellAt(table->rows() - 1, 1);
           cell_cursor = cell.firstCursorPosition();
@@ -10259,8 +9625,7 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
         }
       }
 
-      if (soph.either(Settings.value("Info/Show_HDD", "yes").toString() ==
-                      "yes")) {
+      if (soph.either(Settings.value("Info/Show_HDD", "yes").toString() == "yes")) {
         if (Get_HDA().Get_Enabled()) {
           cell = table->cellAt(table->rows() - 1, 1);
           cell_cursor = cell.firstCursorPosition();
@@ -10313,11 +9678,9 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
   }
 
   // Network
-  if (soph.either(Settings.value("Info/Network_Cards", "yes").toString() ==
-                  "yes") &&
+  if (soph.either(Settings.value("Info/Network_Cards", "yes").toString() == "yes") &&
       ((Use_Native_Network() == false && Get_Network_Cards_Count() > 0) ||
-       (Use_Native_Network() == true &&
-        Get_Network_Cards_Native().count() > 0))) {
+       (Use_Native_Network() == true && Get_Network_Cards_Native().count() > 0))) {
     cursor.setPosition(topFrame->lastPosition());
     cursor.insertText(tr("Network"), bold_format);
     cursor.insertBlock();
@@ -10342,8 +9705,7 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
         for (int nx = 0; nx < Get_Network_Cards_Count(); ++nx) {
           cell = table->cellAt(table->rows() - 1, 1);
           cell_cursor = cell.firstCursorPosition();
-          cell_cursor.insertText(tr("Card: ") + QString::number(nx + 1),
-                                 format);
+          cell_cursor.insertText(tr("Card: ") + QString::number(nx + 1), format);
 
           QString con_mode = "";
 
@@ -10449,23 +9811,20 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
   }
 
   // Network Redirections
-  if (soph.setting(Settings.value("Info/Redirections", "no").toString() ==
-                   "yes")) {
+  if (soph.setting(Settings.value("Info/Redirections", "no").toString() == "yes")) {
     if (Get_Use_Redirections() || Get_Network_Redirections_Count() < 1) {
       for (int rx = 0; rx < Get_Network_Redirections_Count(); ++rx) {
         cell = table->cellAt(table->rows() - 1, 1);
         cell_cursor = cell.firstCursorPosition();
-        cell_cursor.insertText(
-            tr("Redirection ") + QString::number(rx + 1) + ":", format);
+        cell_cursor.insertText(tr("Redirection ") + QString::number(rx + 1) + ":", format);
 
         cell = table->cellAt(table->rows() - 1, 2);
         cell_cursor = cell.firstCursorPosition();
-        cell_cursor.insertText(
-            Get_Network_Redirection(rx).Get_Protocol() + " " +
-                QString::number(Get_Network_Redirection(rx).Get_Host_Port()) +
-                ":" + Get_Network_Redirection(rx).Get_Guest_IP() + ":" +
-                QString::number(Get_Network_Redirection(rx).Get_Guest_Port()),
-            format);
+        cell_cursor.insertText(Get_Network_Redirection(rx).Get_Protocol() + " " +
+                                   QString::number(Get_Network_Redirection(rx).Get_Host_Port()) +
+                                   ":" + Get_Network_Redirection(rx).Get_Guest_IP() + ":" +
+                                   QString::number(Get_Network_Redirection(rx).Get_Guest_Port()),
+                               format);
         table->insertRows(table->rows(), 1);
       }
     }
@@ -10482,14 +9841,11 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
   }
 
   // Ports Tab
-  if ((soph.setting(Settings.value("Info/Serial_Port", "yes").toString() ==
-                    "yes") &&
+  if ((soph.setting(Settings.value("Info/Serial_Port", "yes").toString() == "yes") &&
        Get_Serial_Ports().count() > 0) ||
-      (soph.setting(Settings.value("Info/Parallel_Port", "yes").toString() ==
-                    "yes") &&
+      (soph.setting(Settings.value("Info/Parallel_Port", "yes").toString() == "yes") &&
        Get_Parallel_Ports().count() > 0) ||
-      (soph.setting(Settings.value("Info/USB_Port", "yes").toString() ==
-                    "yes") &&
+      (soph.setting(Settings.value("Info/USB_Port", "yes").toString() == "yes") &&
        Get_USB_Ports().count() > 0)) {
     cursor.setPosition(topFrame->lastPosition());
     cursor.insertText(tr("Ports"), bold_format);
@@ -10658,8 +10014,8 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
 
         cell = table->cellAt(table->rows() - 1, 2);
         cell_cursor = cell.firstCursorPosition();
-        cell_cursor.insertText(Get_USB_Ports()[ix].Get_Manufacturer_Name() +
-                                   " " + Get_USB_Ports()[ix].Get_Product_Name(),
+        cell_cursor.insertText(Get_USB_Ports()[ix].Get_Manufacturer_Name() + " " +
+                                   Get_USB_Ports()[ix].Get_Product_Name(),
                                format);
         table->insertRows(table->rows(), 1);
       }
@@ -10710,13 +10066,11 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
       cell_cursor = cell.firstCursorPosition();
 
       if (Use_VNC())
-        cell_cursor.insertText(QString::number(Get_VNC_Display_Number() + 5900),
-                               format);
+        cell_cursor.insertText(QString::number(Get_VNC_Display_Number() + 5900), format);
       else
-        cell_cursor.insertText(
-            QString::number(Settings.value("First_VNC_Port", "5910").toInt() +
-                            Get_Embedded_Display_Port()),
-            format);
+        cell_cursor.insertText(QString::number(Settings.value("First_VNC_Port", "5910").toInt() +
+                                               Get_Embedded_Display_Port()),
+                               format);
 
       table->insertRows(table->rows(), 1);
     }
@@ -10741,8 +10095,7 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
 
       cell = table->cellAt(table->rows() - 1, 2);
       cell_cursor = cell.firstCursorPosition();
-      cell_cursor.insertText(Get_Use_Linux_Boot() ? tr("Yes") : tr("No"),
-                             format);
+      cell_cursor.insertText(Get_Use_Linux_Boot() ? tr("Yes") : tr("No"), format);
       table->insertRows(table->rows(), 1);
 
       if (Get_Use_Linux_Boot()) {
@@ -10868,8 +10221,7 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
        Settings.value("Info/Start_CPU", "no").toString() == "yes" ||
        Settings.value("Info/Check_Boot_on_FDD", "no").toString() == "yes" ||
        Settings.value("Info/ACPI", "no").toString() == "yes" ||
-       (Settings.value("Info/Start_Date", "no").toString() == "yes" &&
-        Use_Start_Date()) ||
+       (Settings.value("Info/Start_Date", "no").toString() == "yes" && Use_Start_Date()) ||
        Settings.value("Info/No_Frame", "no").toString() == "yes" ||
        Settings.value("Info/Alt_Grab", "no").toString() == "yes" ||
        Settings.value("Info/No_Quit", "no").toString() == "yes" ||
@@ -10950,8 +10302,7 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
 
       cell = table->cellAt(table->rows() - 1, 2);
       cell_cursor = cell.firstCursorPosition();
-      cell_cursor.insertText(Use_Check_FDD_Boot_Sector() ? tr("Yes") : tr("No"),
-                             format);
+      cell_cursor.insertText(Use_Check_FDD_Boot_Sector() ? tr("Yes") : tr("No"), format);
       table->insertRows(table->rows(), 1);
     }
 
@@ -10966,8 +10317,7 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
       table->insertRows(table->rows(), 1);
     }
 
-    if (Settings.value("Info/Start_Date", "no").toString() == "yes" &&
-        Use_Start_Date()) {
+    if (Settings.value("Info/Start_Date", "no").toString() == "yes" && Use_Start_Date()) {
       cell = table->cellAt(table->rows() - 1, 1);
       cell_cursor = cell.firstCursorPosition();
       cell_cursor.insertText(tr("Start Date:"), format);
@@ -11063,8 +10413,7 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
   }
 
   // Show_QEMU_Arguments
-  if (soph.setting(Settings.value("Info/Show_QEMU_Args", "no").toString() ==
-                   "yes")) {
+  if (soph.setting(Settings.value("Info/Show_QEMU_Args", "no").toString() == "yes")) {
     cursor.setPosition(topFrame->lastPosition());
     cursor.insertText(tr("QEMU Arguments"), bold_format);
     cursor.insertBlock();
@@ -11090,9 +10439,8 @@ QString Virtual_Machine::GenerateHTMLInfoText(int info_mode)
 
     cell = table2->cellAt(table2->rows() - 1, 1);
     cell_cursor = cell.firstCursorPosition();
-    cell_cursor.insertText(
-        Build_QEMU_Args_For_Tab_Info().join(" ").replace(" -", " \\\n    -"),
-        format);
+    cell_cursor.insertText(Build_QEMU_Args_For_Tab_Info().join(" ").replace(" -", " \\\n    -"),
+                           format);
   }
 
   // Move the cursor to the top
