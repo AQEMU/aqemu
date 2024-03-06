@@ -23,7 +23,7 @@ jobs:
       #
       # To add more build types (Release, Debug, RelWithDebInfo, etc.) customize the build_type list.
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, macOS-latest, windows-latest]
         build_type: [Release]
         c_compiler: [gcc, clang, cl]
         include:
@@ -80,6 +80,7 @@ jobs:
       run: |
         for /f "delims=" %%d in ( 'vswhere.exe -latest -property installationPath' ) do @( call "%%d\VC\Auxiliary\Build\vcvars64.bat" )
         IF "%QT_VERSION:~0,1%"=="5" ( dir %Qt5_DIR% ) ELSE ( dir %QT_ROOT_DIR%\lib\cmake )
+        mkdir ${{ steps.strings.outputs.build-output-dir }}
         cmake -B ${{ steps.strings.outputs.build-output-dir }}
         -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
@@ -97,6 +98,7 @@ jobs:
         else
           ls "${Qt5_DIR}"
         fi
+        mkdir ${{ steps.strings.outputs.build-output-dir }}
         cmake -B ${{ steps.strings.outputs.build-output-dir }}
         -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
