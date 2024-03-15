@@ -742,10 +742,11 @@ void VM_Wizard_Window::Update_RAM_Size_ComboBox(int freeRAM)
   static int oldRamSize = 0;
   if (freeRAM == oldRamSize)
     return;
-  else
-    oldRamSize = freeRAM;
+
+  oldRamSize = freeRAM;
 
   QStringList ramSizes;
+  ramSizes.reserve(std::numeric_limits<enum sz>::max());
   ramSizes << "32 MB"
            << "64 MB"
            << "128 MB"
@@ -757,31 +758,34 @@ void VM_Wizard_Window::Update_RAM_Size_ComboBox(int freeRAM)
            << "4 GB"
            << "8 GB"
            << "16 GB"
-           << "32 GB";
+           << "32 GB"
+           << "64 GB";
   int maxRamIndex = 0;
-  if (freeRAM >= 32768)
+  if (freeRAM >= sz::_64GB)
+    maxRamIndex = 13;
+  else if (freeRAM >= sz::_32GB)
     maxRamIndex = 12;
-  else if (freeRAM >= 16384)
+  else if (freeRAM >= sz::_16GB)
     maxRamIndex = 11;
-  else if (freeRAM >= 8192)
+  else if (freeRAM >= sz::_8GB)
     maxRamIndex = 10;
-  else if (freeRAM >= 4096)
+  else if (freeRAM >= sz::_4GB)
     maxRamIndex = 9;
-  else if (freeRAM >= 3072)
+  else if (freeRAM >= sz::_3GB)
     maxRamIndex = 8;
-  else if (freeRAM >= 2048)
+  else if (freeRAM >= sz::_2GB)
     maxRamIndex = 7;
-  else if (freeRAM >= 1024)
+  else if (freeRAM >= sz::_1GB)
     maxRamIndex = 6;
-  else if (freeRAM >= 512)
+  else if (freeRAM >= sz::_512MB)
     maxRamIndex = 5;
-  else if (freeRAM >= 256)
+  else if (freeRAM >= sz::_256MB)
     maxRamIndex = 4;
-  else if (freeRAM >= 128)
+  else if (freeRAM >= sz::_128MB)
     maxRamIndex = 3;
-  else if (freeRAM >= 64)
+  else if (freeRAM >= sz::_64MB)
     maxRamIndex = 2;
-  else if (freeRAM >= 32)
+  else if (freeRAM >= sz::_32MB)
     maxRamIndex = 1;
   else {
     AQGraphic_Warning(tr("Error"), tr("Free memory on this system is lower than 32 MB!"));

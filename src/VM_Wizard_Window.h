@@ -40,6 +40,23 @@ class VM_Wizard_Window: public QDialog
 		void Set_VM_List( QList<Virtual_Machine*> *list );
 
         std::unique_ptr<Virtual_Machine> New_VM;
+
+        enum sz
+        {
+          _32MB  =  1 << 5,
+          _64MB  =  1 << 6,
+          _128MB =  1 << 7,
+          _256MB =  1 << 8,
+          _512MB =  1 << 9,
+          _1GB   =  1 << 10,
+          _2GB   =  1 << 11,
+          _3GB   = (1 << 12) - _1GB,
+          _4GB   =  1 << 12,
+          _8GB   =  1 << 13,
+          _16GB  =  1 << 14,
+          _32GB  =  1 << 15,
+          _64GB  =  1 << 16
+        };
 		
 	private slots:
         void on_KVM_toggled(bool toggled);
