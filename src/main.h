@@ -56,7 +56,7 @@ class AQEMU_Main : public QObject
         void upgrade_settings();
         int find_data_folders();
         void log_settings();
-        int root_warning();
+        static int root_warning();
         void vm_dir_exists_or_create();
 
         std::unique_ptr<QSettings> settings;

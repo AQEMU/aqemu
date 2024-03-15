@@ -29,9 +29,9 @@ Add_USB_Port_Window::Add_USB_Port_Window(QWidget* parent) : QDialog(parent)
 {
   ui.setupUi(this);
 
-  QHeaderView* hv = new QHeaderView(Qt::Vertical, ui.Table_Host_USB);
+  auto hv = std::make_unique<QHeaderView>(Qt::Vertical, ui.Table_Host_USB);
   hv->setSectionResizeMode(QHeaderView::Fixed);
-  ui.Table_Host_USB->setVerticalHeader(hv);
+  ui.Table_Host_USB->setVerticalHeader(hv.get());
 
   /*hv = new QHeaderView( Qt::Horizontal, ui.Table_Host_USB );
 	hv->setResizeMode( QHeaderView::Interactive );
@@ -90,12 +90,10 @@ void Add_USB_Port_Window::Set_Port(const VM_USB& port)
   else if (usb_b)
     ui.RB_QEMU_Braille->setChecked(true);
   else {
-    AQError("void Add_USB_Port_Window::Set_Port( const VM_USB &port )",
-            "No QEMU USB Device!");
+    AQError("void Add_USB_Port_Window::Set_Port( const VM_USB &port )", "No QEMU USB Device!");
   }
 
-  ui.S_Manufacturer->setText(tr("Manufacturer: ") +
-                             port.Get_Manufacturer_Name());
+  ui.S_Manufacturer->setText(tr("Manufacturer: ") + port.Get_Manufacturer_Name());
   ui.S_Product->setText(tr("Product: ") + port.Get_Product_Name());
   ui.S_Speed->setText(tr("Speed: ") + port.Get_Speed());
   ui.S_BusAddr->setText(tr("bus.addr.path: %1.%2.%3")
@@ -129,43 +127,42 @@ void Add_USB_Port_Window::on_Button_Update_Host_USB_clicked()
   }
 
   if (USB_Host_List.count() < 1) {
-    AQWarning("void Add_USB_Port_Window::on_Button_Update_Host_USB_clicked()",
-              "No Devices Found!");
+    AQWarning("void Add_USB_Port_Window::on_Button_Update_Host_USB_clicked()", "No Devices Found!");
     return;
   }
 
   // Add new items
   for (const auto& usb : USB_Host_List) {
     ui.Table_Host_USB->insertRow(ui.Table_Host_USB->rowCount());
-    QTableWidgetItem* newItem;
+    std::unique_ptr<QTableWidgetItem> newItem;
 
     // Manufacturer
     if (usb.Get_Manufacturer_Name().isEmpty())
-      newItem = new QTableWidgetItem(usb.Get_Vendor_ID());
+      newItem = std::make_unique<QTableWidgetItem>(usb.Get_Vendor_ID());
     else
-      newItem = new QTableWidgetItem(usb.Get_Manufacturer_Name());
+      newItem = std::make_unique<QTableWidgetItem>(usb.Get_Manufacturer_Name());
 
-    ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 0, newItem);
+    ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 0, newItem.get());
 
     // Product
     if (usb.Get_Product_Name().isEmpty())
-      newItem = new QTableWidgetItem(usb.Get_Product_ID());
+      newItem = std::make_unique<QTableWidgetItem>(usb.Get_Product_ID());
     else
-      newItem = new QTableWidgetItem(usb.Get_Product_Name());
+      newItem = std::make_unique<QTableWidgetItem>(usb.Get_Product_Name());
 
-    ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 1, newItem);
+    ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 1, newItem.get());
 
     // Bus
-    newItem = new QTableWidgetItem(usb.Get_Bus());
-    ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 2, newItem);
+    newItem = std::make_unique<QTableWidgetItem>(usb.Get_Bus());
+    ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 2, newItem.get());
 
     // Addr
-    newItem = new QTableWidgetItem(usb.Get_Addr());
-    ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 3, newItem);
+    newItem = std::make_unique<QTableWidgetItem>(usb.Get_Addr());
+    ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 3, newItem.get());
 
     // Path
-    newItem = new QTableWidgetItem(usb.Get_DevPath());
-    ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 4, newItem);
+    newItem = std::make_unique<QTableWidgetItem>(usb.Get_DevPath());
+    ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 4, newItem.get());
   }
 
   ui.Table_Host_USB->resizeColumnsToContents();
@@ -197,15 +194,14 @@ void Add_USB_Port_Window::on_RB_Host_USB_clicked(bool checked)
   ui.RB_QEMU_USB->setCheckable(false);
 }
 
-void Add_USB_Port_Window::on_Table_Host_USB_currentItemChanged(
-    QTableWidgetItem* current, QTableWidgetItem* previous)
+void Add_USB_Port_Window::on_Table_Host_USB_currentItemChanged(QTableWidgetItem* current,
+                                                               QTableWidgetItem* previous)
 {
   if (ui.Table_Host_USB->currentRow() >= 0 &&
       ui.Table_Host_USB->currentRow() < USB_Host_List.count()) {
     Current_Item = USB_Host_List[ui.Table_Host_USB->currentRow()];
 
-    ui.S_Manufacturer->setText(tr("Manufacturer: ") +
-                               Current_Item.Get_Manufacturer_Name());
+    ui.S_Manufacturer->setText(tr("Manufacturer: ") + Current_Item.Get_Manufacturer_Name());
     ui.S_Product->setText(tr("Product: ") + Current_Item.Get_Product_Name());
     ui.S_Speed->setText(tr("Speed: ") + Current_Item.Get_Speed());
     ui.S_BusAddr->setText(tr("bus.addr.path: %1.%2.%3")
@@ -213,8 +209,7 @@ void Add_USB_Port_Window::on_Table_Host_USB_currentItemChanged(
                               .arg(Current_Item.Get_Bus())
                               .arg(Current_Item.Get_DevPath()));
     ui.S_Vendor_ID->setText(tr("Vendor ID: ") + Current_Item.Get_Vendor_ID());
-    ui.S_Product_ID->setText(tr("Product ID: ") +
-                             Current_Item.Get_Product_ID());
+    ui.S_Product_ID->setText(tr("Product ID: ") + Current_Item.Get_Product_ID());
   }
 }
 

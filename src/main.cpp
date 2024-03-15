@@ -138,22 +138,18 @@ int AQEMU_Main::main(int argc, char* argv[])
 
   if (service.wasCalled()) {
     if (service.isExternal())  // called the already running service
-    {
       return 0;
-    }
-    else if (service.successfulInit())  // became the service
+
+    if (service.successfulInit())  // became the service
     {
       if (service.machineCount() < 1)
         return 0;
-      else {
-        application->setQuitOnLastWindowClosed(false);
-        return application->exec();
-      }
+
+      application->setQuitOnLastWindowClosed(false);
+      return application->exec();
     }
-    else  //something went wrong while initializing service
-    {
-      return 1;
-    }
+
+    return 1;
   }
 
   service.setMainWindow(true);
