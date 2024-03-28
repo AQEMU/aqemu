@@ -61,7 +61,9 @@ class AQEMU_Main : public QObject
 
         std::unique_ptr<QSettings> settings;
         std::unique_ptr<QApplication> application;
+        // TODO: select in config QML or Widgets
         std::unique_ptr<Main_Window> window;
+        std::unique_ptr<QGuiApplication> app;
 };
 
 #endif

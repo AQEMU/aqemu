@@ -25,7 +25,10 @@
 #include <QDir>
 #include <QFile>
 #include <QFileDialog>
+#include <QGuiApplication>
 #include <QMessageBox>
+#include <QQmlApplicationEngine>
+#include <QQuickStyle>
 #include <QResource>
 #include <QTranslator>
 #include <QtDBus>
@@ -216,13 +219,40 @@ int AQEMU_Main::main_window()
   if (ret != 0)
     return ret;
 
-  // Show main window
+    // Show main window
+#ifdef QML_USE
+  QGuiApplication::setOrganizationName("AQEMU");
+  QGuiApplication::setOrganizationDomain("https://github.com/AQEMU/aqemu");
+  QGuiApplication::setApplicationName("AQEMU");
+  //QQuickStyle::setStyle(QStringLiteral("Default"));
+
+  app->setWindowIcon(QIcon(":/aqemu.png"));
+
+  // Startup
+  QQmlApplicationEngine engine;
+  QQuickStyle::setStyle("Basic");
+  engine.addImportPath("qrc:/modules");
+  engine.addImportPath(QCoreApplication::applicationDirPath() + "/qml/");
+
+  const QUrl url("qrc:/main.qml");
+  QObject::connect(
+      &engine, &QQmlApplicationEngine::objectCreated, &app,
+      [url](QObject* obj, const QUrl& objUrl) {
+        if (obj == nullptr && url == objUrl)
+          QCoreApplication::exit(-1);
+      },
+      Qt::QueuedConnection);
+  engine.load(url);
+
+  return QGuiApplication::exec();
+#else
   window = std::make_unique<Main_Window>();
   window->show();
 
   application->setWindowIcon(QIcon(":/aqemu.png"));
 
   return application->exec();
+#endif
 }
 
 void AQEMU_Main::load_language()

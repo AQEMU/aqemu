@@ -190,17 +190,19 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # Instruct CMake to run moc automatically when needed.
 set(CMAKE_AUTOMOC ON)
 # Instruct CMake to run uic automatically when needed.
-SET(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOUIC ON)
 # Instruct CMake to run rcc automatically when needed.
-SET(CMAKE_AUTORCC ON)
+set(CMAKE_AUTORCC ON)
 
 # Check Qt
-FIND_PACKAGE( Qt6Core REQUIRED )
-FIND_PACKAGE( Qt6Widgets REQUIRED )
-FIND_PACKAGE( Qt6Network REQUIRED )
-FIND_PACKAGE( Qt6Test REQUIRED )
-FIND_PACKAGE( Qt6PrintSupport REQUIRED )
-FIND_PACKAGE( Qt6DBus REQUIRED )
+find_package( Qt6Core REQUIRED )
+find_package( Qt6Qml REQUIRED )
+find_package( Qt6QuickControls2 REQUIRED )
+find_package( Qt6Widgets REQUIRED )
+find_package( Qt6Network REQUIRED )
+find_package( Qt6Test REQUIRED )
+find_package( Qt6PrintSupport REQUIRED )
+find_package( Qt6DBus REQUIRED )
 
 # Embedded VNC display
 IF( NOT WITHOUT_EMBEDDED_DISPLAY )
@@ -237,9 +239,11 @@ ADD_EXECUTABLE( aqemu
     ${aqemu_qrc}
 )
 
-target_include_directories(aqemu PUBLIC src/ )
+target_include_directories(aqemu PUBLIC src/ src/docopt/ )
 
 TARGET_LINK_LIBRARIES( aqemu
+    Qt6::Qml
+    Qt6::QuickControls2
     Qt6::Widgets
     Qt6::Network
     Qt6::Test
