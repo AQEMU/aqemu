@@ -496,14 +496,10 @@ bool System_Info::Update_VM_Computers_List()
   Machine_x86 << Device_Map(QObject::tr("Standard PC"), "pc");
   Machine_x86 << Device_Map(QObject::tr("ISA-only PC"), "isapc");
 
-  Machine_ARM << Device_Map(QObject::tr("Integrator/CP (ARM926EJ-S)"),
-                            "integratorcp926");
-  Machine_ARM << Device_Map(QObject::tr("Integrator/CP (ARM1026EJ-S)"),
-                            "integratorcp1026");
-  Machine_ARM << Device_Map(QObject::tr("Versatile/PB (ARM926EJ-S)"),
-                            "versatilepb");
-  Machine_ARM << Device_Map(QObject::tr("Versatile/AB (ARM926EJ-S)"),
-                            "versatileab");
+  Machine_ARM << Device_Map(QObject::tr("Integrator/CP (ARM926EJ-S)"), "integratorcp926");
+  Machine_ARM << Device_Map(QObject::tr("Integrator/CP (ARM1026EJ-S)"), "integratorcp1026");
+  Machine_ARM << Device_Map(QObject::tr("Versatile/PB (ARM926EJ-S)"), "versatilepb");
+  Machine_ARM << Device_Map(QObject::tr("Versatile/AB (ARM926EJ-S)"), "versatileab");
   Machine_ARM << Device_Map(QObject::tr("RealView (ARM926EJ-S)"), "realview");
 
   Machine_MIPS << Device_Map(QObject::tr("R4k platform"), "mips");
@@ -517,12 +513,9 @@ bool System_Info::Update_VM_Computers_List()
   Machine_Sparc << Device_Map(QObject::tr("SPARCstation 5 (Sun4m)"), "SS-5");
   Machine_Sparc << Device_Map(QObject::tr("SPARCstation 10 (Sun4m)"), "SS-10");
   Machine_Sparc << Device_Map(QObject::tr("SPARCstation 20 (Sun4m)"), "SS-20");
-  Machine_Sparc << Device_Map(QObject::tr("SPARCserver 600MP (Sun4m)"),
-                              "SS-600MP");
-  Machine_Sparc << Device_Map(QObject::tr("SPARCserver 1000 (Sun4d)"),
-                              "SS-1000");
-  Machine_Sparc << Device_Map(QObject::tr("SPARCcenter 2000 (Sun4d)"),
-                              "SS-2000");
+  Machine_Sparc << Device_Map(QObject::tr("SPARCserver 600MP (Sun4m)"), "SS-600MP");
+  Machine_Sparc << Device_Map(QObject::tr("SPARCserver 1000 (Sun4d)"), "SS-1000");
+  Machine_Sparc << Device_Map(QObject::tr("SPARCcenter 2000 (Sun4d)"), "SS-2000");
 
   // Net Cards
   Network_Card_x86 << Device_Map(QObject::tr("NE2000 PCI"), "ne2k_pci");
@@ -574,14 +567,10 @@ bool System_Info::Update_VM_Computers_List()
 
   // QEMU 0.10.0
   QList<Device_Map> QEMU_Video_Cards_v0_10_0;
-  QEMU_Video_Cards_v0_10_0 << Device_Map(QObject::tr("StdVGA (VESA 2.0)"),
-                                         "std");
-  QEMU_Video_Cards_v0_10_0 << Device_Map(QObject::tr("Cirrus CLGD 5446"),
-                                         "cirrus");
-  QEMU_Video_Cards_v0_10_0 << Device_Map(QObject::tr("VMWare Video Card"),
-                                         "vmware");
-  QEMU_Video_Cards_v0_10_0 << Device_Map(QObject::tr("None Video Card"),
-                                         "none");
+  QEMU_Video_Cards_v0_10_0 << Device_Map(QObject::tr("StdVGA (VESA 2.0)"), "std");
+  QEMU_Video_Cards_v0_10_0 << Device_Map(QObject::tr("Cirrus CLGD 5446"), "cirrus");
+  QEMU_Video_Cards_v0_10_0 << Device_Map(QObject::tr("VMWare Video Card"), "vmware");
+  QEMU_Video_Cards_v0_10_0 << Device_Map(QObject::tr("None Video Card"), "none");
 
   QList<Device_Map> CPU_x86_v0_10_0 = CPU_x86;
   CPU_x86_v0_10_0 << Device_Map(QObject::tr("Core Duo"), "coreduo");
@@ -621,45 +610,30 @@ bool System_Info::Update_VM_Computers_List()
   ad.CPU_List += CPU_ARM;
 
   QList<Device_Map> Machine_ARM_0_10_0;
-  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Integrator/CP (ARM926EJ-S)"),
-                                   "integratorcp");
-  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Versatile/PB (ARM926EJ-S)"),
-                                   "versatilepb");
-  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Versatile/AB (ARM926EJ-S)"),
-                                   "versatileab");
-  Machine_ARM_0_10_0 << Device_Map(QObject::tr("RealView (ARM926EJ-S)"),
-                                   "realview");
+  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Integrator/CP (ARM926EJ-S)"), "integratorcp");
+  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Versatile/PB (ARM926EJ-S)"), "versatilepb");
+  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Versatile/AB (ARM926EJ-S)"), "versatileab");
+  Machine_ARM_0_10_0 << Device_Map(QObject::tr("RealView (ARM926EJ-S)"), "realview");
   Machine_ARM_0_10_0 << Device_Map(QObject::tr("Akita PDA (PXA270)"), "akita");
   Machine_ARM_0_10_0 << Device_Map(QObject::tr("Spitz PDA (PXA270)"), "spitz");
-  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Borzoi PDA (PXA270)"),
-                                   "borzoi");
-  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Terrier PDA (PXA270)"),
-                                   "terrier");
+  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Borzoi PDA (PXA270)"), "borzoi");
+  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Terrier PDA (PXA270)"), "terrier");
 
-  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Siemens SX1 (OMAP310) V1"),
-                                   "sx1-v1");
-  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Siemens SX1 (OMAP310) V2"),
-                                   "sx1");
+  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Siemens SX1 (OMAP310) V1"), "sx1-v1");
+  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Siemens SX1 (OMAP310) V2"), "sx1");
 
-  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Palm Tungsten (OMAP310)"),
-                                   "cheetah");
+  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Palm Tungsten (OMAP310)"), "cheetah");
 
   Machine_ARM_0_10_0 << Device_Map(QObject::tr("Nokia N800"), "n800");
   Machine_ARM_0_10_0 << Device_Map(QObject::tr("Nokia N810"), "n810");
 
-  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Stellaris LM3S811EVB"),
-                                   "lm3s811evb");
-  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Stellaris LM3S6965EVB"),
-                                   "lm3s6965evb");
-  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Gumstix Connex (PXA255)"),
-                                   "connex");
-  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Gumstix Verdex (PXA270)"),
-                                   "verdex");
-  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Mainstone II (PXA27x)"),
-                                   "mainstone");
+  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Stellaris LM3S811EVB"), "lm3s811evb");
+  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Stellaris LM3S6965EVB"), "lm3s6965evb");
+  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Gumstix Connex (PXA255)"), "connex");
+  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Gumstix Verdex (PXA270)"), "verdex");
+  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Mainstone II (PXA27x)"), "mainstone");
 
-  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Marvell 88w8618 / MusicPal"),
-                                   "musicpal");
+  Machine_ARM_0_10_0 << Device_Map(QObject::tr("Marvell 88w8618 / MusicPal"), "musicpal");
   Machine_ARM_0_10_0 << Device_Map(QObject::tr("Tosa PDA (PXA255)"), "tosa");
 
   ad.Machine_List += Machine_ARM_0_10_0;
@@ -671,8 +645,7 @@ bool System_Info::Update_VM_Computers_List()
 
   ad = Available_Devices();
   ad.System = Device_Map("Cris", "qemu-system-cris");
-  ad.Machine_List << Device_Map(QObject::tr("Bare ETRAX FS board"),
-                                "bareetraxfs");
+  ad.Machine_List << Device_Map(QObject::tr("Bare ETRAX FS board"), "bareetraxfs");
   ad.Machine_List << Device_Map(QObject::tr("AXIS devboard 88"), "axis-dev88");
   ad.Network_Card_List << Device_Map(QObject::tr("fseth"), "fseth");
   ad.Video_Card_List += QEMU_Video_Cards_v0_10_0;
@@ -720,8 +693,7 @@ bool System_Info::Update_VM_Computers_List()
   MIPS_CPU_64Bit << Device_Map(QObject::tr("MIPS 5Kc"), "5Kc");
   MIPS_CPU_64Bit << Device_Map(QObject::tr("MIPS 5Kf"), "5Kf");
   MIPS_CPU_64Bit << Device_Map(QObject::tr("MIPS 20Kc"), "20Kc");
-  MIPS_CPU_64Bit << Device_Map(QObject::tr("MIPS MIPS64R2-generic"),
-                               "MIPS64R2-generic");
+  MIPS_CPU_64Bit << Device_Map(QObject::tr("MIPS MIPS64R2-generic"), "MIPS64R2-generic");
 
   ad = Available_Devices();
   ad.System = Device_Map("MIPS64", "qemu-system-mips64");
@@ -743,10 +715,8 @@ bool System_Info::Update_VM_Computers_List()
 
   ad = Available_Devices();
   ad.System = Device_Map("Microblaze", "qemu-system-microblaze");
-  ad.Machine_List << Device_Map(QObject::tr("Spartan 3ADSP1800"),
-                                "petalogix-s3adsp1800");
-  ad.Network_Card_List << Device_Map(QObject::tr("xilinx-ethlite"),
-                                     "xilinx-ethlite");
+  ad.Machine_List << Device_Map(QObject::tr("Spartan 3ADSP1800"), "petalogix-s3adsp1800");
+  ad.Network_Card_List << Device_Map(QObject::tr("xilinx-ethlite"), "xilinx-ethlite");
   ad.Video_Card_List += QEMU_Video_Cards_v0_10_0;
   System_Info::Emulator_QEMU_2_0["qemu-system-microblaze"] = ad;
 
@@ -758,10 +728,8 @@ bool System_Info::Update_VM_Computers_List()
 
   QList<Device_Map> Machine_PPC_0_10_0;
   Machine_PPC_0_10_0 << Device_Map(QObject::tr("Heathrow PowerMAC"), "g3beige");
-  Machine_PPC_0_10_0 << Device_Map(QObject::tr("Mac99 based PowerMAC"),
-                                   "mac99");
-  Machine_PPC_0_10_0 << Device_Map(QObject::tr("PowerPC PREP platform"),
-                                   "prep");
+  Machine_PPC_0_10_0 << Device_Map(QObject::tr("Mac99 based PowerMAC"), "mac99");
+  Machine_PPC_0_10_0 << Device_Map(QObject::tr("PowerPC PREP platform"), "prep");
   Machine_PPC_0_10_0 << Device_Map(QObject::tr("ref405ep"), "ref405ep");
   Machine_PPC_0_10_0 << Device_Map(QObject::tr("taihu"), "taihu");
   Machine_PPC_0_10_0 << Device_Map(QObject::tr("bamboo "), "bamboo ");
@@ -837,12 +805,10 @@ bool System_Info::Update_VM_Computers_List()
   // ad.CPU_List = CPU_Sparc; // FIXME sparc CPU's...
 
   ad.Machine_List += Machine_Sparc;
-  ad.Machine_List << Device_Map(QObject::tr("SPARCstation Voyager (Sun4m)"),
-                                "Voyager");
+  ad.Machine_List << Device_Map(QObject::tr("SPARCstation Voyager (Sun4m)"), "Voyager");
   ad.Machine_List << Device_Map(QObject::tr("SPARCstation LX (Sun4m)"), "LX");
   ad.Machine_List << Device_Map(QObject::tr("SPARCstation 4 (Sun4m)"), "SS-4");
-  ad.Machine_List << Device_Map(QObject::tr("SPARCClassic (Sun4m)"),
-                                "SPARCClassic");
+  ad.Machine_List << Device_Map(QObject::tr("SPARCClassic (Sun4m)"), "SPARCClassic");
   ad.Machine_List << Device_Map(QObject::tr("SPARCbook (Sun4m)"), "SPARCbook");
 
   ad.Network_Card_List += Network_Card_Sparc;
@@ -1114,8 +1080,7 @@ VM::Emulator_Version System_Info::Get_Emulator_Version(const QString& path)
 
   // QEMU
   // QRegExp emulVerRegExp = QRegExp( ".*version\\s+([\\d]+)[.]([\\d]+)[.]([\\d]+).*" );
-  auto emulVerRegExpNew =
-      QRegularExpression(".*version\\s+([\\d]+)[.]([\\d]+).*");
+  auto emulVerRegExpNew = QRegularExpression(".*version\\s+([\\d]+)[.]([\\d]+).*");
 
   if (!emulVerRegExpNew.match(line).hasMatch()) {
     AQError(
@@ -1156,9 +1121,7 @@ VM::Emulator_Version System_Info::Get_Emulator_Version(const QString& path)
       AQError(
           "VM::Emulator_Version System_Info::Get_Emulator_Version( const "
           "QString &path )",
-          QString("QEMU Version %1.%2 not defined!")
-              .arg(major_ver)
-              .arg(minor_ver));
+          QString("QEMU Version %1.%2 not defined!").arg(major_ver).arg(minor_ver));
       return VM::Obsolete;
     }
   }
@@ -1199,8 +1162,8 @@ QMap<QString, QString> System_Info::Find_QEMU_Binary_Files(const QString& path)
   }
 
   // Find
-  QString dirPath = QDir::toNativeSeparators(
-      (path.endsWith("/") || path.endsWith("\\")) ? path : path + "/");
+  QString dirPath =
+      QDir::toNativeSeparators((path.endsWith("/") || path.endsWith("\\")) ? path : path + "/");
 
   QMap<QString, QString>::iterator iter = emulFiles.begin();
   while (iter != emulFiles.end()) {
@@ -1257,17 +1220,14 @@ QMap<QString, QString> System_Info::Find_KVM_Binary_Files( const QString &path )
 QString System_Info::Find_IMG(const QStringList& paths)
 {
   if (paths.isEmpty()) {
-    AQError("static QString System_Info::Find_IMG( const QStringList &paths )",
-            "paths.isEmpty()");
+    AQError("static QString System_Info::Find_IMG( const QStringList &paths )", "paths.isEmpty()");
     return "";
   }
 
   // Find qemu-img or kvm-img
   for (int ix = 0; ix < paths.count(); ++ix) {
     QString dirPath = QDir::toNativeSeparators(
-        (paths[ix].endsWith("/") || paths[ix].endsWith("\\"))
-            ? paths[ix]
-            : paths[ix] + "/");
+        (paths[ix].endsWith("/") || paths[ix].endsWith("\\")) ? paths[ix] : paths[ix] + "/");
 
     if (QFile::exists(dirPath + "qemu-img"))
       return dirPath + "qemu-img";
@@ -1801,8 +1761,7 @@ Available_Devices System_Info::Get_Emulator_Info(const QString& path, bool* ok,
   if (rx.match(all_help).hasMatch())
     tmp_dev.PSO_SMB = true;
 
-  if (tmp_dev.PSO_Net_smb ==
-      true) {  // hack, all this code should probably be rewritten or removed
+  if (tmp_dev.PSO_Net_smb == true) {  // hack, all this code should probably be rewritten or removed
     // but in the meantime this hopefully makes things work
     tmp_dev.PSO_SMB = true;
   }
@@ -1877,9 +1836,9 @@ Available_Devices System_Info::Get_Emulator_Info(const QString& path, bool* ok,
     QStringList regExpVariants;
     regExpVariants
         << ".*x86\\s+([\\w-]+).*|.*x86\\s+\\[([\\w-]+)\\].*"  // x86 pentium3 | x86 [core2duo]
-        << ".*PowerPC\\s+(.*)\\s+PVR.*"  // PowerPC 750 PVR 00080301
-        << ".*MIPS\\s+\\'(.*)\\'.*"      // MIPS '4Kc'
-        << ".*\\s*([\\w-]+).*";          // cortex-a9
+        << ".*PowerPC\\s+(.*)\\s+PVR.*"                       // PowerPC 750 PVR 00080301
+        << ".*MIPS\\s+\\'(.*)\\'.*"                           // MIPS '4Kc'
+        << ".*\\s*([\\w-]+).*";                               // cortex-a9
 
     // Get QEMU ID String
     for (int lx = 0; lx < regExpVariants.count(); ++lx) {
@@ -1932,8 +1891,7 @@ Available_Devices System_Info::Get_Emulator_Info(const QString& path, bool* ok,
         "Available_Devices System_Info::Get_Emulator_Info( const QString "
         "&path, bool *ok,"
         "VM::Emulator_Version version, const QString &internalName )",
-        QString("Cannot get CPU's info from emulator \"%1\". Use default list")
-            .arg(path));
+        QString("Cannot get CPU's info from emulator \"%1\". Use default list").arg(path));
   }
 
   // Get Machines Models
@@ -1994,9 +1952,7 @@ Available_Devices System_Info::Get_Emulator_Info(const QString& path, bool* ok,
         "Available_Devices System_Info::Get_Emulator_Info( const QString "
         "&path, bool *ok,"
         "VM::Emulator_Version version, const QString &internalName )",
-        QString(
-            "Cannot get machines info from emulator \"%1\". Use default list")
-            .arg(path));
+        QString("Cannot get machines info from emulator \"%1\". Use default list").arg(path));
   }
 
   // -vga
@@ -2015,9 +1971,8 @@ Available_Devices System_Info::Get_Emulator_Info(const QString& path, bool* ok,
   if (rx.match(vga_list_string).hasMatch()) {
     // Parse vga devices list string
     if (rx.match(vga_list_string).capturedTexts().count() > 1) {
-      QStringList vga_devices_list = rx.match(vga_list_string)
-                                         .capturedTexts()[1]
-                                         .split("|", Qt::SkipEmptyParts);
+      QStringList vga_devices_list =
+          rx.match(vga_list_string).capturedTexts()[1].split("|", Qt::SkipEmptyParts);
 
       if (vga_devices_list.isEmpty()) {
         AQError(
@@ -2032,8 +1987,7 @@ Available_Devices System_Info::Get_Emulator_Info(const QString& path, bool* ok,
           bool vga_found = false;
 
           for (int ix = 0; ix < default_device.Video_Card_List.count(); ix++) {
-            if (vga_devices_list[gx] ==
-                default_device.Video_Card_List[ix].QEMU_Name) {
+            if (vga_devices_list[gx] == default_device.Video_Card_List[ix].QEMU_Name) {
               tmp_dev.Video_Card_List << default_device.Video_Card_List[ix];
               vga_found = true;
             }
@@ -2041,8 +1995,7 @@ Available_Devices System_Info::Get_Emulator_Info(const QString& path, bool* ok,
 
           // No this device name in default list
           if (vga_found == false)
-            tmp_dev.Video_Card_List
-                << Device_Map(vga_devices_list[gx], vga_devices_list[gx]);
+            tmp_dev.Video_Card_List << Device_Map(vga_devices_list[gx], vga_devices_list[gx]);
         }
       }
     }
@@ -2072,8 +2025,7 @@ Available_Devices System_Info::Get_Emulator_Info(const QString& path, bool* ok,
       break;
 
     // This description?
-    if (tmp.isEmpty() || tmp.startsWith("Valid sound card names") ||
-        tmp.startsWith("-soundhw") ||
+    if (tmp.isEmpty() || tmp.startsWith("Valid sound card names") || tmp.startsWith("-soundhw") ||
         tmp.indexOf(QRegularExpression("/^\\S+$/"), 0) != -1)
       continue;
 
@@ -2136,8 +2088,7 @@ Available_Devices System_Info::Get_Emulator_Info(const QString& path, bool* ok,
       continue;
 
     // Get all models string
-    QString all_models =
-        tmp.mid(tmp.indexOf("models:") + QString("models:").size(), tmp.size());
+    QString all_models = tmp.mid(tmp.indexOf("models:") + QString("models:").size(), tmp.size());
     all_models.remove(QChar(' '));  // Remove all spaces
 
     QStringList net_cards_models = all_models.split(',', Qt::SkipEmptyParts);
@@ -2176,15 +2127,12 @@ Available_Devices System_Info::Get_Emulator_Info(const QString& path, bool* ok,
 
   // No Cards... Set Default List
   if (tmp_dev.Network_Card_List.count() < 2) {
-    tmp_dev.Network_Card_List =
-        default_device.Network_Card_List;  // FIXME Emul Version
+    tmp_dev.Network_Card_List = default_device.Network_Card_List;  // FIXME Emul Version
     AQWarning(
         "Available_Devices System_Info::Get_Emulator_Info( const QString "
         "&path, bool *ok,"
         "VM::Emulator_Version version, const QString &internalName )",
-        QString(
-            "Cannot get net cards info from emulator \"%1\". Use default list")
-            .arg(path));
+        QString("Cannot get net cards info from emulator \"%1\". Use default list").arg(path));
   }
 
   // Return info
@@ -2216,8 +2164,7 @@ QString System_Info::Get_Emulator_Help_Output(const QString& path)
   return result;
 }
 
-QString System_Info::Get_Emulator_Output(const QString& path,
-                                         const QStringList& args)
+QString System_Info::Get_Emulator_Output(const QString& path, const QStringList& args)
 {
   QProcess* qemu_pr = new QProcess();
 
@@ -2227,17 +2174,14 @@ QString System_Info::Get_Emulator_Output(const QString& path,
     AQError(
         "QStringList System_Info::Get_Emulator_Output( const QString &path, "
         "const QStringList &args )",
-        QString("Time left. File: \"%1\" Args: \"%1\"")
-            .arg(path)
-            .arg(args.join(" ")));
+        QString("Time left. File: \"%1\" Args: \"%1\"").arg(path).arg(args.join(" ")));
 
     qemu_pr->kill();
     return QString();
   }
 
   QString result = qemu_pr->readAllStandardOutput();
-  result +=
-      qemu_pr->readAllStandardError();  // readAll() not read cerr messages...
+  result += qemu_pr->readAllStandardError();  // readAll() not read cerr messages...
   delete qemu_pr;
 
   return result;
@@ -2303,14 +2247,12 @@ bool System_Info::Scan_USB_Sys(QList<VM_USB>& list)
   QDir dir("/sys/bus/usb/devices/");
 
   QStringList usb_dirs;
-  QStringList all_usb_dirs =
-      dir.entryList(QStringList("*"), QDir::Dirs, QDir::Name);
+  QStringList all_usb_dirs = dir.entryList(QStringList("*"), QDir::Dirs, QDir::Name);
 
   // add only unique usb device folders
-  auto re_usbNum = QRegularExpression("^usb\\d+$");      // like: usb5
-  auto re_NumNum = QRegularExpression("^\\d+[-]\\d+$");  // like: 1-2
-  auto re_NumNumNum =
-      QRegularExpression("^\\d+[-]\\d+[.]\\d+$");  // like: 1-2.1
+  auto re_usbNum = QRegularExpression("^usb\\d+$");                // like: usb5
+  auto re_NumNum = QRegularExpression("^\\d+[-]\\d+$");            // like: 1-2
+  auto re_NumNumNum = QRegularExpression("^\\d+[-]\\d+[.]\\d+$");  // like: 1-2.1
 
   foreach (QString cur_dir, all_usb_dirs) {
     if (re_usbNum.match(cur_dir).hasMatch())
@@ -2487,8 +2429,7 @@ bool System_Info::Scan_USB_Proc(QList<VM_USB>& list)
         line = in.readLine();
 
         if (line.startsWith("P:") || line.startsWith("S:  Manufacturer") ||
-            line.startsWith("S:  Product") ||
-            line.startsWith("S:  SerialNumber"))
+            line.startsWith("S:  Product") || line.startsWith("S:  SerialNumber"))
           tmp_str << line;
         else if (line.startsWith("E:"))
           break;
@@ -2510,12 +2451,11 @@ bool System_Info::Scan_USB_Proc(QList<VM_USB>& list)
   }
 
   // T:  Bus=01 Lev=00 Prnt=00 Port=00 Cnt=00 Dev#=  1 Spd=480 MxCh= 6
-  auto busAddr = QRegularExpression(
-      "T:[\\s]+Bus=([\\d]{2}).+Dev#=[\\s]*([\\d]+).+Spd=([\\d]{1,3}).*");
+  auto busAddr =
+      QRegularExpression("T:[\\s]+Bus=([\\d]{2}).+Dev#=[\\s]*([\\d]+).+Spd=([\\d]{1,3}).*");
 
   // P:  Vendor=0123 ProdID=abcd Rev= 0.01
-  auto idHex = QRegularExpression(
-      "P:[\\s]+Vendor=([\\dabcdef]{4})[\\s]+ProdID=([\\dabcdef]{4}).+");
+  auto idHex = QRegularExpression("P:[\\s]+Vendor=([\\dabcdef]{4})[\\s]+ProdID=([\\dabcdef]{4}).+");
 
   // S:  Manufacturer=Mega Cool Manufacturer
   auto manufacturer = QRegularExpression("S:[\\s]+Manufacturer=(.+)");
@@ -2564,14 +2504,12 @@ bool System_Info::Scan_USB_Proc(QList<VM_USB>& list)
 
       if (manufacturer_list.count() <= 0) {
         if (manufacturer.match(linux_usb_dev[ix][bx]).hasMatch()) {
-          manufacturer_list =
-              manufacturer.match(linux_usb_dev[ix][bx]).capturedTexts();
+          manufacturer_list = manufacturer.match(linux_usb_dev[ix][bx]).capturedTexts();
           continue;
         }
         else {
-          AQError(
-              "bool System_Info::Scan_USB_Proc( QList<VM_USB> &list )",
-              "Cannot Match manufacturer! String: " + linux_usb_dev[ix][bx]);
+          AQError("bool System_Info::Scan_USB_Proc( QList<VM_USB> &list )",
+                  "Cannot Match manufacturer! String: " + linux_usb_dev[ix][bx]);
         }
       }
 
@@ -2588,14 +2526,12 @@ bool System_Info::Scan_USB_Proc(QList<VM_USB>& list)
 
       if (serialNumber_list.count() <= 0) {
         if (serialNumber.match(linux_usb_dev[ix][bx]).hasMatch()) {
-          serialNumber_list =
-              serialNumber.match(linux_usb_dev[ix][bx]).capturedTexts();
+          serialNumber_list = serialNumber.match(linux_usb_dev[ix][bx]).capturedTexts();
           continue;
         }
         else {
-          AQError(
-              "bool System_Info::Scan_USB_Proc( QList<VM_USB> &list )",
-              "Cannot Match serialNumber! String: " + linux_usb_dev[ix][bx]);
+          AQError("bool System_Info::Scan_USB_Proc( QList<VM_USB> &list )",
+                  "Cannot Match serialNumber! String: " + linux_usb_dev[ix][bx]);
         }
       }
     }
@@ -2617,9 +2553,8 @@ bool System_Info::Scan_USB_Proc(QList<VM_USB>& list)
         }
 
         if (busAddr_list.count() >= 3) {
-          QString busStr = (busAddr_list[1][0] == '0')
-                               ? QString(busAddr_list[1][1])
-                               : busAddr_list[1];
+          QString busStr =
+              (busAddr_list[1][0] == '0') ? QString(busAddr_list[1][1]) : busAddr_list[1];
           tmp_usb.Set_Bus(busStr);
           tmp_usb.Set_Addr(busAddr_list[2]);
           // FIXME add usb device path also
@@ -2661,8 +2596,7 @@ void System_Info::Get_Free_Memory_Size(int& allRAM, int& freeRAM)
       all_mem = free_mem = cached_mem = buf_mem = -1;
 
       while (!line.isNull()) {
-        if ((all_mem != -1) && (free_mem != -1) && (cached_mem != -1) &&
-            (buf_mem != -1)) {
+        if ((all_mem != -1) && (free_mem != -1) && (cached_mem != -1) && (buf_mem != -1)) {
           allRAM = (int)(all_mem / 1024.0);
           freeRAM = (int)((free_mem + cached_mem + buf_mem) / 1024.0);
           return;  // exit this
@@ -2734,10 +2668,8 @@ void System_Info::Get_Free_Memory_Size(int& allRAM, int& freeRAM)
   struct sysinfo sysInfo;
   sysinfo(&sysInfo);
 
-  allRAM = (int)(unsigned long)(sysInfo.totalram * sysInfo.mem_unit) / 1024.0 /
-           1024.0;
-  freeRAM = (int)(unsigned long)((sysInfo.freeram + sysInfo.bufferram) *
-                                 sysInfo.mem_unit) /
+  allRAM = (int)(unsigned long)(sysInfo.totalram * sysInfo.mem_unit) / 1024.0 / 1024.0;
+  freeRAM = (int)(unsigned long)((sysInfo.freeram + sysInfo.bufferram) * sysInfo.mem_unit) /
             1024.0 / 1024.0;
 }
 
@@ -2745,8 +2677,7 @@ QStringList System_Info::Get_Host_FDD_List()
 {
   // Find Floppy's
   QDir dev_dir("/dev/");
-  QFileInfoList devices =
-      dev_dir.entryInfoList(QStringList("fd*"), QDir::System, QDir::Name);
+  QFileInfoList devices = dev_dir.entryInfoList(QStringList("fd*"), QDir::System, QDir::Name);
 
   QStringList tmp_list;
 
@@ -2766,8 +2697,7 @@ QStringList System_Info::Get_Host_CDROM_List()
   name_filters << "cdrom*"
                << "sr*";
 
-  QFileInfoList devices =
-      dev_dir.entryInfoList(name_filters, QDir::System, QDir::Name);
+  QFileInfoList devices = dev_dir.entryInfoList(name_filters, QDir::System, QDir::Name);
 
   QStringList tmp_list;
 
@@ -2777,15 +2707,11 @@ QStringList System_Info::Get_Host_CDROM_List()
 
   // Additional CDROM Devices (This Added By User)
   QSettings settings;
-  int cdrom_count =
-      settings.value("Additional_CDROM_Devices/Count", "0").toString().toInt();
+  int cdrom_count = settings.value("Additional_CDROM_Devices/Count", "0").toString().toInt();
 
   for (int ix = 0; ix < cdrom_count; ix++) {
-    tmp_list << settings
-                    .value(
-                        "Additional_CDROM_Devices/Device" + QString::number(ix),
-                        "")
-                    .toString();
+    tmp_list
+        << settings.value("Additional_CDROM_Devices/Device" + QString::number(ix), "").toString();
   }
 
   return tmp_list;
@@ -2804,31 +2730,22 @@ void System_Info::Get_Free_Memory_Size(int& allRAM, int& freeRAM)
   size_t all_ram = 0, free_ram = 0, cached_mem = 0;
   size_t len = sizeof(all_ram);
 
-  if ((sysctlbyname("vm.stats.vm.v_page_count", &all_ram, &len, NULL, 0) ==
-       -1) ||
-      !len) {
+  if ((sysctlbyname("vm.stats.vm.v_page_count", &all_ram, &len, NULL, 0) == -1) || !len) {
     all_ram = 0;
-    AQError(
-        "void  System_Info::Get_Free_Memory_Size( int &allRAM, int &freeRAM )",
-        "Cannot Get Information on Memory! (vm.stats.vm.v_page_count)");
+    AQError("void  System_Info::Get_Free_Memory_Size( int &allRAM, int &freeRAM )",
+            "Cannot Get Information on Memory! (vm.stats.vm.v_page_count)");
   }
 
-  if ((sysctlbyname("vm.stats.vm.v_free_count", &free_ram, &len, NULL, 0) ==
-       -1) ||
-      !len) {
+  if ((sysctlbyname("vm.stats.vm.v_free_count", &free_ram, &len, NULL, 0) == -1) || !len) {
     free_ram = 0;
-    AQError(
-        "void  System_Info::Get_Free_Memory_Size( int &allRAM, int &freeRAM )",
-        "Cannot Get Information on Memory! (vm.stats.vm.v_free_count)");
+    AQError("void  System_Info::Get_Free_Memory_Size( int &allRAM, int &freeRAM )",
+            "Cannot Get Information on Memory! (vm.stats.vm.v_free_count)");
   }
 
-  if ((sysctlbyname("vm.stats.vm.v_cache_count", &cached_mem, &len, NULL, 0) ==
-       -1) ||
-      !len) {
+  if ((sysctlbyname("vm.stats.vm.v_cache_count", &cached_mem, &len, NULL, 0) == -1) || !len) {
     cached_mem = 0;
-    AQError(
-        "void  System_Info::Get_Free_Memory_Size( int &allRAM, int &freeRAM )",
-        "Cannot Get Information on Memory! (vm.stats.vm.v_cache_count)");
+    AQError("void  System_Info::Get_Free_Memory_Size( int &allRAM, int &freeRAM )",
+            "Cannot Get Information on Memory! (vm.stats.vm.v_cache_count)");
   }
 
   int page_size = getpagesize();
@@ -2845,8 +2762,7 @@ QStringList System_Info::Get_Host_FDD_List()
 {
   // Find Floppy's
   QDir dev_dir("/dev/fd/");
-  QFileInfoList devices =
-      dev_dir.entryInfoList(QStringList("*"), QDir::System, QDir::Name);
+  QFileInfoList devices = dev_dir.entryInfoList(QStringList("*"), QDir::System, QDir::Name);
 
   QStringList tmp_list;
 
@@ -2861,8 +2777,7 @@ QStringList System_Info::Get_Host_CDROM_List()
 {
   // Find CD-ROM's
   QDir dev_dir("/dev/");
-  QFileInfoList devices =
-      dev_dir.entryInfoList(QStringList("acd*"), QDir::System, QDir::Name);
+  QFileInfoList devices = dev_dir.entryInfoList(QStringList("acd*"), QDir::System, QDir::Name);
 
   QStringList tmp_list;
 
@@ -2901,23 +2816,21 @@ void System_Info::Get_Free_Memory_Size(int& allRAM, int& freeRAM)
   size_t length;
   length = sizeof(page_size);
   if (sysctl(mib, 2, &page_size, &length, NULL, 0) < 0) {
-    AQError(
-        "void  System_Info::Get_Free_Memory_Size( int &allRAM, int &freeRAM )",
-        "Cannot Get Memory Pagesize! (sysctl)");
+    AQError("void  System_Info::Get_Free_Memory_Size( int &allRAM, int &freeRAM )",
+            "Cannot Get Memory Pagesize! (sysctl)");
   }
 
   mach_msg_type_number_t count = HOST_VM_INFO_COUNT;
 
   vm_statistics_data_t vmstat;
-  if (host_statistics(mach_host_self(), HOST_VM_INFO, (host_info_t)&vmstat,
-                      &count) != KERN_SUCCESS) {
-    AQError(
-        "void  System_Info::Get_Free_Memory_Size( int &allRAM, int &freeRAM )",
-        "Cannot Get Information on Memory! (host_statistics)");
+  if (host_statistics(mach_host_self(), HOST_VM_INFO, (host_info_t)&vmstat, &count) !=
+      KERN_SUCCESS) {
+    AQError("void  System_Info::Get_Free_Memory_Size( int &allRAM, int &freeRAM )",
+            "Cannot Get Information on Memory! (host_statistics)");
   }
 
-  double all_ram = vmstat.wire_count + vmstat.active_count +
-                   vmstat.inactive_count + vmstat.free_count;
+  double all_ram =
+      vmstat.wire_count + vmstat.active_count + vmstat.inactive_count + vmstat.free_count;
   double free_ram = vmstat.free_count;
   double cached_ram = vmstat.inactive_count;
 
@@ -2933,8 +2846,7 @@ QStringList System_Info::Get_Host_FDD_List()
 {
   // Find Floppy's
   QDir dev_dir("/dev/fd/");
-  QFileInfoList devices =
-      dev_dir.entryInfoList(QStringList("*"), QDir::System, QDir::Name);
+  QFileInfoList devices = dev_dir.entryInfoList(QStringList("*"), QDir::System, QDir::Name);
 
   QStringList tmp_list;
 
@@ -2949,8 +2861,7 @@ QStringList System_Info::Get_Host_CDROM_List()
 {
   // Find CD-ROM's
   QDir dev_dir("/dev/");
-  QFileInfoList devices =
-      dev_dir.entryInfoList(QStringList("acd*"), QDir::System, QDir::Name);
+  QFileInfoList devices = dev_dir.entryInfoList(QStringList("acd*"), QDir::System, QDir::Name);
 
   QStringList tmp_list;
 
@@ -2987,9 +2898,9 @@ void System_Info::Get_Free_Memory_Size(size_t& allRAM, size_t& freeRAM)
 QStringList System_Info::Get_Host_FDD_List()
 {
   DWORD len = GetLogicalDriveStrings(0, NULL);
-  TCHAR* buf = new TCHAR[len];
+  std::unique_ptr<TCHAR[]> buf(new TCHAR[len]);
   int buf_size = sizeof(buf) / sizeof(TCHAR);
-  GetLogicalDriveStrings(buf_size, buf);
+  GetLogicalDriveStrings(buf_size, buf.get());
 
   QStringList ret_list;
   QString tmp = "";
@@ -2998,10 +2909,9 @@ QStringList System_Info::Get_Host_FDD_List()
       tmp += (char)buf[ix];
     }
     else {
-      WCHAR* w = new WCHAR[tmp.size()];
-      tmp.toWCharArray(w);
-      UINT uDriveType = GetDriveType(w);
-      delete[] w;
+      std::unique_ptr<WCHAR> w(new WCHAR[tmp.size()]);
+      tmp.toWCharArray(w.get());
+      UINT uDriveType = GetDriveType(w.get());
 
       if (uDriveType == DRIVE_REMOVABLE) {
         ret_list << tmp;
@@ -3010,7 +2920,6 @@ QStringList System_Info::Get_Host_FDD_List()
       tmp = "";
     }
   }
-  delete[] buf;
 
   return ret_list;
 }
