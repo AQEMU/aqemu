@@ -1,10 +1,10 @@
 # meson.build is a fast and furious build system
 # minimum meson version required for best results: 0.32.0
 
-project('aqemu', 'cpp', default_options : ['cpp_std=c++11', 'warning_level=3'])
+project('aqemu', 'cpp', default_options : ['cpp_std=c++17', 'warning_level=3'])
 
-qt5 = import('qt5')
-qt5dep = dependency('qt5', modules : ['Core', 'Gui', 'Widgets', 'Network', 'Test', 'PrintSupport', 'DBus'])
+qt6 = import('qt6')
+qt6dep = dependency('qt6', modules : ['Core', 'Gui', 'Widgets', 'Network', 'Test', 'PrintSupport', 'DBus'])
 vncclient = dependency('libvncclient')
 
 incdir = include_directories('src')
@@ -158,7 +158,7 @@ aqemu_ui =         ['src/No_Boot_Device.ui',
                     'src/VM_Wizard_Window.ui',
                     'src/VNC_Password_Window.ui']
 
-prep = qt5.preprocess(
+prep = qt6.preprocess(
                     moc_headers : aqemu_headers,
                     ui_files : aqemu_ui,
                     qresources : aqemu_resources,
@@ -166,7 +166,7 @@ prep = qt5.preprocess(
 
 q5exe = executable('aqemu',
                     sources : [aqemu_sources, prep],
-                    dependencies : [qt5dep, vncclient],
+                    dependencies : [qt6dep, vncclient],
                     include_directories : incdir, install : true)
 
 install_man('resources/docs/aqemu.1')
@@ -184,5 +184,5 @@ install_data('resources/menu_data/aqemu.png', install_dir : 'share/pixmaps')
 install_data('resources/menu_data/aqemu.desktop', install_dir : 'share/applications')
 install_data('resources/menu_data/aqemu.appdata.xml', install_dir : 'share/appdata')
 
-# TODO: qt5 translations
+# TODO: qt6 translations
 
