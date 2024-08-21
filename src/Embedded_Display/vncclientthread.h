@@ -102,7 +102,7 @@ public:
 
     explicit VncClientThread(QObject *parent = nullptr);
     ~VncClientThread() override;
-    const QImage image(int x = 0, int y = 0, int w = 0, int h = 0);
+    QImage image(int x = 0, int y = 0, int w = 0, int h = 0);
     void setImage(const QImage &img);
     void emitUpdated(int x, int y, int w, int h);
     void emitGotCut(const QString &text);
@@ -113,13 +113,13 @@ public:
     void setPassword(const QString &password) {
         m_password = password;
     }
-    const QString password() const {
+    QString password() const {
         return m_password;
     }
     void setUsername(const QString &username) {
         m_username = username;
     }
-    const QString username() const {
+    QString username() const {
         return m_username;
     }
 

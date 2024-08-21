@@ -68,7 +68,7 @@ namespace TinyXML2QDomWrapper {
             QList<QDomElement> childNodes();
             bool hasAttribute(const QString&);
             QString attribute(const QString&);
-            const QString text() const;
+            QString text() const;
             bool isNull();
             QString tagName();
         private:

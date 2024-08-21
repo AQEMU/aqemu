@@ -133,7 +133,7 @@ QString QDomElement::attribute(const QString& s)
     return QString("");
 }
 
-const QString QDomElement::text() const
+QString QDomElement::text() const
 {
   if (element)
     return element->GetText();

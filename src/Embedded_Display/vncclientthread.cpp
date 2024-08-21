@@ -424,7 +424,7 @@ void VncClientThread::setImage(const QImage &img)
     m_image = img;
 }
 
-const QImage VncClientThread::image(int x, int y, int w, int h)
+QImage VncClientThread::image(int x, int y, int w, int h)
 {
     QMutexLocker locker(&mutex);
 
