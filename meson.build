@@ -4,7 +4,7 @@
 project('aqemu', 'cpp', default_options : ['cpp_std=c++17', 'warning_level=3'])
 
 qt6 = import('qt6')
-qt6dep = dependency('qt6', modules : ['Core', 'Gui', 'Widgets', 'Network', 'Test', 'PrintSupport', 'DBus'])
+qt6dep = dependency('qt6', modules : ['Qml', 'QuickControls2', 'Core', 'Gui', 'Widgets', 'Network', 'Test', 'PrintSupport', 'DBus'])
 vncclient = dependency('libvncclient')
 
 incdir = include_directories('src')
