@@ -2577,7 +2577,7 @@ bool System_Info::Scan_USB_Proc(QList<VM_USB>& list)
 #include <QDir>
 #include <QFileInfoList>
 
-void System_Info::Get_Free_Memory_Size(int& allRAM, int& freeRAM)
+void System_Info::Get_Free_Memory_Size(size_t& allRAM, size_t& freeRAM)
 {
   // proc fs is exists?
   if (QFile::exists("/proc/meminfo")) {
@@ -2585,7 +2585,7 @@ void System_Info::Get_Free_Memory_Size(int& allRAM, int& freeRAM)
 
     if (!proc_file.open(QIODevice::ReadOnly | QIODevice::Text)) {
       AQDebug("int System_Info::Get_Free_Memory_Size()",
-              "void System_Info::Get_Free_Memory_Size( int &allRAM, int "
+              "void System_Info::Get_Free_Memory_Size( size_t &allRAM, size_t "
               "&freeRAM )");
     }
     else {

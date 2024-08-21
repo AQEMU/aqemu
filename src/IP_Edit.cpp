@@ -74,7 +74,7 @@ void CustomLineEdit::keyPressEvent(QKeyEvent* event)
   }
 
   // Jump forward from last postion by right arrow
-  if (cursorPos == text().count()) {
+  if (cursorPos == text().length()) {
     if (key == Qt::Key_Right) {
       emit jumpForward();
       event->accept();
