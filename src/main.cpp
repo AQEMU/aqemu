@@ -330,7 +330,7 @@ void AQEMU_Main::upgrade_settings()
           QObject::tr("AQEMU will search for emulators after uptating. Please wait."),
           QMessageBox::Ok);
 
-      std::unique_ptr<First_Start_Wizard> first_start_win(new First_Start_Wizard(NULL));
+      auto first_start_win = std::make_unique<First_Start_Wizard>(nullptr);
 
       if (first_start_win->Find_Emulators())
         AQDebug("int main( int argc, char *argv[] )", "Find Emulators and Save Settings Complete");
