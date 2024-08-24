@@ -231,9 +231,9 @@ bool AQEMU_Service::init_service()
 QString AQEMU_Service::start(const QString& s)
 {
   QSettings settings;
-  QString vm_dir = QDir::toNativeSeparators(
+  const auto& vm_dir = QDir::toNativeSeparators(
       settings.value("VM_Directory", QDir::homePath() + "/.aqemu/").toString());
-  QString vm_file = vm_dir + s + ".aqemu";
+  const auto& vm_file = vm_dir + s + ".aqemu";
 
   bool success = false;
 
@@ -246,9 +246,10 @@ QString AQEMU_Service::start(const QString& s)
 
     if (QFileInfo(vm_file).exists())
       vm->Load_VM(vm_file);
-    else
-      return QString("VM \"%1\" could not be started. No such VM found.")
-          .arg(s);
+    else {
+      delete vm;
+      return QString("VM \"%1\" could not be started. No such VM found.").arg(s);
+    }
   }
 
   if (vm->Start()) {

@@ -3666,7 +3666,7 @@ Voulez-vous voir ce message la prochaine fois ?</translation>
     <name>First_Start_Wizard</name>
     <message>
         <location filename="First_Start_Wizard.ui" line="14"/>
-        <source>First Start Wizard</source>
+        <source>Initial Setup</source>
         <translation>Premier démarrage de l&apos;assistant</translation>
     </message>
     <message>

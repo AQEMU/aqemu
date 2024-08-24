@@ -3609,7 +3609,7 @@ Do you want to show this message again?</source>
     <name>First_Start_Wizard</name>
     <message>
         <location filename="First_Start_Wizard.ui" line="14"/>
-        <source>First Start Wizard</source>
+        <source>Initial Setup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

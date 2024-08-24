@@ -4085,7 +4085,7 @@ Push the &quot;Next&quot; button to go to next page or &quot;Back&quot; button t
     </message>
     <message>
         <location filename="First_Start_Wizard.ui" line="14"/>
-        <source>First Start Wizard</source>
+        <source>Initial Setup</source>
         <translation>Мастер первого запуска</translation>
     </message>
     <message>

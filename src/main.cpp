@@ -276,9 +276,9 @@ void AQEMU_Main::first_start_wizard()
     First_Start_Wizard first_start_win(NULL);
 
     if (first_start_win.exec() == QDialog::Accepted)
-      AQDebug("int main( int argc, char *argv[] )", "First Start Wizard Complete");
+      AQDebug("int main( int argc, char *argv[] )", "'Initial Setup' Complete");
     else
-      AQWarning("int main( int argc, char *argv[] )", "First Start Wizard Canceled!");
+      AQWarning("int main( int argc, char *argv[] )", "'Initial Setup' Canceled!");
   }
 }
 

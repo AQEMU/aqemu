@@ -228,6 +228,8 @@ void First_Start_Wizard::on_Button_Find_Emulators_clicked()
       // Find QEMU
       QList<Emulator> qemuEmulatorsList;
 
+      // TODO: Fix blank black screens in searching stage (if clicked on Search button)
+
       for (int qx = 0; qx < paths.count(); ++qx) {
         QMap<QString, QString> qemu_list =
             System_Info::Find_QEMU_Binary_Files(paths[qx]);
