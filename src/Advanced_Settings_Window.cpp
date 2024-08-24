@@ -1107,7 +1107,7 @@ bool Advanced_Settings_Window::Save_Emulators_Info()
   }
 
   // Save new files
-  for (int ix = 0; ix < Emulators.count(); ++ix) {
+  for (qsizetype ix = 0; ix < Emulators.count(); ++ix) {
     if (!Emulators[ix].Save()) {
       AQGraphic_Warning(
           tr("Error!"),

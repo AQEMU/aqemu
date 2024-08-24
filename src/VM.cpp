@@ -1670,7 +1670,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name, bool template_mod
     Dom_Text = New_Dom_Document.createTextNode(QString::number(Snapshots.count()));
     Dom_Element.appendChild(Dom_Text);
 
-    for (int sx = 0; sx < Snapshots.count(); ++sx) {
+    for (qsizetype sx = 0; sx < Snapshots.count(); ++sx) {
       Dom_Element = New_Dom_Document.createElement("Snapshot_" + QString::number(sx));
 
       // Tag
@@ -1913,7 +1913,7 @@ bool Virtual_Machine::Create_VM_File(const QString& file_name, bool template_mod
     Dom_Text = New_Dom_Document.createTextNode(QString::number(Network_Cards_Native.count()));
     Dom_Element.appendChild(Dom_Text);
 
-    for (int nx = 0; nx < Network_Cards_Native.count(); nx++) {
+    for (qsizetype nx = 0; nx < Network_Cards_Native.count(); nx++) {
       Dom_Element = New_Dom_Document.createElement("Network_Card_Native_" + QString::number(nx));
 
       Sec_Element = New_Dom_Document.createElement("Network_Type");
@@ -6177,7 +6177,7 @@ QStringList Virtual_Machine::Build_QEMU_Args()
   }
 
   // Ports Tabs
-  for (int ix = 0; ix < Serial_Ports.count(); ix++) {
+  for (qsizetype ix = 0; ix < Serial_Ports.count(); ix++) {
     if (Serial_Ports[ix].Get_Port_Redirection() == VM::PR_Default)
       continue;
 

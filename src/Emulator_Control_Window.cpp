@@ -128,7 +128,7 @@ void Emulator_Control_Window::Create_Connect_Menu()
   ui.menuConnectNew->clear();
   Removable_Devies_Map.clear();
 
-  for (int ix = 0; ix < devices.count() - 1; ++ix) {
+  for (qsizetype ix = 0; ix < devices.count() - 1; ++ix) {
     QStringList curDev = devices[ix].split(' ', Qt::SkipEmptyParts);
 
     // Data in curDev look like this:
@@ -594,8 +594,7 @@ void Emulator_Control_Window::Init()
   Show_Close_Warning = true;
 
   // Create Recent Menu Items
-  int max =
-      Settings.value("CD_ROM_Existing_Images/Max", "5").toString().toInt();
+  qsizetype max = Settings.value("CD_ROM_Existing_Images/Max", "5").toString().toULongLong();
 
   for (int ix = 0; ix < max; ++ix) {
     QAction* tmp_act = new QAction(this);
@@ -612,9 +611,9 @@ void Emulator_Control_Window::Init()
   Update_Recent_CD_ROM_Images_List();
 
   // Floppy
-  max = Settings.value("Floppy_Existing_Images/Max", "5").toString().toInt();
+  max = Settings.value("Floppy_Existing_Images/Max", "5").toString().toULongLong();
 
-  for (int ix = 0; ix < max; ++ix) {
+  for (qsizetype ix = 0; ix < max; ++ix) {
     QAction* tmp_act = new QAction(this);
     Recent_Files_FD0_Items << tmp_act;
 
@@ -626,7 +625,7 @@ void Emulator_Control_Window::Init()
             SLOT(Open_Recent_Floppy0_Image()));
   }
 
-  for (int ix = 0; ix < max; ++ix) {
+  for (qsizetype ix = 0; ix < max; ++ix) {
     QAction* tmp_act = new QAction(this);
     Recent_Files_FD1_Items << tmp_act;
 

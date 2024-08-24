@@ -230,7 +230,7 @@ void First_Start_Wizard::on_Button_Find_Emulators_clicked()
 
       // TODO: Fix blank black screens in searching stage (if clicked on Search button)
 
-      for (int qx = 0; qx < paths.count(); ++qx) {
+      for (qsizetype qx = 0; qx < paths.count(); ++qx) {
         QMap<QString, QString> qemu_list =
             System_Info::Find_QEMU_Binary_Files(paths[qx]);
 
@@ -363,7 +363,7 @@ void First_Start_Wizard::on_Button_Find_Emulators_clicked()
           qemuEmulatorsList[maxVerIndex].Set_Default(true);
 
           // Save emulators
-          for (int ix = 0; ix < qemuEmulatorsList.count(); ++ix)
+          for (qsizetype ix = 0; ix < qemuEmulatorsList.count(); ++ix)
             qemuEmulatorsList[ix].Save();
         }
         else if (qemuEmulatorsList.count() > 0) {
