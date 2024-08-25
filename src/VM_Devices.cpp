@@ -278,8 +278,7 @@ bool Emulator::Load(const QString& path)
     return false;
   }
 
-  for (QDomNode node = childElement.firstChild(); node.isNull() == false;
-       node = node.nextSibling()) {
+  for (QDomNode node = childElement.firstChild(); !node.isNull(); node = node.nextSibling()) {
     QDomElement elem = node.toElement();
     if (!elem.isNull())
       Binary_Files[elem.tagName()] = elem.text();
@@ -320,8 +319,7 @@ bool Emulator::Load(const QString& path)
 
       QDomNode node = thirdElement.firstChild();
       Device_Map tmpDevMap;
-      for (int ix = 1; node.isNull() == false;
-           node = node.nextSibling(), ix++) {
+      for (qsizetype ix = 1; !node.isNull(); node = node.nextSibling(), ix++) {
         QDomElement elem = node.toElement();
         if (!elem.isNull()) {
           if (ix % 2 != 0)
@@ -351,8 +349,7 @@ bool Emulator::Load(const QString& path)
       }
 
       node = thirdElement.firstChild();
-      for (int ix = 1; node.isNull() == false;
-           node = node.nextSibling(), ix++) {
+      for (qsizetype ix = 1; !node.isNull(); node = node.nextSibling(), ix++) {
         QDomElement elem = node.toElement();
         if (!elem.isNull()) {
           if (ix % 2 != 0)
@@ -383,8 +380,7 @@ bool Emulator::Load(const QString& path)
       }
 
       node = thirdElement.firstChild();
-      for (int ix = 1; node.isNull() == false;
-           node = node.nextSibling(), ix++) {
+      for (qsizetype ix = 1; !node.isNull(); node = node.nextSibling(), ix++) {
         QDomElement elem = node.toElement();
         if (!elem.isNull()) {
           if (ix % 2 != 0)
@@ -441,8 +437,7 @@ bool Emulator::Load(const QString& path)
       }
 
       node = thirdElement.firstChild();
-      for (int ix = 1; node.isNull() == false;
-           node = node.nextSibling(), ix++) {
+      for (qsizetype ix = 1; !node.isNull(); node = node.nextSibling(), ix++) {
         QDomElement elem = node.toElement();
         if (!elem.isNull()) {
           if (ix % 2 != 0)
