@@ -29,9 +29,9 @@ Add_USB_Port_Window::Add_USB_Port_Window(QWidget* parent) : QDialog(parent)
 {
   ui.setupUi(this);
 
-  auto hv = std::make_unique<QHeaderView>(Qt::Vertical, ui.Table_Host_USB);
+  QHeaderView* hv = new QHeaderView(Qt::Vertical, ui.Table_Host_USB);
   hv->setSectionResizeMode(QHeaderView::Fixed);
-  ui.Table_Host_USB->setVerticalHeader(hv.get());
+  ui.Table_Host_USB->setVerticalHeader(hv);
 
   /*hv = new QHeaderView( Qt::Horizontal, ui.Table_Host_USB );
 	hv->setResizeMode( QHeaderView::Interactive );
@@ -134,35 +134,35 @@ void Add_USB_Port_Window::on_Button_Update_Host_USB_clicked()
   // Add new items
   for (const auto& usb : USB_Host_List) {
     ui.Table_Host_USB->insertRow(ui.Table_Host_USB->rowCount());
-    std::unique_ptr<QTableWidgetItem> newItem;
+    QTableWidgetItem* newItem;
 
     // Manufacturer
     if (usb.Get_Manufacturer_Name().isEmpty())
-      newItem = std::make_unique<QTableWidgetItem>(usb.Get_Vendor_ID());
+      newItem = new QTableWidgetItem(usb.Get_Vendor_ID());
     else
-      newItem = std::make_unique<QTableWidgetItem>(usb.Get_Manufacturer_Name());
+      newItem = new QTableWidgetItem(usb.Get_Manufacturer_Name());
 
-    ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 0, newItem.get());
+    ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 0, newItem);
 
     // Product
     if (usb.Get_Product_Name().isEmpty())
-      newItem = std::make_unique<QTableWidgetItem>(usb.Get_Product_ID());
+      newItem = new QTableWidgetItem(usb.Get_Product_ID());
     else
-      newItem = std::make_unique<QTableWidgetItem>(usb.Get_Product_Name());
+      newItem = new QTableWidgetItem(usb.Get_Product_Name());
 
-    ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 1, newItem.get());
+    ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 1, newItem);
 
     // Bus
-    newItem = std::make_unique<QTableWidgetItem>(usb.Get_Bus());
-    ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 2, newItem.get());
+    newItem = new QTableWidgetItem(usb.Get_Bus());
+    ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 2, newItem);
 
     // Addr
-    newItem = std::make_unique<QTableWidgetItem>(usb.Get_Addr());
-    ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 3, newItem.get());
+    newItem = new QTableWidgetItem(usb.Get_Addr());
+    ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 3, newItem);
 
     // Path
-    newItem = std::make_unique<QTableWidgetItem>(usb.Get_DevPath());
-    ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 4, newItem.get());
+    newItem = new QTableWidgetItem(usb.Get_DevPath());
+    ui.Table_Host_USB->setItem(ui.Table_Host_USB->rowCount() - 1, 4, newItem);
   }
 
   ui.Table_Host_USB->resizeColumnsToContents();
